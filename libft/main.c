@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 
 	char **tbl = file_totbl(argv[1]);
 	tbl = cleartbl(tbl);
-	int ** = 
+	//int ** = 
 	
 	printcharchar(tbl);
 
@@ -91,6 +91,6 @@ int main(int argc, char **argv)
 	return (0);*/
 
 
-	//printcharchar(test2, test+1);
+	//printcharchar(test22,  3  test+1);
 	return (1);
 }

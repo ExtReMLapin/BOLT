@@ -20,11 +20,6 @@ char	**cleartbl(char **tbl)
 	while (tbl[i] != NULL)
 	{
 		tbl[i] = rem_nonnum(tbl[i]);
-
-		tbl[i] = str_replace2(tbl[i], " \0", "");
-		tbl[i] = ft_strflip(tbl[i]);
-		tbl[i] = str_replace2(tbl[i], " \0", "");
-		tbl[i] = ft_strflip(tbl[i]);
 		tbl[i] = str_replace2(tbl[i], "  ", " ");
 		i++;
 	}

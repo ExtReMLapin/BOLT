@@ -122,7 +122,7 @@ void	printcharchar(char **tbl)
 		ft_putstr("| String size : \033[1;34m");
 		ft_putnbr(ft_strlen(tbl[i]));
 		ft_putstr(" \033[0m| Content : ");
-		ft_putstr(str_replace2(tbl[i], "  ", " "));
+		ft_putstr(tbl[i]);
 		ft_putchar('\n');
 		i++;
 	}
