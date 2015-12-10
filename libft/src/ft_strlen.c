@@ -18,8 +18,16 @@ size_t	ft_strlen(const char *s)
 
 	i = 0;
 	while (s[i] != '\0')
-	{
 		i++;
-	}
 	return (i);
 }
+
+
+int ft_tbllen(char **tbl)
+{
+	int i;
+	while (tbl[i] != NULL)
+		i++
+	return (i);
+}
+

@@ -119,5 +119,6 @@ char				*rem_nonnum(char *str);
 char				*str_replace(char *orig, char *rp, char *wt);
 char				*str_replace2(char *orig, char *rp, char *wt);
 char				*ft_strflip(char *s);
-t_point				*chrrtocor(char **tbl);
+t_point				*chrrtocor(int **itbl);
+int				ft_tbllen(char **tbl);
 #endif
