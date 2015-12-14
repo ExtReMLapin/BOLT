@@ -16,3 +16,22 @@ int	ft_isdigit(int c)
 		return (1);
 	return (0);
 }
+
+
+int	ft_strisdigit(char *str)
+{
+	int i;
+	int i2;
+
+	i = 0;
+	i2 = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]))
+			i2++;
+		i++;	
+	}
+	if (i == i2)
+		return (1);
+	return (0);
+}

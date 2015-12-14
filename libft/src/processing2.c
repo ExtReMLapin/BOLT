@@ -15,6 +15,9 @@
 char	**cleartbl(char **tbl)
 {
 	int i;
+	int i2;
+	char **tbl2;
+
 	i = 0;
 	while (tbl[i] != NULL)
 	{
@@ -28,15 +31,26 @@ char	**cleartbl(char **tbl)
 		tbl[i] = ft_strflip(tbl[i]);
 		i++;
 	}
-	return (tbl);
+	i = 0;
+        i2 = 0;
+        tbl2 = (char**)malloc(sizeof(char**) * (ft_tbllenskip(tbl) + 1));
+	while(i < ft_tbllen(tbl))
+        {
+                if (ft_strlen(tbl[i]) > 0)
+                {
+			ft_putnbr(i2);
+                        tbl2[i2] = ft_strdup(tbl[i]);
+                        i2++;
+                }
+                i++;
+        }
+	tbl2[i] = NULL;
+	return (tbl2);
 }
--2147483648
-
-
 
 static int  *charrtointti1(char **tbl)
 {
-	int **tbli;
+	int *tbli;
 	int i;
 	int i2;
 
@@ -49,32 +63,26 @@ static int  *charrtointti1(char **tbl)
 		i++;
 	}
 
+	tbli[i] = -2147466666;
+	return (tbli);
 }
 
 
 int **charrtointt(char **tbl)
 {
-	char	**decompline;
 	int	**toreturn;
-	int 	*tmpint;
 	int	i;
-	int	i2;
 
 	i = 0;
 	toreturn = (int**)malloc(sizeof(int *) * (ft_tbllen(tbl)+1));
 	while (tbl[i] != NULL)
 	{
-		 = ft_strslip(tbl[i], ' ');
-		
-		
-				
-		
+		toreturn[i] = charrtointti1(ft_strsplit(tbl[i], ' '));
 		i++;
 	}
-
-
-
-
+	toreturn[i] = charrtointti1(ft_strsplit(tbl[i], ' '));
+	toreturn[i][0] = 2147466666;
+	return (toreturn);
 }
 
 

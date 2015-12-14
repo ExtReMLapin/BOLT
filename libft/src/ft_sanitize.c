@@ -82,7 +82,7 @@ char		*rem_nonnum(char *str)
 		}
 		i++;
 	}
-	free(str);
+	//free(str);
 	to_return[len] = '\0';
 	return (to_return);
 }

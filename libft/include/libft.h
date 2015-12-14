@@ -121,4 +121,6 @@ char				*str_replace2(char *orig, char *rp, char *wt);
 char				*ft_strflip(char *s);
 t_point				*chrrtocor(int **itbl);
 int				ft_tbllen(char **tbl);
+int				ft_tbllenskip(char **tbl);
+int				ft_strisdigit(char *str);
 #endif
