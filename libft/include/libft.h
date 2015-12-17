@@ -123,4 +123,6 @@ t_point				*chrrtocor(int **itbl);
 int				ft_tbllen(char **tbl);
 int				ft_tbllenskip(char **tbl);
 int				ft_strisdigit(char *str);
+int 				**charrtointt(char **tbl);
+
 #endif

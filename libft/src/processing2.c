@@ -52,9 +52,7 @@ static int  *charrtointti1(char **tbl)
 {
 	int *tbli;
 	int i;
-	int i2;
 
-	i2 = 0;
 	i = 0;
 	tbli = (int*)malloc(sizeof(int *) * (ft_tbllen(tbl)+1));
 	while (tbl[i] != NULL)

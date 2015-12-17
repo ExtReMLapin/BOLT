@@ -66,8 +66,10 @@ char		*rem_nonnum(char *str)
 	len = 0;
 	while (str[i])
 	{
-		if (ft_isnotgood(str[i]))
+		if (ft_isnotgood(str[i]) || ((str[i] == '-' && ft_isdigit(str[i+1])))) 
+		{ 			
 			len++;
+		}
 		i++;
 	}
 	i = 0;
@@ -75,7 +77,7 @@ char		*rem_nonnum(char *str)
 	len = 0;
 	while (str[i])
 	{
-		if (ft_isnotgood(str[i]))
+		if (ft_isnotgood(str[i])  || ((str[i] == '-' && ft_isdigit(str[i+1]))))
 		{
 			to_return[len] = str[i];
 			len++;

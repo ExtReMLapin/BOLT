@@ -26,6 +26,8 @@ size_t	ft_strlen(const char *s)
 int ft_tbllen(char **tbl)
 {
 	int i;
+	if (!tbl)
+		errornohalt("TBL LEN SEGFAULT");
 
 	i = 0;
 	while (tbl[i] != NULL)
@@ -37,7 +39,9 @@ int ft_tbllenskip(char **tbl)
 {
         int i;
 	int i2;
-
+	
+	if (!tbl)
+		 errornohalt("TBL LEN SKIP  SEGFAULT");
 	i = 0;
 	i2 = 0;
         while (tbl[i] != NULL)
