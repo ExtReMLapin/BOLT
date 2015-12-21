@@ -37,19 +37,19 @@ int ft_tbllen(char **tbl)
 
 int ft_tbllenskip(char **tbl)
 {
-        int i;
+	int i;
 	int i2;
 	
 	if (!tbl)
 		 errornohalt("TBL LEN SKIP  SEGFAULT");
 	i = 0;
 	i2 = 0;
-        while (tbl[i] != NULL)
+	while (tbl[i] != NULL)
 	{
 		if (ft_strlen(tbl[i]) > 0)
 			i2++;
 		i++;
 	}
-        return (i2);
+	return (i2);
 }
 
