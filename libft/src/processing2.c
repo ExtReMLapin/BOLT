@@ -23,12 +23,12 @@ char	**cleartbl(char **tbl)
 	{
 		tbl[i] = rem_nonnum(tbl[i]);
 		tbl[i] = str_replace2(tbl[i], "  ", " ");
-		/*if (tbl[i][ft_strlen(tbl[i])-1] == ' ')
+		if (tbl[i][ft_strlen(tbl[i])-1] == ' ')
 			tbl[i][ft_strlen(tbl[i])-1] = '\0';
 		tbl[i] = ft_strflip(tbl[i]);
  		if (tbl[i][ft_strlen(tbl[i])-1] == ' ')
 			tbl[i][ft_strlen(tbl[i])-1] = '\0';
-		tbl[i] = ft_strflip(tbl[i]);*/
+		tbl[i] = ft_strflip(tbl[i]);
 		i++;
 	}
 	i = 0;
@@ -38,14 +38,12 @@ char	**cleartbl(char **tbl)
 	{
 		if (ft_strlen(tbl[i]) > 0)
 		{
-			ft_putstr(tbl[i]);
 			tbl2[i2] = ft_strdup(tbl[i]);
-			ft_putstr(tbl[i2]);
 			i2++;
 		}
 		i++;
 	}
-	tbl2[i] = NULL;
+	tbl2[i2] = NULL;
 	return (tbl2);
 }
 
@@ -53,8 +51,7 @@ static int  *charrtointti1(char **tbl)
 {
 	int *tbli;
 	int i;
-	ft_putnbr(ft_tbllen(tbl));
-	ft_putstr("kek");
+
 	i = 0;
 	tbli = (int*)malloc(sizeof(int *) * (ft_tbllen(tbl)+1));
 	while (tbl[i] != NULL)
