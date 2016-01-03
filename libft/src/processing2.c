@@ -34,7 +34,8 @@ char	**cleartbl(char **tbl)
 	i = 0;
 	i2 = 0;
 	tbl2 = (char**)malloc(sizeof(char*) * (ft_tbllenskip(tbl) + 1));
-	while(i < ft_tbllen(tbl))
+	int len2 = ft_tbllen(tbl);
+	while(i < len2 )
 	{
 		if (ft_strlen(tbl[i]) > 0)
 		{
@@ -77,8 +78,7 @@ int **charrtointt(char **tbl)
 		toreturn[i] = charrtointti1(ft_strsplit(tbl[i], ' '));
 		i++;
 	}
-	toreturn[i] = charrtointti1(ft_strsplit(tbl[i], ' '));
-	toreturn[i][0] = 2147466666;
+	toreturn[i] = NULL;
 	return (toreturn);
 }
 
