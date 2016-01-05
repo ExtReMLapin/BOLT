@@ -14,84 +14,77 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-size_t			count_words(char const *s, char sep)
+
+static size_t	nbwords(char const *s, char c)
 {
-	size_t		word;
-
-	word = 0;
-	while (s && *s)
-	{
-		if (*s == sep)
-			word++;
-		while (*s == sep)
-			s++;
-		s++;
-	}
-	return (word);
-}
-
-static int		letters(char const *s, char c, int count)
-{
-	int	letters;
-
-	letters = 0;
-	while (s[count] != c && s[count] != '\0')
-	{
-		letters++;
-		count++;
-	}
-	return (letters);
-}
-
-static int		skip_char(char const *s, char c, int count)
-{
-	while (s[count] == c && s[count] != '\0')
-		count++;
-	if (s[count] == '\0')
-		return (-1);
-	return (count);
-}
-
-static void		ft_tab(char **tab, char c, char const *s)
-{
-	int		i;
-	int		j;
-	int		count;
+	size_t		i;
+	size_t		j;
 
 	i = 0;
-	count = 0;
-	while (s[count] != '\0' && (skip_char(s, c, count) != -1))
+	j = 0;
+	while (s[i])
 	{
-		j = 0;
-		count = skip_char(s, c, count);
-		tab[i] = (char *)malloc((letters(s, c, count) + 1) * sizeof(char));
-		if (tab[i] != NULL)
-		{
-			while (s[count] != c && s[count] != '\0')
-			{
-				tab[i][j] = s[count];
-				j++;
-				count++;
-			}
-			tab[i][j] = '\0';
+		while (s[i] == c)
 			i++;
+		if (s[i] != c && s[i])
+		{
+			j++;
+			i++;
+			while (s[i] != c && s[i])
+				i++;
 		}
 	}
-	tab[i] = NULL;
+	return (j);
+}
+static char		*add_w(size_t *i, char const *s, char c)
+{
+	size_t		size;
+	size_t		j;
+	char		*word;
+
+	size = *i;
+	j = 0;
+	while (s[size] && s[size] != c)
+		size++;
+	word = ft_strnew(size - *i);
+	if (word)
+	{
+		while (*i < size)
+		{
+			word[j] = s[*i];
+			j++;
+			*i += 1;
+		}
+		return (word);
+	}
+	return (0);
 }
 
 char			**ft_strsplit(char const *s, char c)
 {
-	char	**tab;
-	int		words;
+	char		**tab;
+	size_t		o;
+	size_t		*i;
+	size_t		j;
 
+	o = 0;
+	i = &o;
+	j = 0;
 	tab = NULL;
 	if (s)
+		tab = (char **) malloc(sizeof(char *) * (nbwords(s, c) + 1));
+	if (tab)
 	{
-		words = count_words(s, c);
-		tab = (char **)malloc((words + 1) * sizeof(char *));
-		if (tab)
-			ft_tab(&(*tab), c, s);
+		while (j < nbwords(s, c))
+		{
+			while (s[*i] == c)
+				*i = (*i + 1);
+			if (s[*i] != c && s[*i])
+				tab[j++] = add_w(i, s, c);
+		}
+		tab[j] = 0;
+		return (tab);
 	}
-	return (tab);
+	return (0);
 }
+

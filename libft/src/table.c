@@ -128,3 +128,49 @@ void	printcharchar(char **tbl)
 	}
 	ft_putstr("-Table Print End\n\n");
 }
+
+
+static void putnbrint(int *tbl)
+{
+	int i;
+
+	i = 0;
+	while (tbl[i] != INTBLTLIMIT)
+	{
+		ft_putnbr(tbl[i]);
+		ft_putchar(' ');
+		i++;
+	}
+}
+
+static int nbrintlen(int *tbl)
+{
+	int i;
+
+	i = 0;
+	while (tbl[i] != INTBLTLIMIT)
+		i++;
+	return (i);
+}
+
+
+void	printintint(int **tbl)
+{
+	int i;
+
+	i = 0;
+	ft_putstr("\n-Table Print Start\n");
+	while (tbl[i] != NULL)
+	{
+		ft_putstr("\033[1;31m[");
+		ft_putnbr(i);
+		ft_putstr("]\033[0m");
+		ft_putstr("| String size : \033[1;34m");
+		ft_putnbr(nbrintlen(tbl[i]));
+		ft_putstr(" \033[0m| Content : ");
+		putnbrint(tbl[i]);
+		ft_putchar('\n');
+		i++;
+	}
+	ft_putstr("-Table Print End\n\n");
+}

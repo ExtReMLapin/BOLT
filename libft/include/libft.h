@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <string.h>
 # define BUFF_SIZE 1
+# define INTBLTLIMIT -2147466666
 
 typedef struct		s_list
 {
@@ -120,9 +121,9 @@ char				*str_replace(char *orig, char *rp, char *wt);
 char				*str_replace2(char *orig, char *rp, char *wt);
 char				*ft_strflip(char *s);
 t_point				*chrrtocor(int **itbl);
-int				ft_tbllen(char **tbl);
-int				ft_tbllenskip(char **tbl);
-int				ft_strisdigit(char *str);
+int					ft_tbllen(char **tbl);
+int					ft_tbllenskip(char **tbl);
+int					ft_strisdigit(char *str);
 int 				**charrtointt(char **tbl);
-
+void				printintint(int **tbl);
 #endif

@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 	printcharchar(tbl);
 	int **d = charrtointt(tbl);	
 
-
+	printintint(d);
 
 	//printcharchar(test22,  3  test+1);
 	return (-1);

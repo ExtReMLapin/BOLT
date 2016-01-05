@@ -61,7 +61,7 @@ static int  *charrtointti1(char **tbl)
 		i++;
 	}
 
-	tbli[i] = -2147466666;
+	tbli[i] = INTBLTLIMIT;
 	return (tbli);
 }
 
@@ -76,6 +76,7 @@ int **charrtointt(char **tbl)
 	while (tbl[i] != NULL)
 	{
 		toreturn[i] = charrtointti1(ft_strsplit(tbl[i], ' '));
+		//printcharchar(ft_strsplit(tbl[i], ' '));
 		i++;
 	}
 	toreturn[i] = NULL;
