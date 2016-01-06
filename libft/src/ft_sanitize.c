@@ -33,7 +33,7 @@ char		*str_replace(char *orig, char *rp, char *wt)
 	cnt = 0;
 	while ((t = ft_strstr(ins, rp)) != NULL && cnt++)
 		ins = t + ft_strlen(rp);
-	t = malloc(ft_strlen(orig) + (ft_strlen(wt) - ft_strlen(rp)) * cnt + 1);
+	t = (char*)malloc(sizeof(char)*(ft_strlen(orig) + (ft_strlen(wt) - ft_strlen(rp)) * cnt + 1));
 	rt = t;
 	while (cnt--)
 	{
@@ -73,7 +73,7 @@ char		*rem_nonnum(char *str)
 		i++;
 	}
 	i = 0;
-	to_return = (char *)malloc(sizeof(char) * len);
+	to_return = (char *)malloc(sizeof(char) * (len+1));
 	len = 0;
 	while (str[i])
 	{
@@ -84,7 +84,7 @@ char		*rem_nonnum(char *str)
 		}
 		i++;
 	}
-	//free(str);
+	free(str);
 	to_return[len] = '\0';
 	return (to_return);
 }

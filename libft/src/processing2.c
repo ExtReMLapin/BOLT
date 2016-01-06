@@ -80,6 +80,7 @@ int **charrtointt(char **tbl)
 		i++;
 	}
 	toreturn[i] = NULL;
+
 	return (toreturn);
 }
 
