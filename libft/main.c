@@ -10,13 +10,9 @@ int main(int argc, char **argv)
 	tbl = cleartbl(tbl);
 	printcharchar(tbl);
 	int **d = charrtointt(tbl);
-
+	reallocint(d);
 	printintint(d);
 
-	while (1)
-	{
-
-	}
 
 	//printcharchar(test22,  3  test+1);
 	return (-1);

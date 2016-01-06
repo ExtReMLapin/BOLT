@@ -85,6 +85,58 @@ int **charrtointt(char **tbl)
 }
 
 
+static int getmaxsizeint(int **tbl)
+{
+	int max;
+	int i;
+
+	i = 0;
+	max = 0;
+	while (tbl[i])
+	{
+		if (nbrintlen(tbl[i]) > max)
+			max = nbrintlen(tbl[i]);
+		i++;
+	}
+	return (max);
+}
+
+static void intcopy(int *source, int *dest)
+{
+	int i;
+
+	i = 0;
+	while (source[i] != INTBLTLIMIT)
+	{
+		dest[i] = source[i];
+		i++;
+	}
+	while (dest[i] != INTBLTLIMIT)
+	{
+		dest[i] = 0;
+		i++;
+	}
+}
+
+int **reallocint(int **tbl)
+{
+	int i;
+	int max;
+	int *itemp;
+
+	i = 0;
+	max = getmaxsizeint(tbl);
+	while (tbl[i])
+	{
+		itemp = (int *)malloc(sizeof(int) * (max+1));
+		itemp[max] = INTBLTLIMIT;
+		intcopy(tbl[i], itemp);
+		tbl[i] = itemp;
+		i++;
+	}
+	return (tbl);
+}
+
 static t_point	*ft_ptsnew(int x, int y)
 {
 	t_point	*lst;

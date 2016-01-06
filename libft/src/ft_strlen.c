@@ -35,6 +35,16 @@ int ft_tbllen(char **tbl)
 	return (i);
 }
 
+int nbrintlen(int *tbl)
+{
+	int i;
+
+	i = 0;
+	while (tbl[i] != INTBLTLIMIT)
+		i++;
+	return (i);
+}
+
 int ft_tbllenskip(char **tbl)
 {
 	int i;

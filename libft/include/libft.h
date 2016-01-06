@@ -125,5 +125,7 @@ int					ft_tbllen(char **tbl);
 int					ft_tbllenskip(char **tbl);
 int					ft_strisdigit(char *str);
 int 				**charrtointt(char **tbl);
+int					nbrintlen(int *tbl);
 void				printintint(int **tbl);
+int					**reallocint(int **tbl);
 #endif
