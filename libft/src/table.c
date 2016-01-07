@@ -85,11 +85,6 @@ void	printtable(t_list *t)
 	int i;
 
 	i = 0;
-	if (!t)
-	{
-		errornohalt("\nTable not valid\n");
-		return ;
-	}
 	ft_putstr("\n-Table Print Start\n");
 	while (t != NULL)
 	{
@@ -100,6 +95,32 @@ void	printtable(t_list *t)
 		ft_putnbr(t->content_size);
 		ft_putstr(" \033[0m| Content : ");
 		ft_putstr_force((char *)(t->content), t->content_size);
+		ft_putchar('\n');
+		if (!(t->next))
+			break ;
+		t = t->next;
+	}
+	ft_putstr("-Table Print End\n\n");
+}
+
+
+void	printcoortbl(t_point *t)
+{
+	int i;
+
+	i = 0;
+	ft_putstr("\n-Table Print Start\n");
+	while (t != NULL)
+	{
+		ft_putstr("[");
+		ft_putnbr(i++);
+		ft_putstr("]");
+		ft_putstr(" | X :");
+		ft_putnbr(t->x);
+		ft_putstr(" | Y :");
+		ft_putnbr(t->y);
+		ft_putstr(" | Z :");
+		ft_putnbr(t->z);
 		ft_putchar('\n');
 		if (!(t->next))
 			break ;

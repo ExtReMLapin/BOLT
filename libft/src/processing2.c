@@ -137,7 +137,7 @@ int **reallocint(int **tbl)
 	return (tbl);
 }
 
-static t_point	*ft_ptsnew(int x, int y)
+static t_point	*ft_ptsnew(int x, int y,int z)
 {
 	t_point	*lst;
 
@@ -146,18 +146,19 @@ static t_point	*ft_ptsnew(int x, int y)
 		return (NULL);
 	lst->x = x;
 	lst->y = y;
+	lst->z = z;
 	lst->next = NULL;
 	return (lst);
 }
 
-static void		addpointend(t_point **tbl, int x, int y)
+static void		addpointend(t_point **tbl, int x, int y, int z)
 {
 	t_point	*tmp;
 
 	tmp = *tbl;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
-	tmp->next = ft_ptsnew(x, y);
+	tmp->next = ft_ptsnew(x, y,z);
 }
 
 t_point		*chrrtocor(int **itbl)
@@ -168,15 +169,14 @@ t_point		*chrrtocor(int **itbl)
 	int i2;
 
 	i = 0;
-
 	points = (t_point*)malloc(sizeof(t_point));
 	start = points;
 	while (itbl[i] != NULL)
 	{
 		i2 = 0;
-		while (itbl[i][i2])
+		while (itbl[i][i2] != INTBLTLIMIT)
 		{
-			addpointend(&points, i2, i);
+			addpointend(&points, i2, i, itbl[i][i2]);
 			i2++;
 		}	
 

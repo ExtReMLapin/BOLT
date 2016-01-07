@@ -128,4 +128,5 @@ int 				**charrtointt(char **tbl);
 int					nbrintlen(int *tbl);
 void				printintint(int **tbl);
 int					**reallocint(int **tbl);
+void				printcoortbl(t_point *t);
 #endif
