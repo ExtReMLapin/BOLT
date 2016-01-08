@@ -13,8 +13,9 @@ int main(int argc, char **argv)
 	reallocint(d);
 
 	//printintint(d);
+	ft_putstr("pre-end\n");
 	pts = chrrtocor(d);
-	printcoortbl(pts);
+	//printcoortbl(pts);
 
 
 	//printcharchar(test22,  3  test+1);

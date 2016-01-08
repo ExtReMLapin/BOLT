@@ -6,11 +6,12 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 15:28:53 by pfichepo          #+#    #+#             */
-/*   Updated: 2015/12/03 16:07:58 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/01/08 16:48:05 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
+#include <stdio.h>
 
 char	**cleartbl(char **tbl)
 {
@@ -140,7 +141,7 @@ int **reallocint(int **tbl)
 static t_point	*ft_ptsnew(int x, int y,int z)
 {
 	t_point	*lst;
-
+	
 	lst = (t_point*)malloc(sizeof(t_point));
 	if (lst == NULL)
 		return (NULL);
@@ -151,14 +152,15 @@ static t_point	*ft_ptsnew(int x, int y,int z)
 	return (lst);
 }
 
-static void		addpointend(t_point **tbl, int x, int y, int z)
+static void		addpointend(t_point *tbl, int x, int y, int z)
 {
 	t_point	*tmp;
 
-	tmp = *tbl;
-	while (tmp->next != NULL)
+	tmp = tbl;
+	while (tmp && tmp->next != NULL)
 		tmp = tmp->next;
-	tmp->next = ft_ptsnew(x, y,z);
+	tmp->next = ft_ptsnew(x, y, z);
+
 }
 
 t_point		*chrrtocor(int **itbl)
@@ -167,19 +169,17 @@ t_point		*chrrtocor(int **itbl)
 	t_point *start;
 	int i;
 	int i2;
-
 	i = 0;
-	points = (t_point*)malloc(sizeof(t_point));
+	points = ft_ptsnew(0,0,0);
 	start = points;
 	while (itbl[i] != NULL)
 	{
 		i2 = 0;
 		while (itbl[i][i2] != INTBLTLIMIT)
 		{
-			addpointend(&points, i2, i, itbl[i][i2]);
+			addpointend(points, i2, i, itbl[i][i2]);
 			i2++;
-		}	
-
+		}
 	i++;
 	}
 	return (start);
