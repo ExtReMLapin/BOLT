@@ -11,11 +11,7 @@ int main(int argc, char **argv)
 	tbl = cleartbl(tbl);;
 	int **d = charrtointt(tbl);
 	reallocint(d);
-
-	//printintint(d);
-	ft_putstr("pre-end\n");
 	pts = chrrtocor(d);
-	//printcoortbl(pts);
 
 
 	//printcharchar(test22,  3  test+1);
