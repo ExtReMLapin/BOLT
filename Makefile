@@ -10,44 +10,35 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = fdf
+CC = clang
+CFLAGS = -Wall -Werror -Wextra
 
-CC = clang -g -O0
+SRCS = init.c \
 
-LC = ar
+OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror
+all : libft $(NAME)
 
-LFLAGS =
+libft:
+	make -C libft
 
+mlx:
+	make -C minilibx_macos
 
-HEADERS = ./include/
-
-SRCDIR = ./src/
-
-SRC = 	init.c \
-		hooks.c \
-
-MINILIBXDIR = ./minilibx_macos/
-
-
-SRCS = $(addprefix $(SRCDIR), $(SRC))
-
-
-OBJ = $(SRC:.c=.o)
-
-all: $(NAME)
-
-$(NAME): 
-	$(CC) $(CFLAGS) -c $(SRCS) -I $(HEADERS)
-	$(LC) $(LFLAGS) $(NAME) $(OBJ)
-	ranlib $(NAME)
+$(NAME): $(OBJS)
+	make -C minilibx_macos
+	$(CC) -o $(NAME) $(OBJS) -L libft/ -lft -framework OpenGL -framework AppKit -L minilibx_macos -lmlx
 
 clean:
-	rm -f $(OBJ)
-	
+	make -C libft/ clean
+	make -C minilibx_macos/ clean
+	rm -f $(OBJS)
 
 fclean: clean
+	make -C libft/ fclean
 	rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: libft mlx clean fclean all re

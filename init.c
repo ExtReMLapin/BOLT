@@ -11,9 +11,26 @@
 /* ************************************************************************** */
 
 #include "libft/include/libft.h"
-
+#include "minilibx_macos/mlx.h"
 int main()
 {
-	ft_putstr("REMOVE KEBAB MY FRIEND\n");
+	void *mlx;
+	void *win;
+	ft_putstr("REMOVE KEBAB MY FRIddddEND\n");
+	mlx = mlx_init();
+	win = mlx_new_window(mlx, 400,400,"OHHHHHH");
+
+	int i = 0;
+	while (i < 400)
+	{
+		mlx_pixel_put(mlx, win, i,50, 0x00FFFFFF);
+		mlx_pixel_put(mlx, win, i,51, 0x00FFFFFF);
+		mlx_pixel_put(mlx, win, i,52, 0x00FFFFFF);
+		i++;
+	}
+		mlx_loop(mlx);
+	while (1)
+	{}
+
 	return (1);
 }
