@@ -20,8 +20,8 @@ typedef struct		s_env
 	void			*mlx;
 	void			*win;
 	t_point			*grid;
-	int				width;
-	int				height;
+	int				w;
+	int				h;
 	float			zoom;
 
 }					t_env;
@@ -29,6 +29,7 @@ typedef struct		s_env
 
 void				drawline(int x1, int y1, int x2, int y2, int c);
 unsigned long		createRGB(int r, int g, int b);
+void				drawbox(int x , int y, int w, int h, int c, t_env *env);
 
 
 #endif

@@ -16,10 +16,10 @@
 static void initenv(t_env *env, char *file)
 {
 	env->zoom = 10;
-	env->height = 1080;
-	env->width = 1920;
+	env->h = 1080;
+	env->w = 1920;
 	env->mlx = mlx_init();
-	env->win = mlx_new_window(env->mlx, env->width, env->height, "eheh");
+	env->win = mlx_new_window(env->mlx, env->w, env->h, "eheh");
 	env->grid = chrrtocor(reallocint(charrtointt(cleartbl(file_totbl(file)))));
 }
 
@@ -34,11 +34,12 @@ int main(int agc, char** argc)
 
 	env = (t_env *)malloc(sizeof(t_env));
 	initenv(env, argc[1]);
-
+	ft_putstr("Inited\n");
 	dickbutt = env->grid;
 	while (dickbutt != NULL)
 	{
-		mlx_pixel_put(env->mlx, env->win, dickbutt->x * env->zoom, dickbutt->y * env->zoom, createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10));
+		//mlx_pixel_put(env->mlx, env->win, dickbutt->x * env->zoom, dickbutt->y * env->zoom, createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10));
+		drawbox(dickbutt->x * env->zoom, dickbutt->y * env->zoom, env->zoom, env->zoom, createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10), env);
 		dickbutt = dickbutt->next;
 	}
 	mlx_loop(env->mlx);
