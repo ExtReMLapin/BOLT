@@ -32,13 +32,14 @@ static void drawmap(t_env *env)
 static int draw(t_env *env)
 {
 	mlx_clear_window(env->mlx, env->win);
+	ft_putstr("Cleared\n");
 	drawmap(env);
 	return (1);
 }
 
 static void initenv(t_env *env, char *file)
 {
-	env->zoom = 7;
+	env->zoom = 5;
 	env->h = 1080;
 	env->w = 1920;
 	//env->drawfunc = draw;
@@ -60,8 +61,9 @@ int main(int agc, char** argc)
 
 	env = (t_env *)malloc(sizeof(t_env));
 	initenv(env, argc[1]);
-	mlx_expose_hook(env->win, draw, env);
 	ft_putstr("Inited\n");
+	mlx_expose_hook(env->win, draw, env);
+
 	mlx_loop(env->mlx);
 	exit(1);
 	return (1);
