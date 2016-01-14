@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strflip.c                                       :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pfichepo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/24 16:11:18 by pfichepo          #+#    #+#             */
-/*   Updated: 2015/12/03 16:56:50 by pfichepo         ###   ########.fr       */
+/*   Created: 2016/01/14 13:20:45 by pfichepo          #+#    #+#             */
+/*   Updated: 2016/01/14 13:20:47 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#ifndef FDF_H
+#define	FDF_H
+#include <math.h>
+#include "../libft/include/libft.h"
 
-char	*ft_strflip(char *s)
-{
-	char	tmp;
-	int		i;
-	int		j;
+void	drawline(int x1, int y1, int x2, int y2, int c);
 
-	tmp = 0;
-	i = 0;
-	j = ft_strlen(s) - 1;
-	while (i < j)
-	{
-		tmp = s[i];
-		s[i] = s[j];
-		s[j] = tmp;
-		i++;
-		j--;
-	}
-	return (s);
-}
+
+
+#endif

@@ -33,7 +33,8 @@ char		*str_replace(char *orig, char *rp, char *wt)
 	cnt = 0;
 	while ((t = ft_strstr(ins, rp)) != NULL && cnt++)
 		ins = t + ft_strlen(rp);
-	t = (char*)malloc(sizeof(char)*(ft_strlen(orig) + (ft_strlen(wt) - ft_strlen(rp)) * cnt + 1));
+	t = (char*)malloc(sizeof(char) * (ft_strlen(orig) + \
+		(ft_strlen(wt) - ft_strlen(rp)) * cnt + 1));
 	rt = t;
 	while (cnt--)
 	{
@@ -56,35 +57,41 @@ char		*str_replace2(char *orig, char *rp, char *wt)
 	return (orig);
 }
 
-char		*rem_nonnum(char *str)
+static int	cheaterlines(char *str)
 {
-	int		i;
-	char	*to_return;
-	int 	len;
+	int i;
+	int len;
 
 	i = 0;
 	len = 0;
 	while (str[i])
 	{
-		if (ft_isnotgood(str[i]) || ((str[i] == '-' && ft_isdigit(str[i+1])))) 
-		{ 			
+		if (ft_isnotgood(str[i]) || ((str[i] == '-' && ft_isdigit(str[i + 1]))))
 			len++;
-		}
 		i++;
 	}
+	return (len);
+}
+
+char		*rem_nonnum(char *str)
+{
+	int		i;
+	char	*to_return;
+	int		len;
+
 	i = 0;
-	to_return = (char *)malloc(sizeof(char) * (len+1));
+	len = cheaterlines(str);
+	to_return = (char *)malloc(sizeof(char) * (len + 1));
 	len = 0;
 	while (str[i])
 	{
-		if (ft_isnotgood(str[i])  || ((str[i] == '-' && ft_isdigit(str[i+1]))))
+		if (ft_isnotgood(str[i]) || ((str[i] == '-' && ft_isdigit(str[i + 1]))))
 		{
 			to_return[len] = str[i];
 			len++;
 		}
 		i++;
 	}
-	free(str);
 	to_return[len] = '\0';
 	return (to_return);
 }

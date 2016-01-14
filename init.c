@@ -16,9 +16,11 @@ int main()
 {
 	void *mlx;
 	void *win;
-	ft_putstr("REMOVE KEBAB MY FRIddddEND\n");
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 400,400,"OHHHHHH");
+	ft_putstr("REMOVE KEBAB MY FRIddddEND\n")
+	if (!(mlx = mlx_init()))
+		error("mlx_init return NULL");
+	if (!(win = mlx_new_window(mlx, 400,400,"OHHHHHH"))
+		error("mlx_init return NULL");
 
 	int i = 0;
 	while (i < 400)
@@ -28,7 +30,7 @@ int main()
 		mlx_pixel_put(mlx, win, i,52, 0x00FFFFFF);
 		i++;
 	}
-		mlx_loop(mlx);
+	mlx_loop(mlx);
 	while (1)
 	{}
 

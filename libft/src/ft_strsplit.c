@@ -14,7 +14,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-
 static size_t	nbwords(char const *s, char c)
 {
 	size_t		i;
@@ -36,6 +35,7 @@ static size_t	nbwords(char const *s, char c)
 	}
 	return (j);
 }
+
 static char		*add_w(size_t *i, char const *s, char c)
 {
 	size_t		size;
@@ -72,7 +72,7 @@ char			**ft_strsplit(char const *s, char c)
 	j = 0;
 	tab = NULL;
 	if (s)
-		tab = (char **) malloc(sizeof(char *) * (nbwords(s, c) + 1));
+		tab = (char **)malloc(sizeof(char *) * (nbwords(s, c) + 1));
 	if (tab)
 	{
 		while (j < nbwords(s, c))
@@ -87,4 +87,3 @@ char			**ft_strsplit(char const *s, char c)
 	}
 	return (0);
 }
-

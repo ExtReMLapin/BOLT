@@ -17,11 +17,10 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-
 int	ft_strisdigit(char *str)
 {
-	int i;
-	int i2;
+	int		i;
+	int		i2;
 
 	i = 0;
 	i2 = 0;
@@ -29,7 +28,7 @@ int	ft_strisdigit(char *str)
 	{
 		if (ft_isdigit(str[i]))
 			i2++;
-		i++;	
+		i++;
 	}
 	if (i == i2)
 		return (1);

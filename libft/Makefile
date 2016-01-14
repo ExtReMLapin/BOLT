@@ -92,6 +92,7 @@ SRC = 	ft_isalnum.c \
 		ft_sanitize.c \
 		ft_strflip.c \
 		processing2.c \
+		points.c \
 
 SRCS = $(addprefix $(SRCDIR), $(SRC))
 

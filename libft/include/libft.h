@@ -25,26 +25,28 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-typedef struct	s_buffer
+typedef struct		s_buffer
 {
 	int				fd;
 	char			*buf;
-}				t_buffer;
+}					t_buffer;
 
-typedef struct	s_slist
+typedef struct		s_slist
 {
 	char			c;
 	struct s_slist	*next;
 	int				fd;
-}				t_slist;
+}					t_slist;
 
-typedef struct	s_point
+typedef struct		s_point
 {
 	struct s_point	*next;
 	int				x;
 	int				y;
 	int				z;
-}				t_point;
+	int				x_2d;
+	int				y_2d;
+}					t_point;
 
 int					ft_isascii(int c);
 int					ft_tolower(int c);
@@ -98,22 +100,22 @@ char				*ft_strmap(char const *s, char (*f)(char));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
-t_list 				*ft_lstnew(void const *content, size_t content_size);
+t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdel(t_list **alst, void (*del)(void*, size_t));
 void				ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstaddend(t_list **alst, t_list *new);
-void 				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					get_next_line(int const fd, char **line);
 void				ft_putstr_force(char const *s, int len);
 int					table_hasvalue(t_list *t, void *value);
 void				printtable(t_list *tbl);
 int					table_getsize(t_list *t);
-void 				error(char const *s);
-void 				errornohalt(char const *s);
-void 				table_insert(t_list *t, int pos, t_list *new);
-char 				**cleartbl(char **tbl);
+void				error(char const *s);
+void				errornohalt(char const *s);
+void				table_insert(t_list *t, int pos, t_list *new);
+char				**cleartbl(char **tbl);
 void				printcharchar(char **tbl);
 char				**file_totbl(char *file);
 char				*rem_nonnum(char *str);
@@ -124,7 +126,7 @@ t_point				*chrrtocor(int **itbl);
 int					ft_tbllen(char **tbl);
 int					ft_tbllenskip(char **tbl);
 int					ft_strisdigit(char *str);
-int 				**charrtointt(char **tbl);
+int					**charrtointt(char **tbl);
 int					nbrintlen(int *tbl);
 void				printintint(int **tbl);
 int					**reallocint(int **tbl);

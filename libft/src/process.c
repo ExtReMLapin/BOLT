@@ -75,7 +75,6 @@ static t_slist	*ft_read(int fd)
 			if (buf[n] != '\0')
 				bro_l = ft_list_push_front(bro_l, buf[n], fd, 1);
 		}
-		free(buf);
 	}
 	bro_l = ft_list_push_front(bro_l, '\0', fd, 0);
 	return (bro_l);
@@ -94,32 +93,27 @@ static int		ft_linelen(t_slist *begin_list)
 		browse_list = browse_list->next;
 	}
 	return (len);
-} 
+}
 
-char **file_totbl(char *file)
+char			**file_totbl(char *file)
 {
-	int len;
-	t_slist *list;
-	char* textn;
-	char** textf;
-	int fd;
-	int i;
+	t_slist	*list;
+	char	*textn;
+	char	**textf;
+	int		fd;
+	int		i;
 
 	i = 0;
 	fd = open(file, O_RDONLY);
 	list = ft_read(fd);
-	len = ft_linelen(list);
-	textn = (char*)malloc(sizeof(char)*(len+1));
+	textn = (char *)malloc(sizeof(char) * (ft_linelen(list) + 1));
 	while (list && list->c)
 	{
 		textn[i] = list->c;
 		list = list->next;
-		i++;	
+		i++;
 	}
 	textn = rem_nonnum(textn);
 	textf = ft_strsplit(textn, '\n');
 	return (textf);
 }
-
-
-

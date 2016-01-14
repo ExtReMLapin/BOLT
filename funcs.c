@@ -1,15 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_chartoint.c                                     :+:      :+:    :+:   */
+/*   funcs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pfichepo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/03 16:37:03 by pfichepo          #+#    #+#             */
-/*   Updated: 2015/12/03 16:56:31 by pfichepo         ###   ########.fr       */
+/*   Created: 2016/01/14 13:18:44 by pfichepo          #+#    #+#             */
+/*   Updated: 2016/01/14 13:18:47 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "include/fdf.h"
 
-// todo : find number char len
-int **chartoint(char **tbl)
+void	drawline(int x1, int y1, int x2, int y2, int c)
+{
+
+
+
+
+
+}
