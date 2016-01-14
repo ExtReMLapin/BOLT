@@ -12,7 +12,7 @@
 
 NAME = fdf
 CC = clang
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -O3 -g
 
 SRCS = init.c \
 		funcs.c \

@@ -12,7 +12,7 @@
 
 NAME = libft.a
 
-CC = clang -g -O0
+CC = clang -O3 -g
 
 LC = ar
 

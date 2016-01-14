@@ -31,10 +31,11 @@ void drawbox(int x , int y, int w, int h, int c, t_env *env)
 		while (b < env->w)
 		{
 			if (((i > y) && (i < (y+h))) && ((b > x ) && (b < (x + w))))
+			{
 				mlx_pixel_put(env->mlx, env->win, b, i, c);
+			}
 			b++;
 		}
 		i++;
-		//ft_putnbr(i);
 	}
 }

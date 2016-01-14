@@ -13,28 +13,11 @@
 #include "include/fdf.h"
 #include "minilibx_macos/mlx.h"
 
-static void initenv(t_env *env, char *file)
-{
-	env->zoom = 10;
-	env->h = 1080;
-	env->w = 1920;
-	env->mlx = mlx_init();
-	env->win = mlx_new_window(env->mlx, env->w, env->h, "eheh");
-	env->grid = chrrtocor(reallocint(charrtointt(cleartbl(file_totbl(file)))));
-}
 
-
-int main(int agc, char** argc)
+static void drawmap(t_env *env)
 {
-	t_env *env;
+	
 	t_point *dickbutt;
-
-	if (agc != 2)
-		error("only one argument is allowed");
-
-	env = (t_env *)malloc(sizeof(t_env));
-	initenv(env, argc[1]);
-	ft_putstr("Inited\n");
 	dickbutt = env->grid;
 	while (dickbutt != NULL)
 	{
@@ -42,9 +25,44 @@ int main(int agc, char** argc)
 		drawbox(dickbutt->x * env->zoom, dickbutt->y * env->zoom, env->zoom, env->zoom, createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10), env);
 		dickbutt = dickbutt->next;
 	}
-	mlx_loop(env->mlx);
-	while (1)
-	{}
+}
 
+
+
+static int draw(t_env *env)
+{
+	mlx_clear_window(env->mlx, env->win);
+	drawmap(env);
+	return (1);
+}
+
+static void initenv(t_env *env, char *file)
+{
+	env->zoom = 7;
+	env->h = 1080;
+	env->w = 1920;
+	//env->drawfunc = draw;
+	env->mlx = mlx_init();
+	env->win = mlx_new_window(env->mlx, env->w, env->h, "eheh");
+	env->grid = chrrtocor(reallocint(charrtointt(cleartbl(file_totbl(file)))));
+}
+
+
+
+
+int main(int agc, char** argc)
+{
+	t_env *env;
+
+
+	if (agc != 2)
+		error("only one argument is allowed");
+
+	env = (t_env *)malloc(sizeof(t_env));
+	initenv(env, argc[1]);
+	mlx_expose_hook(env->win, draw, env);
+	ft_putstr("Inited\n");
+	mlx_loop(env->mlx);
+	exit(1);
 	return (1);
 }
