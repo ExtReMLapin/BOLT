@@ -15,8 +15,20 @@
 #include <math.h>
 #include "../libft/include/libft.h"
 
-void	drawline(int x1, int y1, int x2, int y2, int c);
+typedef struct		s_env
+{
+	void			*mlx;
+	void			*win;
+	t_point			*grid;
+	int				width;
+	int				height;
+	float			zoom;
 
+}					t_env;
+
+
+void				drawline(int x1, int y1, int x2, int y2, int c);
+unsigned long		createRGB(int r, int g, int b);
 
 
 #endif

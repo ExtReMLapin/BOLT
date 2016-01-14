@@ -15,6 +15,7 @@ CC = clang
 CFLAGS = -Wall -Werror -Wextra
 
 SRCS = init.c \
+		funcs.c \
 
 OBJS = $(SRCS:.c=.o)
 

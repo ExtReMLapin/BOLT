@@ -10,27 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/include/libft.h"
+#include "include/fdf.h"
 #include "minilibx_macos/mlx.h"
-int main()
-{
-	void *mlx;
-	void *win;
-	ft_putstr("REMOVE KEBAB MY FRIddddEND\n")
-	if (!(mlx = mlx_init()))
-		error("mlx_init return NULL");
-	if (!(win = mlx_new_window(mlx, 400,400,"OHHHHHH"))
-		error("mlx_init return NULL");
 
-	int i = 0;
-	while (i < 400)
+static void initenv(t_env *env, char *file)
+{
+	env->zoom = 10;
+	env->height = 1080;
+	env->width = 1920;
+	env->mlx = mlx_init();
+	env->win = mlx_new_window(env->mlx, env->width, env->height, "eheh");
+	env->grid = chrrtocor(reallocint(charrtointt(cleartbl(file_totbl(file)))));
+}
+
+
+int main(int agc, char** argc)
+{
+	t_env *env;
+	t_point *dickbutt;
+
+	if (agc != 2)
+		error("only one argument is allowed");
+
+	env = (t_env *)malloc(sizeof(t_env));
+	initenv(env, argc[1]);
+
+	dickbutt = env->grid;
+	while (dickbutt != NULL)
 	{
-		mlx_pixel_put(mlx, win, i,50, 0x00FFFFFF);
-		mlx_pixel_put(mlx, win, i,51, 0x00FFFFFF);
-		mlx_pixel_put(mlx, win, i,52, 0x00FFFFFF);
-		i++;
+		mlx_pixel_put(env->mlx, env->win, dickbutt->x * env->zoom, dickbutt->y * env->zoom, createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10));
+		dickbutt = dickbutt->next;
 	}
-	mlx_loop(mlx);
+	mlx_loop(env->mlx);
 	while (1)
 	{}
 
