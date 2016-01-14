@@ -31,6 +31,9 @@ static void drawmap(t_env *env)
 
 static int draw(t_env *env)
 {
+	if (!env->mlx)
+		error("MLX IS NULL");
+
 	mlx_clear_window(env->mlx, env->win);
 	ft_putstr("Cleared\n");
 	drawmap(env);
@@ -39,7 +42,7 @@ static int draw(t_env *env)
 
 static void initenv(t_env *env, char *file)
 {
-	env->zoom = 5;
+	env->zoom = 1;
 	env->h = 1080;
 	env->w = 1920;
 	//env->drawfunc = draw;
