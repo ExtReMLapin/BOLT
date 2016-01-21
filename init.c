@@ -48,7 +48,19 @@ static void initenv(t_env *env, char *file)
 	//env->drawfunc = draw;
 	env->mlx = mlx_init();
 	env->win = mlx_new_window(env->mlx, env->w, env->h, "eheh");
-	env->grid = chrrtocor(reallocint(charrtointt(cleartbl(file_totbl(file)))));
+	ft_putstr("Loading file ... \n");
+	char **tbl =file_totbl(file) ;
+	ft_putstr("clearing ... \n");
+	tbl = cleartbl(tbl);
+	ft_putstr("converting to int ... \n");
+	int **itbl = charrtointt(tbl);
+	ft_putstr("resizing lines ... \n");
+	reallocint(itbl);
+	ft_putstr("converting to list coord ... \n");
+	t_point *pts = chrrtocor(itbl);
+	ft_putstr("saving ... \n");
+	env->grid = pts;
+	ft_putstr("Done !\n");
 }
 
 

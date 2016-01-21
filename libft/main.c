@@ -19,15 +19,18 @@
 int main(int argc, char **argv)
 {
 
-	t_point *pts;
-	char **tbl = file_totbl(argv[1]);
-	tbl = cleartbl(tbl);;
-
-	int **d = charrtointt(tbl);
-	reallocint(d);
-	printintint(d);
-	pts = chrrtocor(d);
-
+	ft_putstr("Loading file ... \n");
+	char **tbl =file_totbl(argv[1]) ;
+	ft_putstr("clearing ... \n");
+	tbl = cleartbl(tbl);
+	ft_putstr("converting to int ... \n");
+	int **itbl = charrtointt(tbl);
+	ft_putstr("resizing lines ... \n");
+	reallocint(itbl);
+	ft_putstr("converting to list coord ... \n");
+	t_point *pts = chrrtocor(itbl);
+	ft_putstr("saving ... \n");
+	ft_putstr("Done !\n");
 
 	//printcharchar(test22,  3  test+1);
 	return (-1);

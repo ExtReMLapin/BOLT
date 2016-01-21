@@ -26,7 +26,7 @@ static t_point	*ft_ptsnew(int x, int y, int z)
 	return (lst);
 }
 
-static void		addpointend(t_point *tbl, int x, int y, int z)
+static t_point	*addpointend(t_point *tbl, int x, int y, int z)
 {
 	t_point	*tmp;
 
@@ -34,6 +34,7 @@ static void		addpointend(t_point *tbl, int x, int y, int z)
 	while (tmp && tmp->next != NULL)
 		tmp = tmp->next;
 	tmp->next = ft_ptsnew(x, y, z);
+    return (tmp->next);
 }
 
 t_point			*chrrtocor(int **itbl)
@@ -51,7 +52,7 @@ t_point			*chrrtocor(int **itbl)
 		i2 = 0;
 		while (itbl[i][i2] != INTBLTLIMIT)
 		{
-			addpointend(points, i2, i, itbl[i][i2]);
+			points = addpointend(points, i2, i, itbl[i][i2]);
 			i2++;
 		}
 		i++;
