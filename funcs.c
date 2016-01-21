@@ -18,32 +18,24 @@ unsigned long createRGB(int r, int g, int b)
     return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
-/**
-*** Clang does optimize the operation, maybe with spacial ASM instruction, 
-*** that's why i don't do operation like => or =< to check if in coords,
-*** i just resie the box first
-**/
-
-
 void drawbox(int x , int y, int w, int h, int c, t_env *env)
 {
 	int i;
+	int i2;
 	int b;
+	int b2;
 
 	i = 0;
-	y--;
-	x++;
-	w = w + 2;
-	h = h + 2;
-	while (i < env->h)
+	while (w > i)
 	{
+		i2 = x+i;
 		b = 0;
-		while (b < env->w)
+		while (h > b)
 		{
-			if (((i > y) && (i < (y+h))) && ((b > x ) && (b < (x + w))))
-				mlx_pixel_put(env->mlx, env->win, b, i, c);
+			b2 = y+b;
+			mlx_pixel_put(env->mlx, env->win, i2, b2, c);
 			b++;
-		}
+		}	
 		i++;
 	}
 }
