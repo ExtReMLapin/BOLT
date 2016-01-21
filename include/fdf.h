@@ -30,6 +30,7 @@ typedef struct		s_env
 void				drawline(int x1, int y1, int x2, int y2, int c);
 unsigned long		createRGB(int r, int g, int b);
 void				drawbox(int x , int y, int w, int h, int c, t_env *env);
+int					fastmlx_pixel_put(t_env *env, int x, int y, int color);
 
 
 #endif

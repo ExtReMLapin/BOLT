@@ -18,6 +18,22 @@ unsigned long createRGB(int r, int g, int b)
     return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
+
+int	fastmlx_pixel_put(t_env *env, int x, int y, int color)
+{
+	int h;
+	int w;
+
+	h = env->h;
+	w = env->w;
+
+	if ((x > w) || (x < 0))
+		return (0);
+	if ((y > h) || (y < 0))
+		return (0);
+	return (mlx_pixel_put(env->mlx, env->win, x, y, color));
+}
+
 void drawbox(int x , int y, int w, int h, int c, t_env *env)
 {
 	int i;
@@ -33,7 +49,7 @@ void drawbox(int x , int y, int w, int h, int c, t_env *env)
 		while (h > b)
 		{
 			b2 = y+b;
-			mlx_pixel_put(env->mlx, env->win, i2, b2, c);
+			fastmlx_pixel_put(env, i2, b2, c);
 			b++;
 		}	
 		i++;
