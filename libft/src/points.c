@@ -34,7 +34,7 @@ static t_point	*addpointend(t_point *tbl, int x, int y, int z)
 	while (tmp && tmp->next != NULL)
 		tmp = tmp->next;
 	tmp->next = ft_ptsnew(x, y, z);
-    return (tmp->next);
+	return (tmp->next);
 }
 
 t_point			*chrrtocor(int **itbl)

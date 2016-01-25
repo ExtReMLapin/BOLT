@@ -16,7 +16,6 @@
 
 static void drawmap(t_env *env)
 {
-	
 	t_point *dickbutt;
 	dickbutt = env->grid;
 	while (dickbutt != NULL)
@@ -26,8 +25,6 @@ static void drawmap(t_env *env)
 		dickbutt = dickbutt->next;
 	}
 }
-
-
 
 static int draw(t_env *env)
 {
@@ -42,29 +39,20 @@ static int draw(t_env *env)
 
 static void initenv(t_env *env, char *file)
 {
-	env->zoom = 1;
+	env->zoom = 50;
 	env->h = 1080;
 	env->w = 1920;
-	//env->drawfunc = draw;
 	env->mlx = mlx_init();
-	env->win = mlx_new_window(env->mlx, env->w, env->h, "eheh");
-	ft_putstr("Loading file ... \n");
+	env->win = mlx_new_window(env->mlx, env->w, env->h, "FdF");
+	enf->img = mlx_new_image(env->mlx, env->w, env->h);
 	char **tbl =file_totbl(file) ;
-	ft_putstr("clearing ... \n");
 	tbl = cleartbl(tbl);
-	ft_putstr("converting to int ... \n");
 	int **itbl = charrtointt(tbl);
-	ft_putstr("resizing lines ... \n");
 	reallocint(itbl);
-	ft_putstr("converting to list coord ... \n");
 	t_point *pts = chrrtocor(itbl);
-	ft_putstr("saving ... \n");
 	env->grid = pts;
-	ft_putstr("Done !\n");
+
 }
-
-
-
 
 int main(int agc, char** argc)
 {
