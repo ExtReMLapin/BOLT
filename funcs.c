@@ -55,3 +55,14 @@ void drawbox(int x , int y, int w, int h, int c, t_env *env)
 		i++;
 	}
 }
+
+
+void		ft_transform2d(t_point *p, t_env *e)
+{
+
+	p->x_2d = (p->x * e->factor * 3) - (p->y * e->factor * 3) -
+			(p->z / (16 * e->factor)) + (e->h / 2);
+	p->y_2d = (p->x * e->factor * 2) + (p->y * e->factor * 2) -
+		(p->z * (16 * e->factor)) - ((e->h * e->factor) -
+				(1000 * e->factor));
+}

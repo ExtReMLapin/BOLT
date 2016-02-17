@@ -28,12 +28,13 @@ static void drawmap(t_env *env)
 	b->x_2d = 12;
 	b->y_2d = 100;
 	fdf_putline(a,b, env);
-	/*while (dickbutt != NULL)
+	while (dickbutt != NULL)
 	{
-		//mlx_pixel_put(env->mlx, env->win, dickbutt->x * env->zoom, dickbutt->y * env->zoom, createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10));
-		drawbox(dickbutt->x * env->zoom, dickbutt->y * env->zoom, env->zoom, env->zoom, createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10), env);
+		ft_transform2d(dickbutt, env);
+		mlx_pixel_put(env->mlx, env->win, dickbutt->x_2d, dickbutt->y_2d , createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10));
+		//drawbox(dickbutt->x * env->zoom, dickbutt->y * env->zoom, env->zoom, env->zoom, createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10), env);
 		dickbutt = dickbutt->next;
-	}*/
+	}
 }
 
 static int draw(t_env *env)
@@ -61,6 +62,7 @@ static void initenv(t_env *env, char *file)
 	reallocint(itbl);
 	t_point *pts = chrrtocor(itbl);
 	env->grid = pts;
+	env->factor = 0.3;
 
 }
 
