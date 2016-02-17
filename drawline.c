@@ -23,12 +23,12 @@ static void				fdf_switch_points(t_point *o, t_point *d)
 {
 	int				t;
 
-	t = d->x;
-	d->x = o->x;
-	o->x = t;
-	t = d->y;
-	d->y = o->y;
-	o->y = t;
+	t = d->x_2d;
+	d->x_2d = o->x_2d;
+	o->x_2d = t;
+	t = d->y_2d;
+	d->y_2d = o->y_2d;
+	o->y_2d = t;
 }
 
 static void			fdf_putline_case1(t_point *o, t_point *d, t_env *e)
@@ -37,19 +37,19 @@ static void			fdf_putline_case1(t_point *o, t_point *d, t_env *e)
 	int				x;
 	int				y;
 
-	b = 2 * (aabs(d->x - o->x)) - (d->y - o->y);
-	x = o->x;
-	y = o->y + 1;
-	while (y <= d->y)
+	b = 2 * (aabs(d->x_2d - o->x_2d)) - (d->y_2d - o->y_2d);
+	x = o->x_2d;
+	y = o->y_2d + 1;
+	while (y <= d->y_2d)
 	{
 		y++;
 		if (b >= 0)
 		{
-			x += (d->x > o->x ? 1 : -1);
-			b += 2 * ((aabs(d->x - o->x)) - (d->y - o->y));
+			x += (d->x_2d > o->x_2d ? 1 : -1);
+			b += 2 * ((aabs(d->x_2d - o->x_2d)) - (d->y_2d - o->y_2d));
 		}
 		else
-			b += (2 * aabs(d->x - o->x));
+			b += (2 * aabs(d->x_2d - o->x_2d));
 		fastmlx_pixel_put(e, x, y, 0xFFFFFF);
 	}
 }
@@ -60,34 +60,34 @@ static void			fdf_putline_case2(t_point *o, t_point *d, t_env *e)
 	int				x;
 	int				y;
 
-	b = 2 * (aabs(d->y - o->y)) - (d->x - o->x);
-	x = o->x + 1;
-	y = o->y;
-	while (x <= d->x)
+	b = 2 * (aabs(d->y_2d - o->y_2d)) - (d->x_2d - o->x_2d);
+	x = o->x_2d + 1;
+	y = o->y_2d;
+	while (x <= d->x_2d)
 	{
 		x++;
 		if (b >= 0)
 		{
-			y += (d->y > o->y ? 1 : -1);
-			b += (2 * ((aabs(d->y - o->y)) - (d->x - o->x)));
+			y += (d->y_2d > o->y_2d ? 1 : -1);
+			b += (2 * ((aabs(d->y_2d - o->y_2d)) - (d->x_2d - o->x_2d)));
 		}
 		else
-			b += (2 * (aabs(d->y - o->y)));
+			b += (2 * (aabs(d->y_2d - o->y_2d)));
 		fastmlx_pixel_put(e, x, y, 0xFFFFFF);
 	}
 }
 
 void				fdf_putline(t_point *o, t_point *d, t_env *e)
 {
-	if (aabs(d->x - o->x) < aabs(d->y - o->y))
+	if (aabs(d->x_2d - o->x_2d) < aabs(d->y_2d - o->y_2d))
 	{
-		if (o->y > d->y)
+		if (o->y_2d > d->y_2d)
 			fdf_switch_points(o, d);
 		fdf_putline_case1(o, d, e);
 	}
 	else
 	{
-		if (o->x > d->x)
+		if (o->x_2d > d->x_2d)
 			fdf_switch_points(o, d);
 		fdf_putline_case2(o, d, e);
 	}

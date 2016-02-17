@@ -19,9 +19,15 @@ static void drawmap(t_env *env)
 	t_point *dickbutt;
 	dickbutt = env->grid;
 
-	t_point a = (t_point *)malloc(sizeof(t_point));
-	t_point b = (t_point *)malloc(sizeof(t_point));
+	t_point *a = (t_point *)malloc(sizeof(t_point));
+	t_point *b = (t_point *)malloc(sizeof(t_point));
 
+	a->x_2d = 500;
+	a->y_2d = 10;
+
+	b->x_2d = 12;
+	b->y_2d = 100;
+	fdf_putline(a,b, env);
 	/*while (dickbutt != NULL)
 	{
 		//mlx_pixel_put(env->mlx, env->win, dickbutt->x * env->zoom, dickbutt->y * env->zoom, createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10));
