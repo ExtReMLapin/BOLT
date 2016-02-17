@@ -18,12 +18,16 @@ static void drawmap(t_env *env)
 {
 	t_point *dickbutt;
 	dickbutt = env->grid;
-	while (dickbutt != NULL)
+
+	t_point a = (t_point *)malloc(sizeof(t_point));
+	t_point b = (t_point *)malloc(sizeof(t_point));
+
+	/*while (dickbutt != NULL)
 	{
 		//mlx_pixel_put(env->mlx, env->win, dickbutt->x * env->zoom, dickbutt->y * env->zoom, createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10));
 		drawbox(dickbutt->x * env->zoom, dickbutt->y * env->zoom, env->zoom, env->zoom, createRGB(dickbutt->z * 10,dickbutt->z * 10,dickbutt->z * 10), env);
 		dickbutt = dickbutt->next;
-	}
+	}*/
 }
 
 static int draw(t_env *env)
