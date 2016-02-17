@@ -15,6 +15,14 @@
 #include <math.h>
 #include "../libft/include/libft.h"
 
+typedef struct		s_angle
+{
+	int				yaw;
+	int				pitch;
+	int				roll;
+}					t_angle;
+
+
 typedef struct		s_env
 {
 	void			*mlx;
@@ -24,6 +32,9 @@ typedef struct		s_env
 	int				w;
 	int				h;
 	float			zoom;
+	int				fov;
+	t_point			campos;
+	t_angle			camangle;
 
 }					t_env;
 

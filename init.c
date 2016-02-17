@@ -39,12 +39,12 @@ static int draw(t_env *env)
 
 static void initenv(t_env *env, char *file)
 {
-	env->zoom = 50;
+	env->zoom = 5;
 	env->h = 1080;
 	env->w = 1920;
 	env->mlx = mlx_init();
 	env->win = mlx_new_window(env->mlx, env->w, env->h, "FdF");
-	enf->img = mlx_new_image(env->mlx, env->w, env->h);
+	env->img = mlx_new_image(env->mlx, env->w, env->h);
 	char **tbl =file_totbl(file) ;
 	tbl = cleartbl(tbl);
 	int **itbl = charrtointt(tbl);

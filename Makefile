@@ -16,6 +16,7 @@ CFLAGS = -Wall -Werror -Wextra -O3 -msse4 -g
 
 SRCS = init.c \
 		funcs.c \
+		drawline.c \
 
 OBJS = $(SRCS:.c=.o)
 
