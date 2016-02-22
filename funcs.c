@@ -19,7 +19,7 @@ unsigned long createRGB(int r, int g, int b)
 }
 
 
-int	fastmlx_pixel_put(t_env *env, int x, int y, int color)
+inline int	fastmlx_pixel_put(t_env *env, int x, int y, int color)
 {
 	int h;
 	int w;
@@ -57,12 +57,49 @@ void drawbox(int x , int y, int w, int h, int c, t_env *env)
 }
 
 
-void		ft_transform2d(t_point *p, t_env *e)
+void		ft_transform2d(t_env *e)
 {
+	t_point *p;
 
-	p->x_2d = (p->x * e->factor * 3) - (p->y * e->factor * 3) -
-			(p->z / (16 * e->factor)) + (e->h / 2);
-	p->y_2d = (p->x * e->factor * 2) + (p->y * e->factor * 2) -
-		(p->z * (16 * e->factor)) - ((e->h * e->factor) -
-				(1000 * e->factor));
+	ft_putstr("Calculating 2D points ... ");
+	p = e->grid;
+
+	while (p)
+	{
+		p->x_2d = (p->x * e->factor * 3) - (p->y * e->factor * 3) -
+				(p->z / (16 * e->factor)) + (e->h / 2);
+		p->y_2d = (p->x * e->factor * 2) + (p->y * e->factor * 2) -
+			(p->z * (16 * e->factor)) - ((e->h * e->factor) -
+					(1000 * e->factor));
+		p = p->next;
+	}
+	ft_putstr("Done !\n");
+}
+
+
+float math_remap(int value, int inMin,int inMax, int outMin, int outMax )
+{
+	return (outMin + (((value - inMin)/(inMax-inMin))*(outMax - outMin)));
+}
+
+
+int tblmax(int **tbl, int choice)
+{
+	int i;
+
+	i = 0;
+	if (choice == 1)
+	{
+		while (tbl[i])
+			i++;
+		return (i);
+	}
+
+	if (tbl[0])
+	{
+		while (tbl[0][i] != INTBLTLIMIT)
+			i = i + 1;
+		return(i);
+	}
+	return (1);
 }

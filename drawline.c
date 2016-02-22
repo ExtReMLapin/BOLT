@@ -77,7 +77,7 @@ static void			fdf_putline_case2(t_point *o, t_point *d, t_env *e)
 	}
 }
 
-void				fdf_putline(t_point *o, t_point *d, t_env *e)
+void				fdf_putline(t_env *e, t_point *o, t_point *d)
 {
 	if (aabs(d->x_2d - o->x_2d) < aabs(d->y_2d - o->y_2d))
 	{
