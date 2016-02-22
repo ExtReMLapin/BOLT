@@ -14,6 +14,8 @@
 #define	FDF_H
 #include <math.h>
 #include "../libft/include/libft.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct		s_angle
 {

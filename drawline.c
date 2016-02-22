@@ -23,12 +23,12 @@ static void				fdf_switch_points(t_point *o, t_point *d)
 {
 	int				t;
 
-	t = d->x_2d;
-	d->x_2d = o->x_2d;
-	o->x_2d = t;
-	t = d->y_2d;
-	d->y_2d = o->y_2d;
-	o->y_2d = t;
+	t = d->x_2dw;
+	d->x_2dw = o->x_2dw;
+	o->x_2dw = t;
+	t = d->y_2dw;
+	d->y_2dw = o->y_2dw;
+	o->y_2dw = t;
 }
 
 static void			fdf_putline_case1(t_point *o, t_point *d, t_env *e)
@@ -60,25 +60,30 @@ static void			fdf_putline_case2(t_point *o, t_point *d, t_env *e)
 	int				x;
 	int				y;
 
-	b = 2 * (aabs(d->y_2d - o->y_2d)) - (d->x_2d - o->x_2d);
-	x = o->x_2d + 1;
-	y = o->y_2d;
-	while (x <= d->x_2d)
+	b = 2 * (aabs(d->y_2dw - o->y_2dw)) - (d->x_2dw - o->x_2dw);
+	x = o->x_2dw + 1;
+	y = o->y_2dw;
+	while (x <= d->x_2dw)
 	{
 		x++;
 		if (b >= 0)
 		{
-			y += (d->y_2d > o->y_2d ? 1 : -1);
-			b += (2 * ((aabs(d->y_2d - o->y_2d)) - (d->x_2d - o->x_2d)));
+			y += (d->y_2dw > o->y_2dw ? 1 : -1);
+			b += (2 * ((aabs(d->y_2dw - o->y_2dw)) - (d->x_2dw - o->x_2dw)));
 		}
 		else
-			b += (2 * (aabs(d->y_2d - o->y_2d)));
+			b += (2 * (aabs(d->y_2dw - o->y_2dw)));
 		fastmlx_pixel_put(e, x, y, 0xFFFFFF);
 	}
 }
 
 void				fdf_putline(t_env *e, t_point *o, t_point *d)
 {
+	o->y_2dw = o->y_2d;
+	o->x_2dw = o->x_2d;
+	d->y_2dw = d->y_2d;
+	d->x_2dw = d->x_2d;
+
 	if (aabs(d->x_2d - o->x_2d) < aabs(d->y_2d - o->y_2d))
 	{
 		if (o->y_2d > d->y_2d)

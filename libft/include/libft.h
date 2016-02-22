@@ -46,6 +46,8 @@ typedef struct		s_point
 	int				z;
 	int				x_2d;
 	int				y_2d;
+	int				x_2dw;
+	int				y_2dw;
 }					t_point;
 
 int					ft_isascii(int c);

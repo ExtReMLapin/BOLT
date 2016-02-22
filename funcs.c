@@ -63,11 +63,12 @@ void ft_singlepointtrans(t_env *e, t_point *p)
 				(p->z / (16 * e->factor)) + (e->h / 2);
 		p->y_2d = (p->x * e->factor * 2) + (p->y * e->factor * 2) -
 			(p->z * (16 * e->factor)) - ((e->h * e->factor) -
-					(1000 * e->factor));
+					(100 * e->factor));
 
 		p->x_2d += e->offsetx;
 		p->y_2d += e->offsety;
 }
+
 
 
 

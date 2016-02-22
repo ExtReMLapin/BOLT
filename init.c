@@ -23,27 +23,42 @@ static void drawmap(t_env *env)
 
 	while (dickbutt != NULL)
 	{
-		ft_putnbr(dickbutt->x);
-		ft_putchar(' ');
-		ft_putnbr(dickbutt->y);
-		ft_putchar('\n');
+
 		i = 0;
+		mlx_pixel_put(env->mlx, env->win , dickbutt->x_2d, dickbutt->y_2d,  0xFFFFFF);
 		dickbutt2 = dickbutt;
 		if (dickbutt->x +1 != env->mapx)
+		{
+			ft_putstr("yes"); 
 			fdf_putline(env, dickbutt, dickbutt->next);
+		}
+		else
+			ft_putstr("no");
+
+
+
 		if (dickbutt->y + 1 != env->mapy)
 		{
+			ft_putstr(" yes\n");
 			while (i < env->mapx)
 			{
 				dickbutt2 = dickbutt2->next;
 				i++;
 			}
-			/*ft_putnbr(dickbutt->x);
-			ft_putchar(' ');
-			ft_putnbr(dickbutt2->x);
-			ft_putchar('\n');
-			fdf_putline(env, dickbutt, dickbutt2);*/
+
+			fdf_putline(env, dickbutt, dickbutt2);
 		}
+		else
+			ft_putstr(" no\n");
+
+		ft_putstr("x2d : ");
+		ft_putnbr(dickbutt->x_2d);
+		ft_putstr(" y2d : ");
+		ft_putnbr(dickbutt->y_2d);
+		ft_putstr(" x : ");
+		ft_putnbr(dickbutt->x);
+		ft_putstr(" y : ");
+		ft_putnbr(dickbutt->y);
 
 
 		dickbutt = dickbutt->next;
@@ -72,7 +87,7 @@ static void initenv(t_env *env, char *file)
 	tbl = cleartbl(tbl);
 	int **itbl = charrtointt(tbl);
 	reallocint(itbl);
-	printintint(itbl);
+	//printintint(itbl);
 	env->mapx = tblmax(itbl, 0);
 	env->mapy = tblmax(itbl, 1);
 	t_point *pts = chrrtocor(itbl);
