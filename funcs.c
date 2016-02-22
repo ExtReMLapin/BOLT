@@ -62,11 +62,14 @@ void ft_singlepointtrans(t_env *e, t_point *p)
 		p->x_2d = (p->x * e->factor * 3) - (p->y * e->factor * 3) -
 				(p->z / (16 * e->factor)) + (e->h / 2);
 		p->y_2d = (p->x * e->factor * 2) + (p->y * e->factor * 2) -
-			(p->z * (16 * e->factor)) - ((e->h * e->factor) -
+			(p->z * (4 * e->factor)) - ((e->h * e->factor) -
 					(100 * e->factor));
 
 		p->x_2d += e->offsetx;
 		p->y_2d += e->offsety;
+
+		//printf("YOLO %i  %i\n", p->x_2d, p->y_2d   );
+
 }
 
 
@@ -76,7 +79,6 @@ void		ft_transform2d(t_env *e)
 {
 	t_point *p;
 
-	ft_putstr("Calculating 2D points ... ");
 	p = e->grid;
 
 	while (p)
@@ -84,7 +86,6 @@ void		ft_transform2d(t_env *e)
 		ft_singlepointtrans(e, p);
 		p = p->next;
 	}
-	ft_putstr("Done !\n");
 }
 
 
@@ -113,4 +114,63 @@ int tblmax(int **tbl, int choice)
 		return(i);
 	}
 	return (1);
+}
+
+t_point *mapsize(t_env *env)
+{
+	t_point *map;
+	int xmax;
+	int xmin;
+	int ymin;
+	int ymax;
+	map = env->grid;
+	xmax = map->x_2d;
+	ymax = map->y_2d;
+	xmin = map->x_2d;
+	ymin = map->y_2d;
+	while (map)
+	{
+		//printf("%i , %i\n",map->x_2d, map->y_2d);
+		if (map->y_2d < ymin)
+			ymin = map->y_2d;
+		if (map->y_2d > ymax)
+			ymax = map->y_2d;
+		if (map->x_2d < xmin)
+			xmin = map->x_2d;
+		if (map->x_2d > xmax)
+			xmax = map->x_2d;
+		map = map->next;
+
+	}
+
+	map = (t_point*)malloc(sizeof(t_point));
+	//printf("%i , %i, %i, %i\n",xmin, xmax, ymin, ymax );
+	map->x = xmax-xmin;
+	map->y = ymax-ymin;
+	return (map);
+}
+
+t_point *mapmin(t_env *env)
+{
+	t_point *map;
+	int xmin;
+	int ymin;
+
+	map = env->grid;
+	xmin = map->x_2d;
+	ymin = map->y_2d;
+	while (map)
+	{
+		if (map->y_2d < ymin)
+			ymin = map->y_2d;
+		if (map->x_2d < xmin)
+			xmin = map->x_2d;
+		map = map->next;
+
+	}
+
+	map = (t_point*)malloc(sizeof(t_point));
+	map->x = xmin;
+	map->y = ymin;
+	return (map);
 }

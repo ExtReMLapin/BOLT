@@ -53,5 +53,7 @@ void				fdf_putline(t_env *e, t_point *o, t_point *d);
 void				ft_singlepointtrans(t_env *e, t_point *p);
 void				ft_transform2d(t_env *e);
 int					tblmax(int **tbl, int choice);
+t_point				*mapsize(t_env *env);
+t_point				*mapmin(t_env *env);
 
 #endif
