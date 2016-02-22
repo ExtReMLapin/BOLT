@@ -43,13 +43,22 @@ t_point			*chrrtocor(int **itbl)
 	t_point	*start;
 	int		i;
 	int		i2;
+	int 	skip;
 
 	i = 0;
-	points = ft_ptsnew(0, 0, 0);
+	points = ft_ptsnew(0, 0, itbl[0][0]);
 	start = points;
+	skip = 1;
+
 	while (itbl[i] != NULL)
 	{
-		i2 = 0;
+		if (skip == 1)
+		{
+			i2 = 1;
+			skip = 0;
+		}
+		else
+			i2 = 0;
 		while (itbl[i][i2] != INTBLTLIMIT)
 		{
 			points = addpointend(points, i2, i, itbl[i][i2]);

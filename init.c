@@ -17,16 +17,38 @@
 static void drawmap(t_env *env)
 {
 	t_point *dickbutt;
+	t_point *dickbutt2;
 	dickbutt = env->grid;
+	int i;
 
 	while (dickbutt != NULL)
 	{
+		ft_putnbr(dickbutt->x);
+		ft_putchar(' ');
+		ft_putnbr(dickbutt->y);
+		ft_putchar('\n');
+		i = 0;
+		dickbutt2 = dickbutt;
 		if (dickbutt->x +1 != env->mapx)
 			fdf_putline(env, dickbutt, dickbutt->next);
+		if (dickbutt->y + 1 != env->mapy)
+		{
+			while (i < env->mapx)
+			{
+				dickbutt2 = dickbutt2->next;
+				i++;
+			}
+			/*ft_putnbr(dickbutt->x);
+			ft_putchar(' ');
+			ft_putnbr(dickbutt2->x);
+			ft_putchar('\n');
+			fdf_putline(env, dickbutt, dickbutt2);*/
+		}
 
-		fastmlx_pixel_put(env, dickbutt->x_2d, dickbutt->y_2d , createRGB(255,255,dickbutt->z * 10));
+
 		dickbutt = dickbutt->next;
 	}
+
 }
 
 static int draw(t_env *env)
@@ -55,7 +77,10 @@ static void initenv(t_env *env, char *file)
 	env->mapy = tblmax(itbl, 1);
 	t_point *pts = chrrtocor(itbl);
 	env->grid = pts;
-	env->factor = 2;
+	env->factor = 5;
+	ft_singlepointtrans(env, env->grid);
+	env->offsetx = -env->grid->x_2d + 500;
+	env->offsety = -env->grid->y_2d + 500;
 	env->mlx = mlx_init();
 	if (!(env->mlx))
 		error("FAILED TO INIT MLX/MAYBE LINKING TO X11 SERVER");
