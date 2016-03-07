@@ -17,8 +17,6 @@ static inline int	aabs(int x)
 	return ((x < 0) ? -x : x);
 }
 
-
-
 static void				fdf_switch_points(t_point *o, t_point *d)
 {
 	int				t;

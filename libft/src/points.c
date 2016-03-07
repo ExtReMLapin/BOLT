@@ -18,7 +18,7 @@ static t_point	*ft_ptsnew(int x, int y, int z)
 
 	lst = (t_point*)malloc(sizeof(t_point));
 	if (lst == NULL)
-		return (NULL);
+		error("MALLOC FAIL ON ft_ptsnew");
 	lst->x = x;
 	lst->y = y;
 	lst->z = z;

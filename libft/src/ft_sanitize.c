@@ -82,6 +82,8 @@ char		*rem_nonnum(char *str)
 	i = 0;
 	len = cheaterlines(str);
 	to_return = (char *)malloc(sizeof(char) * (len + 1));
+	if (to_return == NULL)
+		error("MALLOC FAIL ON rem_nonnum");
 	len = 0;
 	while (str[i])
 	{

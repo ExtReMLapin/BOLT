@@ -23,7 +23,6 @@ static void drawmap(t_env *env)
 
 	while (dickbutt != NULL)
 	{
-
 		i = 0;
 		mlx_pixel_put(env->mlx, env->win , dickbutt->x_2d, dickbutt->y_2d,  0xFFFFFF);
 		dickbutt2 = dickbutt;
@@ -37,23 +36,14 @@ static void drawmap(t_env *env)
 				dickbutt2 = dickbutt2->next;
 				i++;
 			}
-
 			fdf_putline(env, dickbutt, dickbutt2);
+			fdf_putline(env, dickbutt2, dickbutt);
+
 		}
-
-		/*ft_putstr("x2d : ");
-		ft_putnbr(dickbutt->x_2d);
-		ft_putstr(" y2d : ");
-		ft_putnbr(dickbutt->y_2d);
-		ft_putstr(" x : ");
-		ft_putnbr(dickbutt->x);
-		ft_putstr(" y : ");
-		ft_putnbr(dickbutt->y);
-		ft_putchar('\n');*/
-
-
 		dickbutt = dickbutt->next;
 	}
+
+
 
 }
 
@@ -61,7 +51,6 @@ static int draw(t_env *env)
 {
 	if (!env->mlx)
 		error("MLX IS NULL");
-
 	mlx_clear_window(env->mlx, env->win);
 	ft_putstr("Cleared\n");
 	drawmap(env);
@@ -82,22 +71,16 @@ static void goodsize(t_env *env)
 	{
 
 		size = mapsize(env);
-		//printf("%f OHOHOH, %i, %i\n",env->factor, size->x, size->y  );
 		if (((env->w - size->x) < 0) ||((env->h - size->y) < 0))
 		{	
 			if (old == 0.2)
 				errornohalt("Can't find good size");
 			env->factor = old;
-			printf("GO 1\n");
 			break;
 		}
 
 		if (((env->w - size->x) < 100) || ((env->h - size->y) < 100))
-		{
-			printf("Leave, %i, %i, %i\n",env->w - size->x, env->h - size->y,   size->y );
-			printf("GO 2\n");
 			break;
-		}
 		old = env->factor;
 
 		env->factor += 0.001;
@@ -119,6 +102,7 @@ static void initenv(t_env *env, char *file)
 	env->zoom = 5;
 	env->h = 1080;
 	env->w = 1920;
+	checkread(file);
 	char **tbl = file_totbl(file) ;
 	tbl = cleartbl(tbl);
 	int **itbl = charrtointt(tbl);

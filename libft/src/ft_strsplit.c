@@ -85,5 +85,6 @@ char			**ft_strsplit(char const *s, char c)
 		tab[j] = 0;
 		return (tab);
 	}
+	error("MALLOC FAIL ON ft_strsplit");
 	return (0);
 }

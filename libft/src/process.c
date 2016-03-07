@@ -107,6 +107,8 @@ char			**file_totbl(char *file)
 	fd = open(file, O_RDONLY);
 	list = ft_read(fd);
 	textn = (char *)malloc(sizeof(char) * (ft_linelen(list) + 1));
+	if (textn == NULL)
+		error("MALLOC FAIL ON file_totbl");
 	while (list && list->c)
 	{
 		textn[i] = list->c;

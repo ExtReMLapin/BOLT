@@ -101,6 +101,8 @@ char			**cleartbl(char **tbl)
 	i = 0;
 	i2 = 0;
 	tbl2 = (char**)malloc(sizeof(char*) * (ft_tbllenskip(tbl) + 1));
+	if (tbl2 == NULL)
+		error("MALLOC FAIL ON cleartbl");
 	while (i < ft_tbllen(tbl))
 	{
 		if (ft_strlen(tbl[i]) > 0)

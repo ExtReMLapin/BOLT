@@ -18,7 +18,6 @@ unsigned long createRGB(int r, int g, int b)
     return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
-
 inline int	fastmlx_pixel_put(t_env *env, int x, int y, int color)
 {
 	int h;
@@ -56,7 +55,6 @@ void drawbox(int x , int y, int w, int h, int c, t_env *env)
 	}
 }
 
-
 void ft_singlepointtrans(t_env *e, t_point *p)
 {
 		p->x_2d = (p->x * e->factor * 3) - (p->y * e->factor * 3) -
@@ -67,13 +65,7 @@ void ft_singlepointtrans(t_env *e, t_point *p)
 
 		p->x_2d += e->offsetx;
 		p->y_2d += e->offsety;
-
-		//printf("YOLO %i  %i\n", p->x_2d, p->y_2d   );
-
 }
-
-
-
 
 void		ft_transform2d(t_env *e)
 {
@@ -87,13 +79,6 @@ void		ft_transform2d(t_env *e)
 		p = p->next;
 	}
 }
-
-
-float math_remap(int value, int inMin,int inMax, int outMin, int outMax )
-{
-	return (outMin + (((value - inMin)/(inMax-inMin))*(outMax - outMin)));
-}
-
 
 int tblmax(int **tbl, int choice)
 {
@@ -130,7 +115,6 @@ t_point *mapsize(t_env *env)
 	ymin = map->y_2d;
 	while (map)
 	{
-		//printf("%i , %i\n",map->x_2d, map->y_2d);
 		if (map->y_2d < ymin)
 			ymin = map->y_2d;
 		if (map->y_2d > ymax)
@@ -144,7 +128,6 @@ t_point *mapsize(t_env *env)
 	}
 
 	map = (t_point*)malloc(sizeof(t_point));
-	//printf("%i , %i, %i, %i\n",xmin, xmax, ymin, ymax );
 	map->x = xmax-xmin;
 	map->y = ymax-ymin;
 	return (map);
@@ -168,7 +151,6 @@ t_point *mapmin(t_env *env)
 		map = map->next;
 
 	}
-
 	map = (t_point*)malloc(sizeof(t_point));
 	map->x = xmin;
 	map->y = ymin;

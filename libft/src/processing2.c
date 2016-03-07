@@ -20,6 +20,8 @@ static int	*charrtointti1(char **tbl)
 
 	i = 0;
 	tbli = (int*)malloc(sizeof(int *) * (ft_tbllen(tbl) + 1));
+	if (tbli == NULL)
+		error("MALLOC FAIL ON charrtointti1");
 	while (tbl[i] != NULL)
 	{
 		tbli[i] = ft_atoi(tbl[i]);
@@ -36,6 +38,8 @@ int			**charrtointt(char **tbl)
 
 	i = 0;
 	toreturn = (int**)malloc(sizeof(int *) * (ft_tbllen(tbl) + 1));
+	if (toreturn == NULL)
+		error("MALLOC FAIL ON charrtointt");
 	while (tbl[i] != NULL)
 	{
 		toreturn[i] = charrtointti1(ft_strsplit(tbl[i], ' '));
@@ -88,7 +92,9 @@ int			**reallocint(int **tbl)
 	max = getmaxsizeint(tbl);
 	while (tbl[i])
 	{
-		itemp = (int *)malloc(sizeof(int) * (max + 1));
+		itemp = (int*)malloc(sizeof(int) * (max + 1));
+		if (itemp == NULL)
+			error("MALLOC FAIL ON reallocint");
 		itemp[max] = INTBLTLIMIT;
 		intcopy(tbl[i], itemp);
 		tbl[i] = itemp;
