@@ -12,7 +12,7 @@
 
 #include <libft.h>
 
-static t_point	*ft_ptsnew(int x, int y, int z)
+t_point	*ft_ptsnew(int x, int y, int z)
 {
 	t_point	*lst;
 

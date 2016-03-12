@@ -12,7 +12,7 @@
 
 #include "include/fdf.h"
 
-static inline int	aabs(int x)
+static inline int		aabs(int x)
 {
 	return ((x < 0) ? -x : x);
 }
@@ -29,7 +29,7 @@ static void				fdf_switch_points(t_point *o, t_point *d)
 	o->y_2dw = t;
 }
 
-static void			fdf_putline_case1(t_point *o, t_point *d, t_env *e)
+static void				fdf_putline_case1(t_point *o, t_point *d, t_env *e)
 {
 	int				b;
 	int				x;
@@ -52,7 +52,7 @@ static void			fdf_putline_case1(t_point *o, t_point *d, t_env *e)
 	}
 }
 
-static void			fdf_putline_case2(t_point *o, t_point *d, t_env *e)
+static void				fdf_putline_case2(t_point *o, t_point *d, t_env *e)
 {
 	int				b;
 	int				x;
@@ -75,13 +75,12 @@ static void			fdf_putline_case2(t_point *o, t_point *d, t_env *e)
 	}
 }
 
-void				fdf_putline(t_env *e, t_point *o, t_point *d)
+void					fdf_putline(t_env *e, t_point *o, t_point *d)
 {
 	o->y_2dw = o->y_2d;
 	o->x_2dw = o->x_2d;
 	d->y_2dw = d->y_2d;
 	d->x_2dw = d->x_2d;
-
 	if (aabs(d->x_2d - o->x_2d) < aabs(d->y_2d - o->y_2d))
 	{
 		if (o->y_2d > d->y_2d)

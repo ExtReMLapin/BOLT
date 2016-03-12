@@ -18,6 +18,7 @@ SRCS = init.c \
 		funcs.c \
 		drawline.c \
 		file.c \
+		funcextmain.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -133,4 +133,5 @@ int					nbrintlen(int *tbl);
 void				printintint(int **tbl);
 int					**reallocint(int **tbl);
 void				printcoortbl(t_point *t);
+t_point				*ft_ptsnew(int x, int y, int z);
 #endif
