@@ -20,7 +20,7 @@ static void		envint(t_env *env)
 	env->w = 1920;
 	env->offsetx = 0;
 	env->offsety = 0;
-	env->factor = 0.4;
+	env->factor = 2;
 }
 
 static void		checkmlx(t_env *env)

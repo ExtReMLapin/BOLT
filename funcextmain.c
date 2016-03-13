@@ -40,12 +40,31 @@ static void		drawmap(t_env *env)
 	}
 }
 
+static void		drawgrid(t_env *env)
+{
+	int x;
+	int y;
+
+	x = 0;
+	while (x < env->w)
+	{
+		y = 0;
+		while (y < env->h)
+		{
+			fastmlx_pixel_put(env, x, y, 0x00FFFF);
+			y = y + 100;
+		}
+		x = x + 100;
+	}
+}
+
 int				draw(t_env *env)
 {
 	if (!env->mlx)
 		error("MLX IS NULL");
 	mlx_clear_window(env->mlx, env->win);
 	ft_putstr("Cleared\n");
+	drawgrid(env);
 	drawmap(env);
 	return (1);
 }
@@ -58,6 +77,10 @@ static void		lastopgoodsize(t_env *env)
 	size = mapmin(env);
 	env->offsetx = -(size->x);
 	env->offsety = -(size->y);
+	ft_transform2d(env);
+	size = mapmax(env);
+	env->offsetx = env->offsetx + (env->w - size->x) / 2;
+	env->offsety = env->offsety + (env->h - size->y) / 2;
 	ft_transform2d(env);
 }
 
@@ -73,7 +96,7 @@ void			goodsize(t_env *env)
 		size = mapsize(env);
 		if (((env->w - size->x) < 0) || ((env->h - size->y) < 0))
 		{
-			if (old == 0.2)
+			if (old == 0.002)
 				errornohalt("Can't find good size");
 			env->factor = old;
 			break ;
@@ -81,7 +104,7 @@ void			goodsize(t_env *env)
 		if (((env->w - size->x) < 100) || ((env->h - size->y) < 100))
 			break ;
 		old = env->factor;
-		env->factor += 0.001;
+		env->factor += 0.0001;
 		ft_transform2d(env);
 	}
 	lastopgoodsize(env);

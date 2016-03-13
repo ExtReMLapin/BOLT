@@ -12,7 +12,7 @@
 
 #include <libft.h>
 
-t_point	*ft_ptsnew(int x, int y, int z)
+t_point			*ft_ptsnew(int x, int y, int z)
 {
 	t_point	*lst;
 
@@ -43,27 +43,23 @@ t_point			*chrrtocor(int **itbl)
 	t_point	*start;
 	int		i;
 	int		i2;
-	int 	skip;
+	int		skip;
 
 	i = 0;
 	points = ft_ptsnew(0, 0, itbl[0][0]);
 	start = points;
-	skip = 1;
-
+	skip = 1;       
 	while (itbl[i] != NULL)
 	{
 		if (skip == 1)
 		{
-			i2 = 1;
+			i2 = 0;
 			skip = 0;
 		}
 		else
-			i2 = 0;
-		while (itbl[i][i2] != INTBLTLIMIT)
-		{
+			i2 = -1;
+		while (itbl[i][++i2] != INTBLTLIMIT)
 			points = addpointend(points, i2, i, itbl[i][i2]);
-			i2++;
-		}
 		i++;
 	}
 	return (start);

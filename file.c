@@ -77,3 +77,26 @@ t_point				*mapmin(t_env *env)
 	map->y = ymin;
 	return (map);
 }
+
+t_point				*mapmax(t_env *env)
+{
+	t_point	*map;
+	int		xmax;
+	int		ymax;
+
+	map = env->grid;
+	xmax = map->x_2d;
+	ymax = map->y_2d;
+	while (map)
+	{
+		if (map->y_2d > ymax)
+			ymax = map->y_2d;
+		if (map->x_2d > xmax)
+			xmax = map->x_2d;
+		map = map->next;
+	}
+	map = (t_point*)malloc(sizeof(t_point));
+	map->x = xmax;
+	map->y = ymax;
+	return (map);
+}

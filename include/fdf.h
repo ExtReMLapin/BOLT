@@ -52,6 +52,7 @@ void				ft_transform2d(t_env *e);
 int					tblmax(int **tbl, int choice);
 t_point				*mapsize(t_env *env);
 t_point				*mapmin(t_env *env);
+t_point				*mapmax(t_env *env);
 void				checkread(char *s);
 int					draw(t_env *env);
 void				goodsize(t_env *env);
