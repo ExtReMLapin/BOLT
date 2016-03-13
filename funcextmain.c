@@ -82,6 +82,14 @@ static void		lastopgoodsize(t_env *env)
 	env->offsetx = env->offsetx + (env->w - size->x) / 2;
 	env->offsety = env->offsety + (env->h - size->y) / 2;
 	ft_transform2d(env);
+
+	t_point *d = env->grid;
+	while (d)
+	{
+		printf("X: %i Y: %i\n", d->x_2d, d->y_2d);
+		d = d ->next;
+	}
+	printf("FACTOR: %f\n", env->factor);
 }
 
 void			goodsize(t_env *env)

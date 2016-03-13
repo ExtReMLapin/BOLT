@@ -20,7 +20,7 @@ static void		envint(t_env *env)
 	env->w = 1920;
 	env->offsetx = 0;
 	env->offsety = 0;
-	env->factor = 2;
+	env->factor = 0.1;
 }
 
 static void		checkmlx(t_env *env)
@@ -46,6 +46,8 @@ static void		initenv(t_env *env, char *file)
 	tbl = cleartbl(tbl);
 	itbl = charrtointt(tbl);
 	reallocint(itbl);
+	if (!(itbl[0]))
+		error("CAN'T READ FILE CONTENT");
 	pts = chrrtocor(itbl);
 	printintint(itbl);
 	env->mapx = tblmax(itbl, 0);
