@@ -15,12 +15,13 @@
 
 static void		envint(t_env *env)
 {
-	env->zoom = 5;
 	env->h = 1080;
 	env->w = 1920;
 	env->offsetx = 0;
 	env->offsety = 0;
 	env->factor = 0.1;
+	env->rendermode = 2;
+	env->zoom = 1;
 }
 
 static void		checkmlx(t_env *env)
@@ -40,8 +41,10 @@ static void		initenv(t_env *env, char *file)
 	t_point		*pts;
 
 	ft_putstr("Initializing the env vars ... ");
+	env->timestart = clock();
 	checkread(file);
 	envint(env);
+	checkmlx(env);
 	tbl = file_totbl(file);
 	tbl = cleartbl(tbl);
 	itbl = charrtointt(tbl);
@@ -49,13 +52,14 @@ static void		initenv(t_env *env, char *file)
 	if (!(itbl[0]))
 		error("CAN'T READ FILE CONTENT");
 	pts = chrrtocor(itbl);
-	printintint(itbl);
 	env->mapx = tblmax(itbl, 0);
 	env->mapy = tblmax(itbl, 1);
 	env->grid = pts;
 	goodsize(env);
-	checkmlx(env);
+	mapsize2(env);
+	calczoom(env);
 	ft_putstr("Done !\n");
+	env->timeend = clock();
 }
 
 int				main(int agc, char **argc)

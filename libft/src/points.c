@@ -26,6 +26,21 @@ t_point			*ft_ptsnew(int x, int y, int z)
 	return (lst);
 }
 
+int pointsnb(t_point *pt)
+{
+	t_point	*pt2;
+	int i;
+
+	pt2 = pt;
+	i = 0;
+	while (pt2)
+	{
+		i++;
+		pt2 = pt2->next;
+	}
+	return (i);
+}
+
 static t_point	*addpointend(t_point *tbl, int x, int y, int z)
 {
 	t_point	*tmp;
@@ -48,7 +63,7 @@ t_point			*chrrtocor(int **itbl)
 	i = 0;
 	points = ft_ptsnew(0, 0, itbl[0][0]);
 	start = points;
-	skip = 1;       
+	skip = 1;
 	while (itbl[i] != NULL)
 	{
 		if (skip == 1)

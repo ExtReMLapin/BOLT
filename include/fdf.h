@@ -12,36 +12,33 @@
 
 #ifndef FDF_H
 # define FDF_H
+# define OFFSETBOX 100
 # include <math.h>
 # include "../libft/include/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
+# include <time.h>
 
-typedef struct		s_angle
-{
-	int				yaw;
-	int				pitch;
-	int				roll;
-}					t_angle;
 
 typedef struct		s_env
 {
 	void			*mlx;
 	void			*win;
 	t_point			*grid;
-	void			*img;
 	int				w;
 	int				h;
-	float			zoom;
-	int				fov;
-	t_point			campos;
-	t_angle			camangle;
 	float			factor;
 	int				mapy;
 	int				mapx;
 	int				offsetx;
 	int				offsety;
-
+	clock_t			timestart;
+	clock_t			timeend;
+	clock_t			time;
+	unsigned int	rendermode;
+	int				maxz;
+	int				minz;
+	int				zoom;
 }					t_env;
 
 unsigned long		creatergb(int r, int g, int b);
@@ -56,4 +53,8 @@ t_point				*mapmax(t_env *env);
 void				checkread(char *s);
 int					draw(t_env *env);
 void				goodsize(t_env *env);
+void				drawbox(int x , int y, int w, int h, int c, t_env *env);
+void				mapsize2(t_env *env);
+void				calczoom(t_env *env);
+void				drawmap2d(t_env *env);
 #endif

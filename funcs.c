@@ -74,3 +74,25 @@ int					tblmax(int **tbl, int choice)
 	}
 	return (1);
 }
+
+void				drawbox(int x , int y, int w, int h, int c, t_env *env)
+{
+	int i;
+	int i2;
+	int b;
+	int b2;
+
+	i = 0;
+	while (w > i)
+	{
+		i2 = x+i;
+		b = 0;
+		while (h > b)
+		{
+			b2 = y+b;
+			fastmlx_pixel_put(env, i2, b2, c);
+			b++;
+		}	
+		i++;
+	}
+}

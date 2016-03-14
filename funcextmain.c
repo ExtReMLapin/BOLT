@@ -13,7 +13,8 @@
 #include "include/fdf.h"
 #include "minilibx_macos/mlx.h"
 
-static void		drawmap(t_env *env)
+
+static void		drawmap3d(t_env *env)
 {
 	t_point	*dickbutt;
 	t_point	*dickbutt2;
@@ -40,32 +41,40 @@ static void		drawmap(t_env *env)
 	}
 }
 
-static void		drawgrid(t_env *env)
+static void drawinfo(t_env *env)
 {
-	int x;
-	int y;
+	char buffer[255];
+	char buffer2[255];
+	double time1;
+	double time2;
 
-	x = 0;
-	while (x < env->w)
-	{
-		y = 0;
-		while (y < env->h)
-		{
-			fastmlx_pixel_put(env, x, y, 0x00FFFF);
-			y = y + 100;
-		}
-		x = x + 100;
-	}
+	time1 = (double)(clock() - env->time);
+	time2 = (double)(env->timeend - env->timestart);
+	mlx_string_put(env->mlx, env->win, 10, 10,0xFFFFFF, "Lines :");
+	mlx_string_put(env->mlx, env->win, 85, 10,0xFFFFFF, ft_itoa(pointsnb(env->grid)));
+	
+	sprintf(buffer, "%.4f", time1/1000000);
+	sprintf(buffer2, "%.3f", time2/1000000);
+	mlx_string_put(env->mlx, env->win, 10, 40,0xFFFFFF, "Sec to calc draw :");
+	mlx_string_put(env->mlx, env->win, 194, 40,0xFFFFFF, buffer);
+	mlx_string_put(env->mlx, env->win, 10, 70,0xFFFFFF, "Sec to process file :");
+	mlx_string_put(env->mlx, env->win, 230, 70,0xFFFFFF, buffer2);
 }
 
 int				draw(t_env *env)
 {
 	if (!env->mlx)
 		error("MLX IS NULL");
+	env->time = clock();
 	mlx_clear_window(env->mlx, env->win);
+
 	ft_putstr("Cleared\n");
-	drawgrid(env);
-	drawmap(env);
+	if (env->rendermode == 3)
+		drawmap3d(env);
+	else
+		drawmap2d(env);
+	drawinfo(env);
+
 	return (1);
 }
 
@@ -82,14 +91,6 @@ static void		lastopgoodsize(t_env *env)
 	env->offsetx = env->offsetx + (env->w - size->x) / 2;
 	env->offsety = env->offsety + (env->h - size->y) / 2;
 	ft_transform2d(env);
-
-	t_point *d = env->grid;
-	while (d)
-	{
-		printf("X: %i Y: %i\n", d->x_2d, d->y_2d);
-		d = d ->next;
-	}
-	printf("FACTOR: %f\n", env->factor);
 }
 
 void			goodsize(t_env *env)
