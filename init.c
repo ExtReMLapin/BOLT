@@ -19,8 +19,8 @@ static void		envint(t_env *env)
 	env->w = 1920;
 	env->offsetx = 0;
 	env->offsety = 0;
-	env->factor = 0.1;
-	env->rendermode = 2;
+	env->factor = 0.01;
+	env->rendermode = 3;
 	env->zoom = 1;
 }
 
@@ -67,10 +67,11 @@ int				main(int agc, char **argc)
 	t_env *env;
 
 	if (agc != 2)
-		error("only one argument is allowed");
+		error("Only one argument is allowed, and it has to be a file");
 	env = (t_env *)malloc(sizeof(t_env));
 	initenv(env, argc[1]);
 	mlx_expose_hook(env->win, draw, env);
+	mlx_key_hook(env->win, hookkey, env);
 	mlx_loop(env->mlx);
 	exit(1);
 	return (1);

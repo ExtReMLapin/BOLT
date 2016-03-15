@@ -52,7 +52,6 @@ static void drawinfo(t_env *env)
 	time2 = (double)(env->timeend - env->timestart);
 	mlx_string_put(env->mlx, env->win, 10, 10,0xFFFFFF, "Lines :");
 	mlx_string_put(env->mlx, env->win, 85, 10,0xFFFFFF, ft_itoa(pointsnb(env->grid)));
-	
 	sprintf(buffer, "%.4f", time1/1000000);
 	sprintf(buffer2, "%.3f", time2/1000000);
 	mlx_string_put(env->mlx, env->win, 10, 40,0xFFFFFF, "Sec to calc draw :");
@@ -96,7 +95,7 @@ static void		lastopgoodsize(t_env *env)
 void			goodsize(t_env *env)
 {
 	t_point	*size;
-	int		old;
+	double		old;
 
 	old = env->factor;
 	ft_transform2d(env);
@@ -105,7 +104,7 @@ void			goodsize(t_env *env)
 		size = mapsize(env);
 		if (((env->w - size->x) < 0) || ((env->h - size->y) < 0))
 		{
-			if (old == 0.002)
+			if (old == 0.01)
 				errornohalt("Can't find good size");
 			env->factor = old;
 			break ;

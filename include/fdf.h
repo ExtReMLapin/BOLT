@@ -57,4 +57,5 @@ void				drawbox(int x , int y, int w, int h, int c, t_env *env);
 void				mapsize2(t_env *env);
 void				calczoom(t_env *env);
 void				drawmap2d(t_env *env);
+int 				hookkey(int keycode, t_env *env);
 #endif

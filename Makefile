@@ -20,6 +20,7 @@ SRCS = init.c \
 		file.c \
 		funcextmain.c \
 		2ddraw.c \
+		hook.c \
 
 OBJS = $(SRCS:.c=.o)
 
