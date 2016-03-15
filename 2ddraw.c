@@ -55,8 +55,13 @@ void				calczoom(t_env *env)
 {
 	int result;
 
-	if (env->mapx > env->mapy)
-		result = ((env->w) / env->mapx);
+	if  (env->mapx > env->mapy)
+	{
+		if (env->mapy > env->h)
+			result = ((env->h - OFFSETBOX) / env->mapy);
+		else
+			result = ((env->w) / env->mapx);
+	}
 	else
 		result = ((env->h - OFFSETBOX) / env->mapy);
 	env->zoom = result;
