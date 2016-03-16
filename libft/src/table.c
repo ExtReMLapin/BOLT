@@ -100,8 +100,6 @@ char			**cleartbl(char **tbl)
 		}
 		i++;
 	}
-	freecharstr(tbl);
 	tbl2[i2] = NULL;
-
 	return (tbl2);
 }

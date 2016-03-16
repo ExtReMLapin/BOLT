@@ -41,6 +41,18 @@ typedef struct		s_env
 	int				zoom;
 }					t_env;
 
+typedef struct		s_box
+{
+	int				x;
+	int				y;
+	int				w; 
+	int				h;
+	int				c;
+}					t_box;
+
+
+
+
 unsigned long		creatergb(int r, int g, int b);
 int					fastmlx_pixel_put(t_env *env, int x, int y, int color);
 void				fdf_putline(t_env *e, t_point *o, t_point *d);
@@ -53,7 +65,7 @@ t_point				*mapmax(t_env *env);
 void				checkread(char *s);
 int					draw(t_env *env);
 void				goodsize(t_env *env);
-void				drawbox(int x , int y, int w, int h, int c, t_env *env);
+void				drawbox(t_box *box, t_env *env);
 void				mapsize2(t_env *env);
 void				calczoom(t_env *env);
 void				drawmap2d(t_env *env);

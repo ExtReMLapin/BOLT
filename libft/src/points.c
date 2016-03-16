@@ -26,10 +26,10 @@ t_point			*ft_ptsnew(int x, int y, int z)
 	return (lst);
 }
 
-int pointsnb(t_point *pt)
+int				pointsnb(t_point *pt)
 {
 	t_point	*pt2;
-	int i;
+	int		i;
 
 	pt2 = pt;
 	i = 0;
@@ -51,21 +51,6 @@ static t_point	*addpointend(t_point *tbl, int x, int y, int z)
 	tmp->next = ft_ptsnew(x, y, z);
 	return (tmp->next);
 }
-
-
-static void		freecharint(int **tbl)
-{
-	int i;
-
-	i = 0;
-	while (tbl[i])
-	{
-		free(tbl[i]);
-		i++;
-	}
-	free(tbl);
-}
-
 
 t_point			*chrrtocor(int **itbl)
 {
@@ -92,6 +77,5 @@ t_point			*chrrtocor(int **itbl)
 			points = addpointend(points, i2, i, itbl[i][i2]);
 		i++;
 	}
-	freecharint(itbl);
 	return (start);
 }

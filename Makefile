@@ -19,7 +19,7 @@ SRCS = init.c \
 		drawline.c \
 		file.c \
 		funcextmain.c \
-		2ddraw.c \
+		ddraw.c \
 		hook.c \
 
 OBJS = $(SRCS:.c=.o)

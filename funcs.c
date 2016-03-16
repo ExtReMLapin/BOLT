@@ -18,20 +18,6 @@ unsigned long		creatergb(int r, int g, int b)
 	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
-inline int			fastmlx_pixel_put(t_env *env, int x, int y, int color)
-{
-	int h;
-	int w;
-
-	h = env->h;
-	w = env->w;
-	if ((x > w) || (x < 0))
-		return (0);
-	if ((y > h) || (y < 0))
-		return (0);
-	return (mlx_pixel_put(env->mlx, env->win, x, y, color));
-}
-
 void				ft_singlepointtrans(t_env *e, t_point *p)
 {
 	p->x_2d = (p->x * e->factor * 3) - (p->y * e->factor * 3) -
@@ -75,7 +61,7 @@ int					tblmax(int **tbl, int choice)
 	return (1);
 }
 
-void				drawbox(int x , int y, int w, int h, int c, t_env *env)
+void				drawbox(t_box *box, t_env *env)
 {
 	int i;
 	int i2;
@@ -83,16 +69,16 @@ void				drawbox(int x , int y, int w, int h, int c, t_env *env)
 	int b2;
 
 	i = 0;
-	while (w > i)
+	while (box->w > i)
 	{
-		i2 = x+i;
+		i2 = box->x + i;
 		b = 0;
-		while (h > b)
+		while (box->h > b)
 		{
-			b2 = y+b;
-			fastmlx_pixel_put(env, i2, b2, c);
+			b2 = box->y + b;
+			fastmlx_pixel_put(env, i2, b2, box->c);
 			b++;
-		}	
+		}
 		i++;
 	}
 }
