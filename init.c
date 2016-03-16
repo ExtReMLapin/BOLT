@@ -20,7 +20,7 @@ static void		envint(t_env *env)
 	env->offsetx = 0;
 	env->offsety = 0;
 	env->factor = 0.01;
-	env->rendermode = 3;
+	env->rendermode = 2;
 	env->zoom = 1;
 }
 
@@ -40,7 +40,6 @@ static void		initenv(t_env *env, char *file)
 	char		**tbl;
 	t_point		*pts;
 
-	ft_putstr("Initializing the env vars ... ");
 	env->timestart = clock();
 	checkread(file);
 	envint(env);
@@ -50,7 +49,7 @@ static void		initenv(t_env *env, char *file)
 	itbl = charrtointt(tbl);
 	reallocint(itbl);
 	if (!(itbl[0]))
-		error("CAN'T READ FILE CONTENT");
+		error("CAN'T READ FILE CONTENT, MAY BE TOO BIG");
 	pts = chrrtocor(itbl);
 	env->mapx = tblmax(itbl, 0);
 	env->mapy = tblmax(itbl, 1);
@@ -58,7 +57,6 @@ static void		initenv(t_env *env, char *file)
 	goodsize(env);
 	mapsize2(env);
 	calczoom(env);
-	ft_putstr("Done !\n");
 	env->timeend = clock();
 }
 

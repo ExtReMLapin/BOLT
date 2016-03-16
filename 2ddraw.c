@@ -29,7 +29,6 @@ long math_remap(long x, long in_min, long in_max, long out_min, long out_max)
 	return (a * b / c + d);
 }
 
-
 void				mapsize2(t_env *env)
 {
 	t_point		*map;
@@ -55,6 +54,12 @@ void				calczoom(t_env *env)
 {
 	int result;
 
+	printf("%i %i\n", env->mapx, env->mapy);
+	if ((env->mapx > env->w) || (env->mapy > env->h))
+	{
+		env->zoom = 1;
+		return ;
+	}
 	if  (env->mapx > env->mapy)
 	{
 		if (env->mapy > env->h)

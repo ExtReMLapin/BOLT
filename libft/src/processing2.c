@@ -46,6 +46,7 @@ int			**charrtointt(char **tbl)
 		i++;
 	}
 	toreturn[i] = NULL;
+	freecharstr(tbl);
 	return (toreturn);
 }
 
@@ -97,6 +98,7 @@ int			**reallocint(int **tbl)
 			error("MALLOC FAIL ON reallocint");
 		itemp[max] = INTBLTLIMIT;
 		intcopy(tbl[i], itemp);
+		free(tbl[i]);
 		tbl[i] = itemp;
 		i++;
 	}

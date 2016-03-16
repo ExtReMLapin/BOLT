@@ -52,6 +52,21 @@ static t_point	*addpointend(t_point *tbl, int x, int y, int z)
 	return (tmp->next);
 }
 
+
+static void		freecharint(int **tbl)
+{
+	int i;
+
+	i = 0;
+	while (tbl[i])
+	{
+		free(tbl[i]);
+		i++;
+	}
+	free(tbl);
+}
+
+
 t_point			*chrrtocor(int **itbl)
 {
 	t_point	*points;
@@ -77,5 +92,6 @@ t_point			*chrrtocor(int **itbl)
 			points = addpointend(points, i2, i, itbl[i][i2]);
 		i++;
 	}
+	freecharint(itbl);
 	return (start);
 }

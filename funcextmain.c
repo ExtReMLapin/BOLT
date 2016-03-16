@@ -68,6 +68,7 @@ int				draw(t_env *env)
 	mlx_clear_window(env->mlx, env->win);
 
 	ft_putstr("Cleared\n");
+	ft_putnbr(env->zoom);
 	if (env->rendermode == 3)
 		drawmap3d(env);
 	else

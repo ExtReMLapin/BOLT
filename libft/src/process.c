@@ -116,6 +116,7 @@ char			**file_totbl(char *file)
 		i++;
 	}
 	textn = rem_nonnum(textn);
+	free(textn);
 	textf = ft_strsplit(textn, '\n');
 	return (textf);
 }

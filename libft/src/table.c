@@ -46,31 +46,6 @@ void			printintint(int **tbl)
 	ft_putstr("-Integer Table Print End\n\n");
 }
 
-void			printcoortbl(t_point *t)
-{
-	int i;
-
-	i = 0;
-	ft_putstr("\n-Table Print Start\n");
-	while (t != NULL)
-	{
-		ft_putstr("[");
-		ft_putnbr(i++);
-		ft_putstr("]");
-		ft_putstr(" | X :");
-		ft_putnbr(t->x);
-		ft_putstr(" | Y :");
-		ft_putnbr(t->y);
-		ft_putstr(" | Z :");
-		ft_putnbr(t->z);
-		ft_putchar('\n');
-		if (!(t->next))
-			break ;
-		t = t->next;
-	}
-	ft_putstr("-Table Print End\n\n");
-}
-
 static char		**ezclear(char **tbl)
 {
 	int i;
@@ -89,6 +64,19 @@ static char		**ezclear(char **tbl)
 		i++;
 	}
 	return (tbl);
+}
+
+void			freecharstr(char **tbl)
+{
+	int i;
+
+	i = 0;
+	while (tbl[i])
+	{
+		free(tbl[i]);
+		i++;
+	}
+	free(tbl);
 }
 
 char			**cleartbl(char **tbl)
@@ -112,6 +100,8 @@ char			**cleartbl(char **tbl)
 		}
 		i++;
 	}
+	freecharstr(tbl);
 	tbl2[i2] = NULL;
+
 	return (tbl2);
 }

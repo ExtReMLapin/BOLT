@@ -132,7 +132,7 @@ int					**charrtointt(char **tbl);
 int					nbrintlen(int *tbl);
 void				printintint(int **tbl);
 int					**reallocint(int **tbl);
-void				printcoortbl(t_point *t);
 t_point				*ft_ptsnew(int x, int y, int z);
 int					pointsnb(t_point *pt);
+void				freecharstr(char **tbl);
 #endif
