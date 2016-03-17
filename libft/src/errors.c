@@ -17,7 +17,7 @@ void	error(const char *s)
 	ft_putstr("\033[1;31m");
 	ft_putstr("[FATAL ERROR] : ");
 	ft_putstr(s);
-	ft_putstr("]\033[0m");
+	ft_putstr("\033[0m");
 	ft_putchar('\n');
 	exit(EXIT_FAILURE);
 }

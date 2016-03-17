@@ -46,10 +46,11 @@ static void		initenv(t_env *env, char *file)
 	checkmlx(env);
 	tbl = file_totbl(file);
 	tbl = cleartbl(tbl);
+	
 	itbl = charrtointt(tbl);
 	reallocint(itbl);
 	if (!(itbl[0]))
-		error("CAN'T READ FILE CONTENT, MAY BE TOO BIG");
+		error("CAN'T READ FILE CONTENT, MAY BE TOO BIG OR EMPTY");
 	pts = chrrtocor(itbl);
 	env->mapx = tblmax(itbl, 0);
 	env->mapy = tblmax(itbl, 1);
@@ -65,7 +66,7 @@ int				main(int agc, char **argc)
 	t_env *env;
 
 	if (agc != 2)
-		error("Only one argument is allowed, and it has to be a file");
+		error("ONLY ONE ARG IS ALLOWED AND IT HAS TO BE A FILE");
 	env = (t_env *)malloc(sizeof(t_env));
 	initenv(env, argc[1]);
 	mlx_expose_hook(env->win, draw, env);
