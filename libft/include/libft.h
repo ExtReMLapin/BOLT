@@ -15,7 +15,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
-# define BUFF_SIZE 1
+# define BUFF_SIZE 4095
 # define INTBLTLIMIT -2147466666
 
 typedef struct		s_list
