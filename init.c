@@ -20,7 +20,7 @@ static void		envint(t_env *env)
 	env->offsetx = 0;
 	env->offsety = 0;
 	env->factor = 0.01;
-	env->rendermode = 2;
+	env->rendermode = 3;
 	env->zoom = 1;
 }
 
@@ -41,8 +41,8 @@ static void		initenv(t_env *env, char *file)
 	t_point		*pts;
 
 	env->timestart = clock();
-	checkread(file);
 	envint(env);
+	checkread(file, env);
 	checkmlx(env);
 	tbl = file_totbl(file);
 	tbl = cleartbl(tbl);

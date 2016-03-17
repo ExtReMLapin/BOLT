@@ -13,11 +13,19 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "include/fdf.h"
+#include <sys/stat.h>
 
-void				checkread(char *s)
+static int is_dir(const char *path)
 {
-	int fd;
-
+	struct stat buf;
+	stat(path, &buf);
+	return (S_ISDIR(buf.st_mode));
+	#include <sys/stat.h>
+}
+void				checkread(char *s, t_env *env)
+{
+	int		fd;
+	struct	stat st;
 	fd = open(s, O_RDONLY);
 	if (fd < 0)
 	{
@@ -25,6 +33,14 @@ void				checkread(char *s)
 		error("CAN'T OPEN FILE");
 	}
 	close(fd);
+	if (is_dir(s))
+		error("I SAID \"A FILE\" NOT A GOD DAMN DIRECTORY YOU TWAT");
+	stat(s, &st);
+	if (st.st_size > 70000)
+	{
+		errornohalt("FILE IS BIGGER THAN 70KB, SWITCHING TO 2D MODE");
+		env->rendermode = 2;
+	}
 }
 
 t_point				*mapsize(t_env *env)

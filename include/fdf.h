@@ -62,7 +62,7 @@ int					tblmax(int **tbl, int choice);
 t_point				*mapsize(t_env *env);
 t_point				*mapmin(t_env *env);
 t_point				*mapmax(t_env *env);
-void				checkread(char *s);
+void				checkread(char *s, t_env *env);
 int					draw(t_env *env);
 void				goodsize(t_env *env);
 void				drawbox(t_box *box, t_env *env);
