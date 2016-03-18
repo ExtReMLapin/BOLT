@@ -22,6 +22,7 @@ static void		envint(t_env *env)
 	env->factor = 0.01;
 	env->rendermode = 3;
 	env->zoom = 1;
+	env->c = 0xFFFFFF;
 }
 
 static void		checkmlx(t_env *env)
@@ -46,7 +47,6 @@ static void		initenv(t_env *env, char *file)
 	checkmlx(env);
 	tbl = file_totbl(file);
 	tbl = cleartbl(tbl);
-	
 	itbl = charrtointt(tbl);
 	reallocint(itbl);
 	if (!(itbl[0]))

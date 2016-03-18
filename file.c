@@ -15,17 +15,19 @@
 #include "include/fdf.h"
 #include <sys/stat.h>
 
-static int is_dir(const char *path)
+static int			is_dir(const char *path)
 {
 	struct stat buf;
+
 	stat(path, &buf);
 	return (S_ISDIR(buf.st_mode));
-	#include <sys/stat.h>
 }
+
 void				checkread(char *s, t_env *env)
 {
-	int		fd;
-	struct	stat st;
+	int			fd;
+	struct stat	st;
+
 	fd = open(s, O_RDONLY);
 	if (fd < 0)
 	{

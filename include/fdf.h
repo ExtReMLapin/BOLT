@@ -19,7 +19,6 @@
 # include <stdlib.h>
 # include <time.h>
 
-
 typedef struct		s_env
 {
 	void			*mlx;
@@ -39,19 +38,17 @@ typedef struct		s_env
 	int				maxz;
 	int				minz;
 	int				zoom;
+	int				c;
 }					t_env;
 
 typedef struct		s_box
 {
 	int				x;
 	int				y;
-	int				w; 
+	int				w;
 	int				h;
 	int				c;
 }					t_box;
-
-
-
 
 unsigned long		creatergb(int r, int g, int b);
 int					fastmlx_pixel_put(t_env *env, int x, int y, int color);
@@ -69,5 +66,5 @@ void				drawbox(t_box *box, t_env *env);
 void				mapsize2(t_env *env);
 void				calczoom(t_env *env);
 void				drawmap2d(t_env *env);
-int 				hookkey(int keycode, t_env *env);
+int					hookkey(int keycode, t_env *env);
 #endif

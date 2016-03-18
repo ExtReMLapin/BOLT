@@ -48,7 +48,7 @@ static void				fdf_putline_case1(t_point *o, t_point *d, t_env *e)
 		}
 		else
 			b += (2 * aabs(d->x_2d - o->x_2d));
-		fastmlx_pixel_put(e, x, y, 0xFFFFFF);
+		fastmlx_pixel_put(e, x, y, e->c);
 	}
 }
 
@@ -71,7 +71,7 @@ static void				fdf_putline_case2(t_point *o, t_point *d, t_env *e)
 		}
 		else
 			b += (2 * (aabs(d->y_2dw - o->y_2dw)));
-		fastmlx_pixel_put(e, x, y, 0xFFFFFF);
+		fastmlx_pixel_put(e, x, y, e->c);
 	}
 }
 

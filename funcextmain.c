@@ -52,7 +52,7 @@ static void		drawinfo(t_env *env)
 	time1 = (double)(clock() - env->time);
 	time2 = (double)(env->timeend - env->timestart);
 	mlx_string_put(env->mlx, env->win, 10, 10, 0xFFFFFF, "Points :");
-	mlx_string_put(env->mlx, env->win, 85, 10, 0xFFFFFF, a);
+	mlx_string_put(env->mlx, env->win, 110, 10, 0xFFFFFF, a);
 	sprintf(buffer, "%.4f", time1 / 1000000);
 	sprintf(buffer2, "%.3f", time2 / 1000000);
 	mlx_string_put(env->mlx, env->win, 10, 40, 0xFFFFFF, "Sec to draw :");
