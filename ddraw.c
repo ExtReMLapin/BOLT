@@ -74,9 +74,9 @@ void				drawmap2d(t_env *env)
 	t_box	*box;
 
 	dickbutt = env->grid;
+	box = (t_box*)malloc(sizeof(t_box));
 	while (dickbutt != NULL)
 	{
-		box = (t_box*)malloc(sizeof(t_box));
 		box->x = dickbutt->x * env->zoom;
 		box->y = dickbutt->y * env->zoom + OFFSETBOX;
 		c1 = math_remap(dickbutt->z, env->minz, env->maxz);
