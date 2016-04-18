@@ -67,11 +67,16 @@ int				draw(t_env *env)
 		error("MLX IS NULL");
 	env->time = clock();
 	mlx_clear_window(env->mlx, env->win);
+	mlx_destroy_image(env->mlx, env->img);
+	env->img = mlx_new_image(env->mlx, env->w, env->h);
+	env->data = mlx_get_data_addr(env->img, &env->bpp, \
+		&env->size_line, &env->endian);
 	ft_putstr("Cleared\n");
 	if (env->rendermode == 3)
 		drawmap3d(env);
 	else
 		drawmap2d(env);
+	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	drawinfo(env);
 	return (1);
 }

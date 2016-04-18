@@ -31,8 +31,9 @@ static void		checkmlx(t_env *env)
 	if (!(env->mlx))
 		error("FAILED TO INIT MLX/MAYBE LINKING TO X11 SERVER");
 	env->win = mlx_new_window(env->mlx, env->w, env->h, "FdF");
-	if (!(env->mlx))
+	if (!(env->win))
 		error("FAILED TO CREATE X11 WINDOW");
+	env->img = mlx_new_image(env->mlx, env->w, env->h);
 }
 
 static void		initenv(t_env *env, char *file)

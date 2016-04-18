@@ -27,6 +27,7 @@ typedef struct		s_env
 	int				w;
 	int				h;
 	float			factor;
+	void			*img;
 	int				mapy;
 	int				mapx;
 	int				offsetx;
@@ -39,6 +40,11 @@ typedef struct		s_env
 	int				minz;
 	int				zoom;
 	int				c;
+	int				bpp;
+	char			*data;
+	int				size_line;
+	int				endian;
+
 }					t_env;
 
 typedef struct		s_box

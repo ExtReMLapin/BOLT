@@ -90,5 +90,6 @@ inline int			fastmlx_pixel_put(t_env *env, int x, int y, int color)
 		return (0);
 	if ((y > h) || (y < 0))
 		return (0);
-	return (mlx_pixel_put(env->mlx, env->win, x, y, color));
+	*(unsigned int*)(env->data + (x * 4) + (env->size_line * y)) = mlx_get_color_value(env->mlx, color);
+	return (1);
 }
