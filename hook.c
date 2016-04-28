@@ -55,6 +55,8 @@ static int			randomcolor(void)
 
 int					hookkey(int keycode, t_env *env)
 {
+	draw(env);
+	return (1);
 	subcall(env, keycode);
 	if (keycode == 53)
 	{
@@ -77,6 +79,17 @@ int					hookkey(int keycode, t_env *env)
 		draw(env);
 	}
 	return (0);
+}
+
+int 				mousekey(int button, int x, int y, t_env *env )
+{
+	env->maxIterations = y;
+	env->cRe = -(x/1000);
+	env->cRe = -0.7;
+	ft_putnbr(button);
+	printf("X %i Y %i BUTTON %i\n", x, y, button);
+	draw(env);
+	return (1);
 }
 
 inline int			fastmlx_pixel_put(t_env *env, int x, int y, int color)

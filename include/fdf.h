@@ -44,6 +44,8 @@ typedef struct		s_env
 	char			*data;
 	int				size_line;
 	int				endian;
+	int				maxIterations;
+	int				cRe;
 
 }					t_env;
 
@@ -73,4 +75,5 @@ void				mapsize2(t_env *env);
 void				calczoom(t_env *env);
 void				drawmap2d(t_env *env);
 int					hookkey(int keycode, t_env *env);
+int					mousekey(int button, int x, int y, t_env *env );
 #endif

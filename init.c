@@ -15,8 +15,8 @@
 
 static void		envint(t_env *env)
 {
-	env->h = 1080;
-	env->w = 1920;
+	env->h = 800;
+	env->w = 600;
 	env->offsetx = 0;
 	env->offsety = 0;
 	env->factor = 0.01;
@@ -72,6 +72,7 @@ int				main(int agc, char **argc)
 	initenv(env, argc[1]);
 	mlx_expose_hook(env->win, draw, env);
 	mlx_key_hook(env->win, hookkey, env);
+	mlx_mouse_hook(env->win, mousekey, env);
 	mlx_loop(env->mlx);
 	exit(1);
 	return (1);

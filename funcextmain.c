@@ -13,31 +13,79 @@
 #include "include/fdf.h"
 #include "minilibx_macos/mlx.h"
 
-static void		drawmap3d(t_env *env)
+static float HSV(int h, int s, int v)
 {
-	t_point	*dickbutt;
-	t_point	*dickbutt2;
-	int		i;
+    if (s <= 0)
+    	 return creatergb(v,v,v);
+     h = h/256*6;
+    s = s/255;
+    v =  v/255;
+    float c = v*s;
+    float x = (1-abs((h%2)-1))*c;
+    float m = (v-c);
+    float r = 0;
+    float g = 0;
+    float b = 0;
+    if (h < 1) 
+    { 
+    	r = c;
+    	g = x;
+    	b = 0;
+    }
+    else
+    {
+    	if (h < 2) { return creatergb((x+m)*255,(c+m)*255,(0+m)*255);}
+	    if (h < 3) { return creatergb((0+m)*255,(c+m)*255,(x+m)*255);}
+	    if (h < 4) { return creatergb((0+m)*255,(x+m)*255,(c+m)*255);}
+	    if (h < 5) { return creatergb((x+m)*255,(0+m)*255,(c+m)*255);}
+	    return creatergb((c+m)*255,(0+m)*255,(x+m)*255);
+    }
+    return creatergb((r+m)*255,(g+m)*255,(b+m)*255);
+}
 
-	dickbutt = env->grid;
-	while (dickbutt != NULL)
-	{
-		i = 0;
-		dickbutt2 = dickbutt;
-		if (dickbutt->x + 1 != env->mapx)
-			fdf_putline(env, dickbutt, dickbutt->next);
-		if (dickbutt->y + 1 != env->mapy)
-		{
-			while (i < env->mapx)
-			{
-				dickbutt2 = dickbutt2->next;
-				i++;
-			}
-			fdf_putline(env, dickbutt, dickbutt2);
-			fdf_putline(env, dickbutt2, dickbutt);
-		}
-		dickbutt = dickbutt->next;
-	}
+
+static void drawmap3d(t_env *env)
+{
+
+
+	  //each iteration, it calculates: new = old*old + c, where c is a constant and old starts at current pixel
+	  double cIm;           //real and imaginary part of the constant c, determinate shape of the Julia Set
+	  double newRe, newIm, oldRe, oldIm;   //real and imaginary parts of new and old
+	  double zoom = 1, moveX = 0, moveY = 0; //you can change these to zoom and change position
+	  int color; //the RGB color value for the pixel
+	  int h = env->h;
+	  int w = env->w;
+	  //pick some values for the constant c, this determines the shape of the Julia Set
+	  cIm = 0.27015;
+
+	  //loop through every pixel
+	  for(int y = 0; y < h; y++)
+	  for(int x = 0; x < w; x++)
+	  {
+	    //calculate the initial real and imaginary part of z, based on the pixel location and zoom and position values
+	    newRe = 1.5 * (x - w / 2) / (0.5 * zoom * w) + moveX;
+	    newIm = (y - h / 2) / (0.5 * zoom * h) + moveY;
+	    //i will represent the number of iterations
+	    int i;
+	    //start the iteration process
+	    for(i = 0; i < env->maxIterations; i++)
+	    {
+	      //remember value of previous iteration
+	      oldRe = newRe;
+	      oldIm = newIm;
+	      //the actual iteration, the real and imaginary part are calculated
+	      newRe = oldRe * oldRe - oldIm * oldIm + env->cRe;
+	      newIm = 2 * oldRe * oldIm + cIm;
+	      //if the point is outside the circle with radius 2: stop
+	      if((newRe * newRe + newIm * newIm) > 4) break;
+	    }
+	    //use color model conversion to get rainbow palette, make brightness black if maxIterations reached
+	    color = HSV(i % 256, 255, 255 * (i < env->maxIterations));
+	    //draw the pixel
+	   fastmlx_pixel_put(env, x, y, color);
+	  }
+	  mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+
 }
 
 static void		drawinfo(t_env *env)
