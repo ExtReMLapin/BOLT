@@ -23,29 +23,18 @@ typedef struct		s_env
 {
 	void			*mlx;
 	void			*win;
-	t_point			*grid;
 	int				w;
 	int				h;
-	float			factor;
 	void			*img;
-	int				mapy;
-	int				mapx;
-	int				offsetx;
-	int				offsety;
-	clock_t			timestart;
-	clock_t			timeend;
-	clock_t			time;
 	unsigned int	rendermode;
-	int				maxz;
-	int				minz;
-	int				zoom;
 	int				c;
 	int				bpp;
 	char			*data;
 	int				size_line;
 	int				endian;
 	int				maxIterations;
-	int				cRe;
+	double			cRe;
+	double			cIm;
 
 }					t_env;
 
@@ -75,5 +64,5 @@ void				mapsize2(t_env *env);
 void				calczoom(t_env *env);
 void				drawmap2d(t_env *env);
 int					hookkey(int keycode, t_env *env);
-int					mousekey(int button, int x, int y, t_env *env );
+int 				mousekey( int x, int y, t_env *env );
 #endif

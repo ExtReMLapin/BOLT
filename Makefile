@@ -12,14 +12,11 @@
 
 NAME = fdf
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -O3 -msse4
+CFLAGS = -Wall -Werror -Wextra -O2 -msse4
 
-SRCS = init.c \
+SRCS = 	init.c \
 		funcs.c \
-		drawline.c \
-		file.c \
 		funcextmain.c \
-		ddraw.c \
 		hook.c \
 
 OBJS = $(SRCS:.c=.o)

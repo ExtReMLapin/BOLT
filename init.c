@@ -15,14 +15,10 @@
 
 static void		envint(t_env *env)
 {
-	env->h = 800;
-	env->w = 600;
-	env->offsetx = 0;
-	env->offsety = 0;
-	env->factor = 0.01;
-	env->rendermode = 3;
-	env->zoom = 1;
-	env->c = 0xFFFFFF;
+	env->h = 700;
+	env->w = 700;
+	env->cIm = 0.27015;
+	env->cRe = -0.7;
 }
 
 static void		checkmlx(t_env *env)
@@ -36,43 +32,19 @@ static void		checkmlx(t_env *env)
 	env->img = mlx_new_image(env->mlx, env->w, env->h);
 }
 
-static void		initenv(t_env *env, char *file)
+static void		initenv(t_env *env)
 {
-	int			**itbl;
-	char		**tbl;
-	t_point		*pts;
-
-	env->timestart = clock();
 	envint(env);
-	checkread(file, env);
 	checkmlx(env);
-	tbl = file_totbl(file);
-	tbl = cleartbl(tbl);
-	itbl = charrtointt(tbl);
-	reallocint(itbl);
-	if (!(itbl[0]))
-		error("CAN'T READ FILE CONTENT, MAY BE TOO BIG OR EMPTY");
-	pts = chrrtocor(itbl);
-	env->mapx = tblmax(itbl, 0);
-	env->mapy = tblmax(itbl, 1);
-	env->grid = pts;
-	goodsize(env);
-	mapsize2(env);
-	calczoom(env);
-	env->timeend = clock();
 }
 
-int				main(int agc, char **argc)
+int				main()
 {
 	t_env *env;
-
-	if (agc != 2)
-		error("ONLY ONE ARG IS ALLOWED AND IT HAS TO BE A FILE");
 	env = (t_env *)malloc(sizeof(t_env));
-	initenv(env, argc[1]);
+	initenv(env);
 	mlx_expose_hook(env->win, draw, env);
-	mlx_key_hook(env->win, hookkey, env);
-	mlx_mouse_hook(env->win, mousekey, env);
+	mlx_hook(env->win, 6, 64, mousekey, env);
 	mlx_loop(env->mlx);
 	exit(1);
 	return (1);
