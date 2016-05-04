@@ -13,23 +13,33 @@
 #include "include/fdf.h"
 #include "minilibx_macos/mlx.h"
 
-static int HSV(int h, int s, int v)
+static unsigned int		hsv_to_rgb(double h, double s, double v)
 {
-    if (s <= 0)
-    	 return creatergb(v,v,v);
-     h = h/256*6;
-    s = s/255;
-    v =  v/255;
-    float c = v*s;
-    float x = (1-abs((h%2)-1))*c;
-    float m = (v-c);
-    if (h < 1) { return creatergb((c+m)*255,(x+m)*255,(0+m)*255);}
-    if (h < 2) { return creatergb((x+m)*255,(c+m)*255,(0+m)*255);}
-	if (h < 3) { return creatergb((0+m)*255,(c+m)*255,(x+m)*255);}
-	if (h < 4) { return creatergb((0+m)*255,(x+m)*255,(c+m)*255);}
-	if (h < 5) { return creatergb((x+m)*255,(0+m)*255,(c+m)*255);}
-	return creatergb((c+m)*255,(0+m)*255,(x+m)*255);
+	t_hsv	hsv;
+
+	hsv.i = floor(h / 60);
+	hsv.f = (h / 60) - hsv.i;
+	hsv.l = v * (1 - s);
+	hsv.m = v * (1 - hsv.f * s);
+	hsv.n = v * (1 - (1 - hsv.f) * s);
+	hsv.l *= 255;
+	hsv.m *= 255;
+	hsv.n *= 255;
+	v *= 255;
+	if (hsv.i == 0)
+		return (((int)v << 16) + ((int)hsv.n << 8) + (int)hsv.l);
+	else if (hsv.i == 1)
+		return (((int)hsv.m << 16) + ((int)v << 8) + (int)hsv.l);
+	else if (hsv.i == 2)
+		return (((int)hsv.l << 16) + ((int)v << 8) + (int)hsv.n);
+	else if (hsv.i == 3)
+		return (((int)hsv.l << 16) + ((int)hsv.m << 8) + (int)v);
+	else if (hsv.i == 4)
+		return (((int)hsv.n << 16) + ((int)hsv.l << 8) + (int)v);
+	else
+		return (((int)v << 16) + ((int)hsv.l << 8) + (int)hsv.m);
 }
+
 
 
 static void drawmap3d(t_env *env)
@@ -55,7 +65,7 @@ static void drawmap3d(t_env *env)
 	      if((newRe * newRe + newIm * newIm) > 4) break;
 	    }
 	    if (i< env->maxIterations)
-	    	color  = HSV(i % 256, 255, 255);
+	    	color  = hsv_to_rgb(i % 256, i % 256, i % 256);
 	    else 
 	    	color = 0x000000;
 	   fastmlx_pixel_put(env, x, y, color);

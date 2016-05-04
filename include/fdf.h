@@ -47,6 +47,14 @@ typedef struct		s_box
 	int				c;
 }					t_box;
 
+typedef struct	s_hsv
+{
+	double	i;
+	double	f;
+	double	l;
+	double	m;
+	double	n;
+}				t_hsv;
 unsigned long		creatergb(int r, int g, int b);
 int					fastmlx_pixel_put(t_env *env, int x, int y, int color);
 void				fdf_putline(t_env *e, t_point *o, t_point *d);
