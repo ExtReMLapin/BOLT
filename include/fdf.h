@@ -35,8 +35,8 @@ typedef struct		s_env
 	int				maxIterations;
 	double			cRe;
 	double			cIm;
-	int				oy;
-	int				ox;;
+	double			oy;
+	double			ox;;
 	double			zm;
 
 }					t_env;

@@ -14,10 +14,26 @@
 #include "minilibx_macos/mlx.h"
 
 
+static double calczoomratio(t_env *env)
+{
+	return (1/(env->zm*10.0));
+}
+
 int					hookkey(int keycode, t_env *env)
 {
-	keycode = 1;
-	env->w = env->w;
+	if (keycode == 69)
+		env->zm = env->zm*1.1;
+	if (keycode == 78)
+		env->zm = env->zm/1.1;	
+	if (keycode == 126)
+		env->oy = env->oy - calczoomratio(env);
+	if (keycode == 125)
+		env->oy = env->oy + calczoomratio(env);
+	if (keycode == 123)
+		env->ox = env->ox - calczoomratio(env);
+	if (keycode == 124)
+		env->ox = env->ox + calczoomratio(env);
+	draw(env);
 	return (0);
 }
 
