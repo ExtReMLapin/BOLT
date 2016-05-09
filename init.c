@@ -15,10 +15,13 @@
 
 static void		envint(t_env *env)
 {
-	env->h = 700;
-	env->w = 700;
+	env->h = 800;
+	env->w = 800;
 	env->cIm = 0.27015;
 	env->cRe = -0.7;
+	env->ox = 0;
+	env->oy = 0;
+	env->zm =  1;
 }
 
 static void		checkmlx(t_env *env)

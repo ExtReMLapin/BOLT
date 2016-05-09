@@ -35,6 +35,9 @@ typedef struct		s_env
 	int				maxIterations;
 	double			cRe;
 	double			cIm;
+	int				oy;
+	int				ox;;
+	double			zm;
 
 }					t_env;
 
@@ -46,6 +49,20 @@ typedef struct		s_box
 	int				h;
 	int				c;
 }					t_box;
+
+typedef struct		s_julia
+{
+	double 		nR; 
+	double		nI; 
+	double		oR;
+	double		oI;
+	int			color;
+	int			h;
+	int			w;
+	int			x;
+	int			y;
+	int			i;
+}					t_julia;
 
 typedef struct	s_hsv
 {

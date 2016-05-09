@@ -10,9 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fdf
+NAME = fractol
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -O2 -msse4
+CFLAGS = -Wall -Werror -Wextra -Ofast -msse4
 
 SRCS = 	init.c \
 		funcs.c \

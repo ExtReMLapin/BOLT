@@ -13,15 +13,17 @@
 #include "include/fdf.h"
 #include "minilibx_macos/mlx.h"
 
-static unsigned int		hsv_to_rgb(double h, double s, double v)
+static unsigned int	hsv(double v, t_env *env, int i)
 {
 	t_hsv	hsv;
 
-	hsv.i = floor(h / 60);
-	hsv.f = (h / 60) - hsv.i;
-	hsv.l = v * (1 - s);
-	hsv.m = v * (1 - hsv.f * s);
-	hsv.n = v * (1 - (1 - hsv.f) * s);
+	if (i >= env->maxIterations)
+		return (0x000000);
+	hsv.i = floor(v / 60);
+	hsv.f = (v / 60) - hsv.i;
+	hsv.l = v * (1 - v);
+	hsv.m = v * (1 - hsv.f * v);
+	hsv.n = v * (1 - (1 - hsv.f) * v);
 	hsv.l *= 255;
 	hsv.m *= 255;
 	hsv.n *= 255;
@@ -40,40 +42,50 @@ static unsigned int		hsv_to_rgb(double h, double s, double v)
 		return (((int)v << 16) + ((int)hsv.l << 8) + (int)hsv.m);
 }
 
-
-
-static void drawmap3d(t_env *env)
+static t_julia		*init_ju(t_julia *ja, t_env *env)
 {
-	  double newRe, newIm, oldRe, oldIm;
-	  double zoom = 1, moveX = 0, moveY = 0;
-	  int color;
-	  int h = env->h;
-	  int w = env->w;
-
-	  for(int y = 0; y < h; y++)
-	  for(int x = 0; x < w; x++)
-	  {
-	    newRe = 1.5 * (x - w / 2) / (0.5 * zoom * w) + moveX;
-	    newIm = (y - h / 2) / (0.5 * zoom * h) + moveY;
-	    int i;
-	    for(i = 0; i < env->maxIterations; i++)
-	    {
-	      oldRe = newRe;
-	      oldIm = newIm;
-	      newRe = oldRe * oldRe - oldIm * oldIm + env->cRe;
-	      newIm = 2 * oldRe * oldIm + env->cIm;
-	      if((newRe * newRe + newIm * newIm) > 4) break;
-	    }
-	    if (i< env->maxIterations)
-	    	color  = hsv_to_rgb(i % 256, i % 256, i % 256);
-	    else 
-	    	color = 0x000000;
-	   fastmlx_pixel_put(env, x, y, color);
-	  }
-	  mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+	ja->h = env->h;
+	ja->w = env->w;
+	ja->y = 0;
+	return (ja);
 }
 
-int				draw(t_env *env)
+static	void		resetloop(t_julia *ja, t_env *e)
+{
+	ja->nR = 1.5 * (ja->x - ja->w / 2) / (0.5 * e->zm * ja->w) + e->ox;
+	ja->nI = (ja->y - ja->h / 2) / (0.5 * e->zm * ja->h) + e->oy;
+	ja->i = 0;
+}
+
+static void			drawmap3d(t_env *e)
+{
+	t_julia *ja;
+
+	ja = (t_julia*)malloc(sizeof(t_julia));
+	init_ju((t_julia*)ja, e);
+	while (ja->y < ja->h)
+	{
+		ja->x = 0;
+		while (ja->x < ja->w)
+		{
+			resetloop(ja, e);
+			while (ja->i < e->maxIterations)
+			{
+				ja->oR = ja->nR;
+				ja->oI = ja->nI;
+				ja->nR = ja->oR * ja->oR - ja->oI * ja->oI + e->cRe;
+				ja->nI = 2 * ja->oR * ja->oI + e->cIm;
+				if ((ja->nR * ja->nR + ja->nI * ja->nI) > 4)
+					break ;
+				(ja->i)++;
+			}
+			fastmlx_pixel_put(e, ja->x++, ja->y, hsv(ja->i % 256, e, ja->i));
+		}
+		(ja->y)++;
+	}
+}
+
+int					draw(t_env *env)
 {
 	if (!env->mlx)
 		error("MLX IS NULL");
