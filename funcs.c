@@ -13,9 +13,40 @@
 #include "include/fdf.h"
 #include "minilibx_macos/mlx.h"
 
-unsigned long		creatergb(int r, int g, int b)
+void	ft_putchar(char c)
 {
-	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+	write(1, &c, 1);
+}
+
+void	ft_putstr(char const *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i])
+	{
+		ft_putchar(s[i]);
+		i++;
+	}
+}
+
+void	error(const char *s)
+{
+	ft_putstr("\033[1;31m");
+	ft_putstr("[FATAL ERROR] : ");
+	ft_putstr(s);
+	ft_putstr("\033[0m");
+	ft_putchar('\n');
+	exit(EXIT_FAILURE);
+}
+
+void	errornohalt(const char *s)
+{
+	ft_putstr("\033[1;31m");
+	ft_putstr("[SPOOKY ERROR] : ");
+	ft_putstr(s);
+	ft_putstr("\033[0m");
+	ft_putchar('\n');
 }
 
 void				drawbox(t_box *box, t_env *env)

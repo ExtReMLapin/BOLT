@@ -12,7 +12,7 @@
 
 NAME = fractol
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -Ofast -msse4
+CFLAGS = -Wall -Werror -Wextra -O3 -msse4 -g -gline-tables-only
 
 SRCS = 	init.c \
 		funcs.c \
@@ -21,27 +21,22 @@ SRCS = 	init.c \
 
 OBJS = $(SRCS:.c=.o)
 
-all : libft $(NAME)
-
-libft:
-	make -C libft
+all : $(NAME)
 
 mlx:
 	make -C minilibx_macos
 
 $(NAME): $(OBJS)
 	make -C minilibx_macos
-	$(CC) -o $(NAME) $(OBJS) -L libft/ -lft -framework OpenGL -framework AppKit -L minilibx_macos -lmlx
+	$(CC) -o $(NAME) $(OBJS) -framework OpenGL -framework AppKit -L minilibx_macos -lmlx
 
 clean:
-	make -C libft/ clean
 	make -C minilibx_macos/ clean
 	rm -f $(OBJS)
 
 fclean: clean
-	make -C libft/ fclean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: libft mlx clean fclean all re
+.PHONY: mlx clean fclean all re

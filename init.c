@@ -13,15 +13,21 @@
 #include "include/fdf.h"
 #include "minilibx_macos/mlx.h"
 
+unsigned long inline		creatergb(int r, int g, int b)
+{
+	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+}
+
 static void		envint(t_env *env)
 {
-	env->w = 1920;
-	env->h = 1080;
+	env->w = 800;
+	env->h = 800;
 	env->cIm = 0.27015;
 	env->cRe = -0.7;
 	env->ox = 0;
 	env->oy = 0;
 	env->zm = 1;
+	env->ja = (t_julia*)malloc(sizeof(t_julia));
 }
 
 static void		checkmlx(t_env *env)
@@ -33,6 +39,8 @@ static void		checkmlx(t_env *env)
 	if (!(env->win))
 		error("FAILED TO CREATE X11 WINDOW");
 	env->img = mlx_new_image(env->mlx, env->w, env->h);
+	env->data = mlx_get_data_addr(env->img, &env->bpp, \
+		&env->size_line, &env->endian);
 }
 
 static void		initenv(t_env *env)

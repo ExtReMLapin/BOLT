@@ -87,13 +87,7 @@ static void			drawmap3d(t_env *e)
 
 int					draw(t_env *env)
 {
-	if (!env->mlx)
-		error("MLX IS NULL");
 	mlx_clear_window(env->mlx, env->win);
-	mlx_destroy_image(env->mlx, env->img);
-	env->img = mlx_new_image(env->mlx, env->w, env->h);
-	env->data = mlx_get_data_addr(env->img, &env->bpp, \
-		&env->size_line, &env->endian);
 	drawmap3d(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	return (1);
