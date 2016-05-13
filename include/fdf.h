@@ -20,17 +20,32 @@
 
 typedef struct		s_julia
 {
-	double 		nR; 
-	double		nI; 
-	double		oR;
-	double		oI;
-	int			color;
-	int			h;
-	int			w;
-	int			x;
-	int			y;
-	int			i;
+	long double		nR; 
+	long double		nI; 
+	long double		oR;
+	long double		oI;
+	int				h;
+	int				w;
+	int				x;
+	int				y;
+	int				i;
 }					t_julia;
+
+
+typedef struct		s_mandel
+{
+	long double		nRe; 
+	long double		nI; 
+	long double		oRe;
+	long double		oI;
+	long double		pi;
+	long double		pr;
+	int				h;
+	int				w;
+	int				x;
+	int				y;
+	int				i;
+}					t_mandel;
 
 typedef struct		s_env
 {
@@ -51,26 +66,18 @@ typedef struct		s_env
 	double			oy;
 	double			ox;;
 	double			zm;
-	t_julia*		ja;
+	t_julia			*ja;
+	t_mandel		*md;
 
 }					t_env;
 
-typedef struct		s_box
-{
-	int				x;
-	int				y;
-	int				w;
-	int				h;
-	int				c;
-}					t_box;
-
 typedef struct	s_hsv
 {
-	double	i;
-	double	f;
-	double	l;
-	double	m;
-	double	n;
+	long double	i;
+	long double	f;
+	long double	l;
+	long double	m;
+	long double	n;
 }				t_hsv;
 
 void				ft_putstr(char const *s);
@@ -81,7 +88,9 @@ unsigned long		creatergb(int r, int g, int b);
 int					fastmlx_pixel_put(t_env *env, int x, int y, int color);
 int					draw(t_env *env);
 void				goodsize(t_env *env);
-void				drawmap2d(t_env *env);
 int					hookkey(int keycode, t_env *env);
 int 				mousekey( int x, int y, t_env *env );
+unsigned int		hsv(long double v, t_env *env, int i);
+void				drawjulia(t_env *e);
+void				drawmend(t_env *e);
 #endif

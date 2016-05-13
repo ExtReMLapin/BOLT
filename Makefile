@@ -18,7 +18,9 @@ SRCS = 	init.c \
 		funcs.c \
 		funcextmain.c \
 		hook.c \
-
+		julia.c \
+		mandel.c \
+		
 OBJS = $(SRCS:.c=.o)
 
 all : $(NAME)

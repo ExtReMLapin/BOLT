@@ -28,6 +28,7 @@ static void		envint(t_env *env)
 	env->oy = 0;
 	env->zm = 1;
 	env->ja = (t_julia*)malloc(sizeof(t_julia));
+	env->md = (t_mandel*)malloc(sizeof(t_mandel));
 }
 
 static void		checkmlx(t_env *env)

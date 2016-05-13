@@ -13,7 +13,7 @@
 #include "include/fdf.h"
 #include "minilibx_macos/mlx.h"
 
-static unsigned int	hsv(double v, t_env *env, int i)
+unsigned int	hsv(long double v, t_env *env, int i)
 {
 	t_hsv	hsv;
 
@@ -42,53 +42,10 @@ static unsigned int	hsv(double v, t_env *env, int i)
 		return (((int)v << 16) + ((int)hsv.l << 8) + (int)hsv.m);
 }
 
-static t_julia		*init_ju(t_julia *ja, t_env *env)
-{
-	ja->h = env->h;
-	ja->w = env->w;
-	ja->y = 0;
-	return (ja);
-}
-
-static	void		resetloop(t_julia *ja, t_env *e)
-{
-	ja->nR = 1.5 * (ja->x - ja->w / 2) / (0.5 * e->zm * ja->w) + e->ox;
-	ja->nI = (ja->y - ja->h / 2) / (0.5 * e->zm * ja->h) + e->oy;
-	ja->i = 0;
-}
-
-static void			drawmap3d(t_env *e)
-{
-	t_julia *ja;
-
-	ja = (t_julia*)malloc(sizeof(t_julia));
-	init_ju((t_julia*)ja, e);
-	while (ja->y < ja->h)
-	{
-		ja->x = 0;
-		while (ja->x < ja->w)
-		{
-			resetloop(ja, e);
-			while (ja->i < e->maxIterations)
-			{
-				ja->oR = ja->nR;
-				ja->oI = ja->nI;
-				ja->nR = ja->oR * ja->oR - ja->oI * ja->oI + e->cRe;
-				ja->nI = 2 * ja->oR * ja->oI + e->cIm;
-				if ((ja->nR * ja->nR + ja->nI * ja->nI) > 4)
-					break ;
-				(ja->i)++;
-			}
-			fastmlx_pixel_put(e, ja->x++, ja->y, hsv(ja->i % 256, e, ja->i));
-		}
-		(ja->y)++;
-	}
-}
-
 int					draw(t_env *env)
 {
 	mlx_clear_window(env->mlx, env->win);
-	drawmap3d(env);
+	drawmend(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	return (1);
 }
