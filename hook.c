@@ -37,24 +37,25 @@ int					hookkey(int keycode, t_env *env)
 	return (0);
 }
 
-int					mousekey( int x, int y, t_env *env)
+int					mousekey(int x, int y, t_env *env)
 {
 	env->maxIterations = (y * 50) / env->h;
-	env->cIm = - 0.36 + ((double)x) * (0.36 + 0.36) / (double)env->w;
+	env->cIm = -0.36 + ((double)x) * (0.36 + 0.36) / (double)env->w;
 	draw(env);
 	return (1);
 }
 
-int					mousebutton( int button, int x, int y, t_env *env )
+int					mousebutton(int button, int x, int y, t_env *env)
 {
 	double rtx;
 	double rty;
+
 	if (button == 1)
 	{
 		rtx = -0.5 + (double)x / (double)env->w;
 		rty = -0.5 + (double)y / (double)env->h;
-		env->ox = env->ox + (rtx/(env->zm * 2.0));
-		env->oy = env->oy + (rty/(env->zm * 2.0));
+		env->ox = env->ox + (rtx / (env->zm * 2.0));
+		env->oy = env->oy + (rty / (env->zm * 2.0));
 		draw(env);
 	}
 	return (1);
@@ -64,6 +65,7 @@ inline int			fastmlx_pixel_put(t_env *env, int x, int y, int color)
 {
 	int h;
 	int w;
+	int off;
 
 	h = env->h;
 	w = env->w;
@@ -71,6 +73,7 @@ inline int			fastmlx_pixel_put(t_env *env, int x, int y, int color)
 		return (0);
 	if ((y > h) || (y < 0))
 		return (0);
-	*(unsigned int*)(env->data + (x * 4) + (env->size_line * y)) = mlx_get_color_value(env->mlx, color);
+	off = (x * 4) + (env->size_line * y);
+	*(unsigned int*)(env->data + off) = mlx_get_color_value(env->mlx, color);
 	return (1);
 }

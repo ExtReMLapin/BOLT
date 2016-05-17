@@ -20,18 +20,18 @@ static t_mandel		*init_md(t_mandel *ja, t_env *env)
 	return (ja);
 }
 
-static  void    resetloop(t_mandel *ja, t_env *env)
+static	void		resetloop(t_mandel *ja, t_env *env)
 {
-	ja->pr = 1.5 * (ja->x - ja->w / 2) / (0.5 * env->zm * ja->w) + env->ox-0.5;
+	ja->pr = 1.5 * (ja->x - ja->w / 2) / (0.5 * env->zm * ja->w) + env->ox - .5;
 	ja->pi = (ja->y - ja->h / 2) / (0.5 * env->zm * ja->h) + env->oy;
-	ja->nRe = 0; 
+	ja->nRe = 0;
 	ja->nI = 0;
 	ja->oRe = 0;
 	ja->oI = 0;
 	ja->i = 0;
 }
 
-void	drawmend(t_env *e)
+void				drawmend(t_env *e)
 {
 	t_mandel *ja;
 
@@ -49,9 +49,9 @@ void	drawmend(t_env *e)
 				ja->oI = ja->nI;
 				ja->nRe = ja->oRe * ja->oRe - ja->oI * ja->oI + ja->pr;
 				ja->nI = 2 * ja->oRe * ja->oI + ja->pi;
-				if((ja->nRe * ja->nRe + ja->nI * ja->nI) > 4)
+				if ((ja->nRe * ja->nRe + ja->nI * ja->nI) > 4)
 					break ;
-        		(ja->i)++;
+				(ja->i)++;
 			}
 			fastmlx_pixel_put(e, ja->x++, ja->y, hsv(ja->i % 256, e, ja->i));
 		}

@@ -62,7 +62,7 @@ static void					checkmlx(t_env *env)
 		&env->size_line, &env->endian);
 }
 
-static void					initenv(t_env *env, char* str)
+static void					initenv(t_env *env, char *str)
 {
 	int i;
 
@@ -100,7 +100,7 @@ int							main(int agc, char **argc)
 	mlx_expose_hook(env->win, draw, env);
 	mlx_hook(env->win, 6, 64, mousekey, env);
 	mlx_key_hook(env->win, hookkey, env);
-	mlx_mouse_hook (env->win, mousebutton, env);
+	mlx_mouse_hook(env->win, mousebutton, env);
 	mlx_loop(env->mlx);
 	exit(1);
 	return (1);
