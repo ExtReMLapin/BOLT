@@ -13,7 +13,7 @@
 #include "include/fdf.h"
 #include "minilibx_macos/mlx.h"
 
-unsigned int	hsv(long double v, t_env *env, int i)
+unsigned int		hsv(long double v, t_env *env, int i)
 {
 	t_hsv	hsv;
 

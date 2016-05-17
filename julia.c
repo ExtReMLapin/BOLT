@@ -27,7 +27,7 @@ static	void		resetloop(t_julia *ja, t_env *e)
 	ja->i = 0;
 }
 
-void			drawjulia(t_env *e)
+void				drawjulia(t_env *e)
 {
 	t_julia *ja;
 

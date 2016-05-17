@@ -19,7 +19,7 @@ unsigned long inline		creatergb(int r, int g, int b)
 	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
-static void		envint(t_env *env, int type)
+static void					envint(t_env *env, int type)
 {
 	env->w = 800;
 	env->h = 800;
@@ -41,13 +41,13 @@ static void		envint(t_env *env, int type)
 	}
 	if (type == 3)
 	{
-		return;
+		return ;
 	}
 	error("NOT FOUND");
-	return;
+	return ;
 }
 
-static void		checkmlx(t_env *env)
+static void					checkmlx(t_env *env)
 {
 	env->mlx = mlx_init();
 	if (!(env->mlx))
@@ -56,48 +56,51 @@ static void		checkmlx(t_env *env)
 	if (!(env->win))
 		error("FAILED TO CREATE X11 WINDOW");
 	env->img = mlx_new_image(env->mlx, env->w, env->h);
-		if (!(env->img))
+	if (!(env->img))
 		error("FAILED TO CREATE IMG");
 	env->data = mlx_get_data_addr(env->img, &env->bpp, \
 		&env->size_line, &env->endian);
 }
 
-static void		initenv(t_env *env, int type)
+static void					initenv(t_env *env, char* str)
 {
-	envint(env, type);
-	checkmlx(env);
-}
-
-int				main(int agc, char **argc)
-{
-	t_env *env;
 	int i;
 
-	env = (t_env *)malloc(sizeof(t_env));
 	i = 0;
-	if (agc != 2)
-		error("NEED MORE ARGS");
-	if (strequal(argc[1], "julia"))
+	if (strequal(str, "julia"))
 	{
-		initenv(env, 1);
+		envint(env, 1);
+		checkmlx(env);
 		i++;
 	}
-	if (strequal(argc[1], "mandelbrot"))
+	if (strequal(str, "mandelbrot"))
 	{
-		initenv(env, 2);
+		envint(env, 2);
+		checkmlx(env);
 		i++;
 	}
-	if (strequal(argc[1], "bite"))
+	if (strequal(str, "bite"))
 	{
-		initenv(env, 3);
+		envint(env, 3);
+		checkmlx(env);
 		i++;
 	}
 	if (i == 0)
 		error("FRACTAL NOT FOUND");
-	printf("%i\n", env->rendermode);
+}
+
+int							main(int agc, char **argc)
+{
+	t_env *env;
+
+	if (agc != 2)
+		error("NEED MORE ARGS");
+	env = (t_env *)malloc(sizeof(t_env));
+	initenv(env, argc[1]);
 	mlx_expose_hook(env->win, draw, env);
 	mlx_hook(env->win, 6, 64, mousekey, env);
 	mlx_key_hook(env->win, hookkey, env);
+	mlx_mouse_hook (env->win, mousebutton, env);
 	mlx_loop(env->mlx);
 	exit(1);
 	return (1);

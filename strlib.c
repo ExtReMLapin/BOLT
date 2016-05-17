@@ -12,7 +12,7 @@
 
 #include "include/fdf.h"
 
-static int strlen(char *str)
+static int		strlen(char *str)
 {
 	int i;
 
@@ -22,14 +22,14 @@ static int strlen(char *str)
 	return (i);
 }
 
-int strequal(char *str1, char *str2)
+int				strequal(char *str1, char *str2)
 {
 	int i;
 
 	if (strlen(str1) != strlen(str2))
 		return (0);
 	i = 0;
-	while(str1[i])
+	while (str1[i])
 	{
 		if (str1[i] != str2[i])
 			return (0);
