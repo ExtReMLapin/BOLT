@@ -12,7 +12,7 @@
 
 NAME = fractol
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -O3 -msse4 -g -gline-tables-only
+CFLAGS = -Wall -Werror -Wextra -Ofast -g
 
 SRCS = 	init.c \
 		funcs.c \
@@ -20,6 +20,7 @@ SRCS = 	init.c \
 		hook.c \
 		julia.c \
 		mandel.c \
+		strlib.c \
 		
 OBJS = $(SRCS:.c=.o)
 

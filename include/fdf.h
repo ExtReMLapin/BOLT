@@ -13,7 +13,6 @@
 #ifndef FDF_H
 # define FDF_H
 # include <math.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -93,4 +92,5 @@ int 				mousekey( int x, int y, t_env *env );
 unsigned int		hsv(long double v, t_env *env, int i);
 void				drawjulia(t_env *e);
 void				drawmend(t_env *e);
+int					strequal(char *str1, char *str2);
 #endif
