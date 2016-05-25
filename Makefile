@@ -10,6 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
+
+SYS := $(shell gcc -dumpmachine)
 NAME = fdf
 CC = clang
 CFLAGS = -Wall -Werror -Wextra -O3 -msse4
@@ -34,8 +36,11 @@ mlx:
 
 $(NAME): $(OBJS)
 	make -C minilibx_macos
-	$(CC) -o $(NAME) $(OBJS) -L libft/ -lft -framework OpenGL -framework AppKit -L minilibx_macos -lmlx
-
+	ifneq(, $(findstring cygwin, $(SYS)))
+	$(CC) -o $(NAME) $(OBJS)  -L/usr/X11/lib -lmlx -lXext -lX11 -L minilibx_macos -lmlx
+	else
+	 $(CC) -o $(NAME) $(OBJS) -L libft/ -lft -framework OpenGL -framework AppKit -L minilibx_macos -lmlx
+	endif
 clean:
 	make -C libft/ clean
 	make -C minilibx_macos/ clean
