@@ -49,6 +49,8 @@ int					draw(t_env *env)
 		drawjulia(env);
 	if (env->rendermode == 2)
 		drawmend(env);
+	if (env->rendermode == 3)
+		drawmend2(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	return (1);
 }

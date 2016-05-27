@@ -50,12 +50,14 @@ int					mousebutton(int button, int x, int y, t_env *env)
 	double rtx;
 	double rty;
 
+	if (x < 0 || x > env->w || y < 0 || y > env->h)
+		return (1);
 	if (button == 1)
 	{
 		rtx = -0.5 + (double)x / (double)env->w;
 		rty = -0.5 + (double)y / (double)env->h;
-		env->ox = env->ox + (rtx / (env->zm * 2.0)*5);
-		env->oy = env->oy + (rty / (env->zm * 2.0)*5);
+		env->ox = env->ox + (rtx / (env->zm * 2.0) * 5);
+		env->oy = env->oy + (rty / (env->zm * 2.0) * 5);
 		draw(env);
 	}
 	return (1);

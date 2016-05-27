@@ -21,6 +21,7 @@ SRCS = 	init.c \
 		julia.c \
 		mandel.c \
 		strlib.c \
+		ship.c \
 		
 OBJS = $(SRCS:.c=.o)
 

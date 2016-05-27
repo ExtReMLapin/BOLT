@@ -41,6 +41,7 @@ static void					envint(t_env *env, int type)
 	}
 	if (type == 3)
 	{
+		env->md = (t_mandel*)malloc(sizeof(t_mandel));
 		return ;
 	}
 	error("NOT FOUND");
@@ -79,7 +80,7 @@ static void					initenv(t_env *env, char *str)
 		checkmlx(env);
 		i++;
 	}
-	if (strequal(str, "bite"))
+	if (strequal(str, "tricorn"))
 	{
 		envint(env, 3);
 		checkmlx(env);
