@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "include/fractol.h"
 #include "minilibx_macos/mlx.h"
-#include <stdio.h>
 
 static double		calczoomratio(t_env *env)
 {
@@ -49,7 +48,6 @@ int					mousebutton(int button, int x, int y, t_env *env)
 {
 	double rtx;
 	double rty;
-
 	if (x < 0 || x > env->w || y < 0 || y > env->h)
 		return (1);
 	if (button == 1)
@@ -58,8 +56,12 @@ int					mousebutton(int button, int x, int y, t_env *env)
 		rty = -0.5 + (double)y / (double)env->h;
 		env->ox = env->ox + (rtx / (env->zm * 2.0) * 5);
 		env->oy = env->oy + (rty / (env->zm * 2.0) * 5);
-		draw(env);
 	}
+	if (button == 5)
+		env->zm = env->zm / 1.1;
+	if (button == 6)
+		env->zm = env->zm * 1.1;
+	draw(env);
 	return (1);
 }
 

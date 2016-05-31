@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "include/fractol.h"
 #include "minilibx_macos/mlx.h"
 
 unsigned int		hsv(long double v, t_env *env, int i)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "include/fractol.h"
 #include "minilibx_macos/mlx.h"
 
 void	ft_putchar(char c)

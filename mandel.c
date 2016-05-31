@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "include/fractol.h"
 
 static t_mandel		*init_md(t_mandel *ja, t_env *env)
 {
@@ -48,7 +48,7 @@ void				drawmend(t_env *e)
 				ja->oRe = ja->nRe;
 				ja->oI = ja->nI;
 				ja->nRe = ja->oRe * ja->oRe - ja->oI * ja->oI + ja->pr;
-				ja->nI = -2 * ja->oRe * ja->oI + ja->pi;
+				ja->nI = 2 * ja->oRe * ja->oI + ja->pi;
 				if ((ja->nRe * ja->nRe + ja->nI * ja->nI) > 4)
 					break ;
 				(ja->i)++;

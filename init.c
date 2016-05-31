@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "include/fractol.h"
 #include "minilibx_macos/mlx.h"
-#include <stdio.h>
 
 unsigned long inline		creatergb(int r, int g, int b)
 {
@@ -95,7 +94,7 @@ int							main(int agc, char **argc)
 	t_env *env;
 
 	if (agc != 2)
-		error("NEED MORE ARGS");
+		error("USAGE : ./fractol [FRACTAL] (JULIA/MANDELBROT/TRICORN)");
 	env = (t_env *)malloc(sizeof(t_env));
 	initenv(env, argc[1]);
 	mlx_expose_hook(env->win, draw, env);

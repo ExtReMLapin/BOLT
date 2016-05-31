@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "include/fractol.h"
 
 static t_mandel		*init_md(t_mandel *ja, t_env *env)
 {

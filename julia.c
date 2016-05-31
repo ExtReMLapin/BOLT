@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "include/fractol.h"
 
 static t_julia		*init_ju(t_julia *ja, t_env *env)
 {

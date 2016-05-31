@@ -12,7 +12,7 @@
 
 NAME = fractol
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -Ofast -g
+CFLAGS = -Wall -Werror -Wextra -Ofast
 
 SRCS = 	init.c \
 		funcs.c \
@@ -43,4 +43,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: mlx clean fclean all re
+.PHONY: mlx clean fclean all rey
