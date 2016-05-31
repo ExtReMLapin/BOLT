@@ -38,8 +38,8 @@ int					hookkey(int keycode, t_env *env)
 
 int					mousekey(int x, int y, t_env *env)
 {
-	env->maxIterations = (y * 50) / env->h;
-	env->cIm = -0.36 + ((double)x) * (0.36 + 0.36) / (double)env->w;
+	env->maxiterations = (y * 50) / env->h;
+	env->cim = -0.36 + ((double)x) * (0.36 + 0.36) / (double)env->w;
 	draw(env);
 	return (1);
 }

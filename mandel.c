@@ -24,10 +24,10 @@ static	void		resetloop(t_mandel *ja, t_env *env)
 {
 	ja->pr = 1.5 * (ja->x - ja->w / 2) / (0.5 * env->zm * ja->w) + env->ox - .5;
 	ja->pi = (ja->y - ja->h / 2) / (0.5 * env->zm * ja->h) + env->oy;
-	ja->nRe = 0;
-	ja->nI = 0;
-	ja->oRe = 0;
-	ja->oI = 0;
+	ja->nre = 0;
+	ja->ni = 0;
+	ja->ore = 0;
+	ja->oi = 0;
 	ja->i = 0;
 }
 
@@ -43,13 +43,13 @@ void				drawmend(t_env *e)
 		while (ja->x < ja->w)
 		{
 			resetloop(ja, e);
-			while (ja->i < e->maxIterations)
+			while (ja->i < e->maxiterations)
 			{
-				ja->oRe = ja->nRe;
-				ja->oI = ja->nI;
-				ja->nRe = ja->oRe * ja->oRe - ja->oI * ja->oI + ja->pr;
-				ja->nI = 2 * ja->oRe * ja->oI + ja->pi;
-				if ((ja->nRe * ja->nRe + ja->nI * ja->nI) > 4)
+				ja->ore = ja->nre;
+				ja->oi = ja->ni;
+				ja->nre = ja->ore * ja->ore - ja->oi * ja->oi + ja->pr;
+				ja->ni = 2 * ja->ore * ja->oi + ja->pi;
+				if ((ja->nre * ja->nre + ja->ni * ja->ni) > 4)
 					break ;
 				(ja->i)++;
 			}

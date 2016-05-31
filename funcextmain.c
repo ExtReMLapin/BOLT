@@ -17,7 +17,7 @@ unsigned int		hsv(long double v, t_env *env, int i)
 {
 	t_hsv	hsv;
 
-	if (i >= env->maxIterations)
+	if (i >= env->maxiterations)
 		return (0x000000);
 	hsv.i = floor(v / 60);
 	hsv.f = (v / 60) - hsv.i;

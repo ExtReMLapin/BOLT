@@ -22,8 +22,8 @@ static void					envint(t_env *env, int type)
 {
 	env->w = 800;
 	env->h = 800;
-	env->cIm = 0.27015;
-	env->cRe = -0.7;
+	env->cim = 0.27015;
+	env->cre = -0.7;
 	env->ox = 0;
 	env->oy = 0;
 	env->zm = 1;

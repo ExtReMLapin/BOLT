@@ -22,8 +22,8 @@ static t_julia		*init_ju(t_julia *ja, t_env *env)
 
 static	void		resetloop(t_julia *ja, t_env *e)
 {
-	ja->nR = 1.5 * (ja->x - ja->w / 2) / (0.5 * e->zm * ja->w) + e->ox;
-	ja->nI = (ja->y - ja->h / 2) / (0.5 * e->zm * ja->h) + e->oy;
+	ja->nr = 1.5 * (ja->x - ja->w / 2) / (0.5 * e->zm * ja->w) + e->ox;
+	ja->ni = (ja->y - ja->h / 2) / (0.5 * e->zm * ja->h) + e->oy;
 	ja->i = 0;
 }
 
@@ -39,13 +39,13 @@ void				drawjulia(t_env *e)
 		while (ja->x < ja->w)
 		{
 			resetloop(ja, e);
-			while (ja->i < e->maxIterations)
+			while (ja->i < e->maxiterations)
 			{
-				ja->oR = ja->nR;
-				ja->oI = ja->nI;
-				ja->nR = ja->oR * ja->oR - ja->oI * ja->oI + e->cRe;
-				ja->nI = 2 * ja->oR * ja->oI + e->cIm;
-				if ((ja->nR * ja->nR + ja->nI * ja->nI) > 4)
+				ja->orr = ja->nr;
+				ja->oi = ja->ni;
+				ja->nr = ja->orr * ja->orr - ja->oi * ja->oi + e->cre;
+				ja->ni = 2 * ja->orr * ja->oi + e->cim;
+				if ((ja->nr * ja->nr + ja->ni * ja->ni) > 4)
 					break ;
 				(ja->i)++;
 			}
