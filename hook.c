@@ -59,7 +59,7 @@ int					mousebutton(int button, int x, int y, t_env *env)
 	}
 	if (button == 5)
 		env->zm = env->zm / 1.1;
-	if (button == 6)
+	if (button == 4)
 		env->zm = env->zm * 1.1;
 	draw(env);
 	return (1);
