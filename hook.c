@@ -14,50 +14,28 @@
 #include "minilibx_macos/mlx.h"
 #include <stdio.h>
 
-static double		calczoomratio(t_env *env)
-{
-	return (1 / (env->zm * 10.0));
-}
 
 int					hookkey(int keycode, t_env *env)
 {
-	if (keycode == 69)
-		env->zm = env->zm * 1.1;
-	if (keycode == 78)
-		env->zm = env->zm / 1.1;
-	if (keycode == 126)
-		env->oy = env->oy - calczoomratio(env);
-	if (keycode == 125)
-		env->oy = env->oy + calczoomratio(env);
-	if (keycode == 123)
-		env->ox = env->ox - calczoomratio(env);
-	if (keycode == 124)
-		env->ox = env->ox + calczoomratio(env);
+	keycode = keycode;
 	draw(env);
 	return (0);
 }
 
 int					mousekey(int x, int y, t_env *env)
 {
-	env->maxIterations = (y * 50) / env->h;
-	env->cIm = -0.36 + ((double)x) * (0.36 + 0.36) / (double)env->w;
+	x = x;
+	y = y;
 	draw(env);
 	return (1);
 }
 
 int					mousebutton(int button, int x, int y, t_env *env)
 {
-	double rtx;
-	double rty;
-
-	if (button == 1)
-	{
-		rtx = -0.5 + (double)x / (double)env->w;
-		rty = -0.5 + (double)y / (double)env->h;
-		env->ox = env->ox + (rtx / (env->zm * 2.0)*5);
-		env->oy = env->oy + (rty / (env->zm * 2.0)*5);
-		draw(env);
-	}
+	x = x;
+	y = y;
+	button = button;
+	*env = *env;
 	return (1);
 }
 

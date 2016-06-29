@@ -16,35 +16,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdlib.h>
-
-typedef struct		s_julia
-{
-	long double		nR; 
-	long double		nI; 
-	long double		oR;
-	long double		oI;
-	int				h;
-	int				w;
-	int				x;
-	int				y;
-	int				i;
-}					t_julia;
-
-
-typedef struct		s_mandel
-{
-	long double		nRe; 
-	long double		nI; 
-	long double		oRe;
-	long double		oI;
-	long double		pi;
-	long double		pr;
-	int				h;
-	int				w;
-	int				x;
-	int				y;
-	int				i;
-}					t_mandel;
+# define mapWidth 24
+# define mapHeight 24
 
 typedef struct		s_env
 {
@@ -53,21 +26,19 @@ typedef struct		s_env
 	int				w;
 	int				h;
 	void			*img;
-	unsigned int	rendermode;
-	int				c;
 	int				bpp;
 	char			*data;
 	int				size_line;
 	int				endian;
-	int				maxIterations;
-	double			cRe;
-	double			cIm;
-	double			oy;
-	double			ox;;
-	double			zm;
-	t_julia			*ja;
-	t_mandel		*md;
-
+	double			posX; //x and y start position
+	double			posY ;
+	double			dirX;
+	double			dirY; //initial direction vector
+	double			planeX ;
+	double			planeY; //the 2d raycaster version of camera plane				
+	double			time; //time of current frame
+	double			oldTime; //time of previous frame
+	int				**worldMap;
 }					t_env;
 
 typedef struct	s_hsv
@@ -86,12 +57,8 @@ void				errornohalt(char const *s);
 unsigned long		creatergb(int r, int g, int b);
 int					fastmlx_pixel_put(t_env *env, int x, int y, int color);
 int					draw(t_env *env);
-void				goodsize(t_env *env);
 int					hookkey(int keycode, t_env *env);
 int 				mousekey( int x, int y, t_env *env );
-unsigned int		hsv(long double v, t_env *env, int i);
-void				drawjulia(t_env *e);
-void				drawmend(t_env *e);
 int					strequal(char *str1, char *str2);
 int 				mousebutton( int button, int x, int y, t_env *env );
 #endif

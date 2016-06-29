@@ -14,37 +14,25 @@
 #include "minilibx_macos/mlx.h"
 #include <stdio.h>
 
-unsigned long inline		creatergb(int r, int g, int b)
+unsigned long		creatergb(int r, int g, int b)
 {
 	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
-static void					envint(t_env *env, int type)
+static int					envint(t_env *env)
 {
 	env->w = 800;
 	env->h = 800;
-	env->cIm = 0.27015;
-	env->cRe = -0.7;
-	env->ox = 0;
-	env->oy = 0;
-	env->zm = 1;
-	env->rendermode = type;
-	if (type == 1)
-	{
-		env->ja = (t_julia*)malloc(sizeof(t_julia));
-		return ;
-	}
-	if (type == 2)
-	{
-		env->md = (t_mandel*)malloc(sizeof(t_mandel));
-		return ;
-	}
-	if (type == 3)
-	{
-		return ;
-	}
-	error("NOT FOUND");
-	return ;
+	env->posX = 22; //x and y start position
+	env->posY = 12;
+	env->dirX = -1;
+	env->dirY = 0; //initial direction vector
+	env->planeX = 0;
+	env->planeY = 0.66; //the 2d raycaster version of camera plane				
+	env->time = 0; //time of current frame
+	env->oldTime = 0; //time of previous frame
+
+	return (1);
 }
 
 static void					checkmlx(t_env *env)
@@ -62,41 +50,18 @@ static void					checkmlx(t_env *env)
 		&env->size_line, &env->endian);
 }
 
-static void					initenv(t_env *env, char *str)
+static void					initenv(t_env *env)
 {
-	int i;
-
-	i = 0;
-	if (strequal(str, "julia"))
-	{
-		envint(env, 1);
+		envint(env);
 		checkmlx(env);
-		i++;
-	}
-	if (strequal(str, "mandelbrot"))
-	{
-		envint(env, 2);
-		checkmlx(env);
-		i++;
-	}
-	if (strequal(str, "bite"))
-	{
-		envint(env, 3);
-		checkmlx(env);
-		i++;
-	}
-	if (i == 0)
-		error("FRACTAL NOT FOUND");
 }
 
-int							main(int agc, char **argc)
+int							main(void)
 {
 	t_env *env;
 
-	if (agc != 2)
-		error("NEED MORE ARGS");
 	env = (t_env *)malloc(sizeof(t_env));
-	initenv(env, argc[1]);
+	initenv(env);
 	mlx_expose_hook(env->win, draw, env);
 	mlx_hook(env->win, 6, 64, mousekey, env);
 	mlx_key_hook(env->win, hookkey, env);
