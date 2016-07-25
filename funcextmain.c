@@ -10,31 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "include/wtd.h"
 #include "minilibx_macos/mlx.h"
-# include <SDL/SDL.h>
+#include <stdio.h>
 
-
-static void verLine(int x, int y1, int y2, int color, t_env *env)
+static void	verline(t_env *env)
 {
 	int i;
 	int tmp;
 
-	if (y2 < y1)
+	t_w3d *w3d;
+	w3d = env->w3d;
+	if (w3d->drawend < w3d->drawstart)
 	{
-		tmp = y1;
-		y1 = y2;
-		y2 = tmp;
+		tmp = w3d->drawstart;
+		w3d->drawstart = w3d->drawend;
+		w3d->drawend = tmp;
 	}
 	i = 0;
-	while (i < (y2 - y1))
+	while (i < (w3d->drawend - w3d->drawstart))
 	{
-		fastmlx_pixel_put(env,x, y1+i,color);
+		fastmlx_pixel_put(env, w3d->x, w3d->drawstart + i, w3d->color);
 		i++;
 	}
 }
 
-int worldMap[mapWidth][mapHeight]=
+int worldMap[MAPWIDTH][MAPHEIGHT]=
 {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -62,123 +63,158 @@ int worldMap[mapWidth][mapHeight]=
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-static void draw2dpt0(t_env *env, t_w3d *w3d)
+static void		draw2dpt0(t_env *env, t_w3d *w3d)
 {
-	w3d->cameraX = 2 * w3d->x / (double)(env->w) - 1;
-	w3d->rayPosX = env->posX ;
-	w3d->rayPosY = env->posY;
-	w3d->rayDirX = env->dirX + env->planeX * w3d->cameraX;
-	w3d->rayDirY = env->dirY + env->planeY * w3d->cameraX;
-	w3d->mapX = (int)(w3d->rayPosX);
-}
-
-static void draw2dpt1(t_w3d *w3d)
-{
-	w3d->mapY = (int)(w3d->rayPosY);
-	w3d->deltaDistX = sqrt(1 + (w3d->rayDirY * w3d->rayDirY) / (w3d->rayDirX * w3d->rayDirX));
-	w3d->deltaDistY = sqrt(1 + (w3d->rayDirX * w3d->rayDirX) / (w3d->rayDirY * w3d->rayDirY));
+	w3d->camerax = 2 * w3d->x / (double)(env->w) - 1;
+	w3d->rayposx = env->posx;
+	w3d->rayposy = env->posy;
+	w3d->raydirx = env->dirx + env->planex * w3d->camerax;
+	w3d->raydiry = env->diry + env->planey * w3d->camerax;
+	w3d->mapx = (int)(w3d->rayposx);
+	w3d->mapy = (int)(w3d->rayposy);
+	w3d->deltadistx = sqrt(1 + (w3d->raydiry * w3d->raydiry) / (w3d->raydirx * w3d->raydirx));
+	w3d->deltadisty = sqrt(1 + (w3d->raydirx * w3d->raydirx) / (w3d->raydiry * w3d->raydiry));
 	w3d->hit = 0;
-	if (w3d->rayDirX < 0)
+}
+
+static void		draw2dpt1(t_w3d *w3d)
+{
+	if (w3d->raydirx < 0)
 	{
-		w3d->stepX = -1;
-		w3d->sideDistX = (w3d->rayPosX - w3d->mapX) * w3d->deltaDistX;
+		w3d->stepx = -1;
+		w3d->sidedistx = (w3d->rayposx - w3d->mapx) * w3d->deltadistx;
 	}
 	else
 	{
-		w3d->stepX = 1;
-		w3d->sideDistX = (w3d->mapX + 1.0 - w3d->rayPosX) * w3d->deltaDistX;
+		w3d->stepx = 1;
+		w3d->sidedistx = (w3d->mapx + 1.0 - w3d->rayposx) * w3d->deltadistx;
 	}
-	if (w3d->rayDirY < 0)
+	if (w3d->raydiry < 0)
 	{
-		w3d->stepY = -1;
-		w3d->sideDistY = (w3d->rayPosY - w3d->mapY) * w3d->deltaDistY;
+		w3d->stepy = -1;
+		w3d->sidedisty = (w3d->rayposy - w3d->mapy) * w3d->deltadisty;
 	}
 	else
 	{
-		w3d->stepY = 1;
-		w3d->sideDistY = (w3d->mapY + 1.0 - w3d->rayPosY) * w3d->deltaDistY;
+		w3d->stepy = 1;
+		w3d->sidedisty = (w3d->mapy + 1.0 - w3d->rayposy) * w3d->deltadisty;
 	}
 }
 
-static void draw2dpt2( t_w3d *w3d, t_env *env)
+static void		draw2dpt2(t_w3d *w3d, t_env *env)
 {
 	while (w3d->hit == 0)
 	{
-		if (w3d->sideDistX < w3d->sideDistY)
+		if (w3d->sidedistx < w3d->sidedisty)
 		{
-			w3d->sideDistX += w3d->deltaDistX;
-			w3d->mapX += w3d->stepX;
+			w3d->sidedistx += w3d->deltadistx;
+			w3d->mapx += w3d->stepx;
 			w3d->side = 0;
 		}
 		else
 		{
-			w3d->sideDistY += w3d->deltaDistY;
-			w3d->mapY += w3d->stepY;
+			w3d->sidedisty += w3d->deltadisty;
+			w3d->mapy += w3d->stepy;
 			w3d->side = 1;
 		}
-		if (worldMap[w3d->mapX][w3d->mapY] > 0)
+		if (worldMap[w3d->mapx][w3d->mapy] > 0)
 			w3d->hit = 1;
 	}
-	if (w3d->side == 0) 
-			w3d->perpWallDist = (w3d->mapX - w3d->rayPosX + (1 - w3d->stepX) / 2) / w3d->rayDirX;
-		else
-			w3d->perpWallDist = (w3d->mapY - w3d->rayPosY + (1 - w3d->stepY) / 2) / w3d->rayDirY;
-	w3d->lineHeight = (int)(env->h / w3d->perpWallDist);
-	w3d->drawStart = -(w3d->lineHeight) / 2 + env->h / 2;
-	if(w3d->drawStart < 0)
-		w3d->drawStart = 0;
+	if (w3d->side == 0)
+		w3d->perpwalldist = (w3d->mapx - w3d->rayposx + (1 - w3d->stepx) / 2) /
+	w3d->raydirx;
+	else
+		w3d->perpwalldist = (w3d->mapy - w3d->rayposy + (1 - w3d->stepy) / 2) /
+	w3d->raydiry;
+	w3d->lineheight = (int)(env->h / w3d->perpwalldist);
+	w3d->drawstart = -(w3d->lineheight) / 2 + env->h / 2;
 }
 
-static void draw2dpt3( t_w3d *w3d, t_env *env)
+static void		draw2dpt3(t_w3d *w3d, t_env *env)
 {
-	if (w3d->side == 0) 
-			w3d->perpWallDist = (w3d->mapX - w3d->rayPosX + (1 - w3d->stepX) / 2) / w3d->rayDirX;
-		else
-			w3d->perpWallDist = (w3d->mapY - w3d->rayPosY + (1 - w3d->stepY) / 2) / w3d->rayDirY;
-		w3d->lineHeight = (int)(env->h / w3d->perpWallDist);
-		w3d->drawStart = -(w3d->lineHeight) / 2 + env->h / 2;
-		if(w3d->drawStart < 0)
-			w3d->drawStart = 0;
-		w3d->drawEnd = w3d->lineHeight / 2 + env->h / 2;
-		if(w3d->drawEnd >= env->h)
-			w3d->drawEnd = env->h - 1;
+	if (w3d->drawstart < 0)
+		w3d->drawstart = 0;
+	if (w3d->side == 0)
+		w3d->perpwalldist = (w3d->mapx - w3d->rayposx +
+		(1 - w3d->stepx) / 2) / w3d->raydirx;
+	else
+		w3d->perpwalldist = (w3d->mapy - w3d->rayposy +
+		(1 - w3d->stepy) / 2) / w3d->raydiry;
+	w3d->lineheight = (int)(env->h / w3d->perpwalldist);
+	w3d->drawstart = -(w3d->lineheight) / 2 + env->h / 2;
+	if (w3d->drawstart < 0)
+		w3d->drawstart = 0;
+	w3d->drawend = w3d->lineheight / 2 + env->h / 2;
+	if (w3d->drawend >= env->h)
+		w3d->drawend = env->h - 1;
 }
 
-static void draw2d(t_env *env)
+static int		clr(int x, int y)
 {
-	t_w3d *w3d = env->w3d;
-	int clr[6] = {0xff0000,0x00ff00, 0x0000ff, 0x0000ff, 0xffff00};
+	int	value;
+
+	if (x < 0 || y < 0 || x > MAPWIDTH || y > MAPHEIGHT)
+		return (0x000000);
+	value = worldMap[x][y];
+	if (value == 1)
+		return (0xff0000);
+	if (value == 2)
+		return (0x00ff00);
+	if (value == 3)
+		return (0x0000ff);
+	if (value == 4)
+		return (0xffffff);
+	if (value == 5)
+		return (0xffff00);
+	return (0x000000);
+}
+
+static void		draw2d(t_env *env)
+{
+	t_w3d	*w3d;
+	int i2;
+	double col;
+
+	w3d = env->w3d;
 	w3d->x = 0;
-	while ( w3d->x < env->w) // tout pixel ecran
+	while (w3d->x < env->w)
 	{
 		draw2dpt0(env, w3d);
 		draw2dpt1(w3d);
 		draw2dpt2(w3d, env);
 		draw2dpt3(w3d, env);
-		w3d->color = clr[(worldMap[w3d->mapX][w3d->mapY])-1];
-		if (w3d->side == 1) 
+		w3d->color = clr(w3d->mapx, w3d->mapy);
+		if (w3d->side == 1)
 			w3d->color = w3d->color / 2;
-		verLine(w3d->x, w3d->drawStart, w3d->drawEnd, w3d->color, env);
+		verline(env);
 		w3d->x++;
+	}
+
+	i2 = 10;
+	while (i2 < (1/env->frametime)+10)
+	{
+		col = (double)i2/60;
+		verlineex(env, i2, hsv(col));
+		i2++;
 	}
 }
 
-int					draw(t_env *env)
+int				draw(t_env *env)
 {
-	int x;
-	int y;
-	
-	//mlx_clear_window(env->mlx, env->win);
+	int	x;
+	int	y;
+
+	mlx_clear_window(env->mlx, env->win);
 	x = 0;
 	while (x < env->w)
 	{
 		y = 0;
 		while (y < env->h)
 		{
-			if (y < env->h/2)
-				fastmlx_pixel_put(env, x , y , 0x7EC0EE);
+			if (y < env->h / 2)
+				fastmlx_pixel_put(env, x, y, 0x7eC0ee);
 			else
-				fastmlx_pixel_put(env, x , y , 0x000000);
+				fastmlx_pixel_put(env, x, y, 0x111111);
 			y++;
 		}
 		x++;
@@ -187,6 +223,6 @@ int					draw(t_env *env)
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	env->oldtime = env->time;
 	env->time = clock();
-	env->frametime =  ((double)(env->time - env->oldtime) / 1000000.00000000F ) * 1000; 
+	env->frametime = ((double)(env->time - env->oldtime) / CLOCKS_PER_SEC);
 	return (1);
 }
