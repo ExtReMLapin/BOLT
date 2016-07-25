@@ -10,45 +10,53 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef WTD_H
+# define WTD_H
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <time.h>
-# define mapWidth 24
-# define mapHeight 24
-# define KEY_UP 65362
-# define KEY_DOWN 65364
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
-
+# define MAPWIDTH 24
+# define MAPHEIGHT 24
+# define KEY_UP 126
+# define KEY_DOWN 125
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
 
 typedef struct	s_w3d
 {
-	double			cameraX;
-	double			rayPosX;
-	double			rayPosY;
-	double			rayDirX;
-	double			rayDirY;
+	double			camerax;
+	double			rayposx;
+	double			rayposy;
+	double			raydirx;
+	double			raydiry;
 	int				x;
-	int				mapX;
-	int				mapY;
-	double			sideDistX;
-	double			sideDistY;
-	double			deltaDistX;
-	double			deltaDistY;
-	double			perpWallDist;
-	int				stepX;
-	int				stepY;
+	int				mapx;
+	int				mapy;
+	double			sidedistx;
+	double			sidedisty;
+	double			deltadistx;
+	double			deltadisty;
+	double			perpwalldist;
+	int				stepx;
+	int				stepy;
 	int				hit;
 	int				side;
-	int				lineHeight;
-	int				drawStart;
-	int				drawEnd;
+	int				lineheight;
+	int				drawstart;
+	int				drawend;
 	int				color;
 }				t_w3d;
+
+typedef struct		s_hsv
+{
+	long double		i;
+	long double		f;
+	long double		l;
+	long double		m;
+	long double		n;
+}					t_hsv;
 
 typedef struct		s_env
 {
@@ -61,16 +69,16 @@ typedef struct		s_env
 	char			*data;
 	int				size_line;
 	int				endian;
-	double			posX; //x and y start position
-	double			posY ;
-	double			dirX;
-	double			dirY; //initial direction vector
-	double			planeX ;
-	double			planeY; //the 2d raycaster version of camera plane				
-	clock_t			time; //time of current frame
-	clock_t			oldtime; //time of previous frame
+	double			posx;
+	double			posy;
+	double			dirx;
+	double			diry;
+	double			planex;
+	double			planey;
+	clock_t			time;
+	clock_t			oldtime;
 	double			frametime;
-	int				**worldMap;
+	int				**worldmap;
 	int				up;
 	int				down;
 	int				left;
@@ -85,9 +93,11 @@ void				errornohalt(char const *s);
 unsigned long		creatergb(int r, int g, int b);
 int					fastmlx_pixel_put(t_env *env, int x, int y, int color);
 int					draw(t_env *env);
-int 				mousekey( int x, int y, t_env *env );
-int 				mousebutton( int button, int x, int y, t_env *env );
+int					mousekey(int x, int y, t_env *env);
+int					mousebutton(int button, int x, int y, t_env *env);
 int					hook_loop(t_env *env);
 int					key_release(int keycode, t_env *env);
 int					key_press(int keycode, t_env *env);
+unsigned int		hsv(long double v);
+void				verlineex(t_env *env, int x, int col);
 #endif
