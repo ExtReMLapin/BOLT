@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "include/wtd.h"
 #include "minilibx_macos/mlx.h"
 #include <stdio.h>
 
-int worldMap2[mapWidth][mapHeight]=
+int worldMap2[MAPWIDTH][MAPHEIGHT]=
 {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -42,57 +42,75 @@ int worldMap2[mapWidth][mapHeight]=
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-
-int hook_loop(t_env *env)
+static int		check_rot(t_env *env)
 {
-	int redo;
-	double moveSpeed = env->frametime * 5.0;
-	double rotSpeed = env->frametime * 1.0;
-	redo = 0;
+	double		rd;
+	double		olddirx;
+	double		oldplanex;
+
+	olddirx = env->dirx;
+	oldplanex = env->planex;
+	rd = env->frametime * 1.0;
 	if (env->right)
 	{
-		double oldDirX = env->dirX;
-		env->dirX = env->dirX * cos(-rotSpeed) - env->dirY * sin(-rotSpeed);
-		env->dirY = oldDirX * sin(-rotSpeed) + env->dirY * cos(-rotSpeed);
-		double oldPlaneX = env->planeX;
-		env->planeX = env->planeX * cos(-rotSpeed) - env->planeY * sin(-rotSpeed);
-		env->planeY = oldPlaneX * sin(-rotSpeed) + env->planeY * cos(-rotSpeed);
-		redo = 1;
+		env->dirx = env->dirx * cos(-rd) - env->diry * sin(-rd);
+		env->diry = olddirx * sin(-rd) + env->diry * cos(-rd);
+		env->planex = env->planex * cos(-rd) - env->planey * sin(-rd);
+		env->planey = oldplanex * sin(-rd) + env->planey * cos(-rd);
+		return (1);
 	}
 	if (env->left)
 	{
-		double oldDirX = env->dirX;
-		env->dirX = env->dirX * cos(rotSpeed) - env->dirY * sin(rotSpeed);
-		env->dirY = oldDirX * sin(rotSpeed) + env->dirY * cos(rotSpeed);
-		double oldPlaneX = env->planeX;
-		env->planeX = env->planeX * cos(rotSpeed) - env->planeY * sin(rotSpeed);
-		env->planeY = oldPlaneX * sin(rotSpeed) + env->planeY * cos(rotSpeed);
-		redo = 1;
+		env->dirx = env->dirx * cos(rd) - env->diry * sin(rd);
+		env->diry = olddirx * sin(rd) + env->diry * cos(rd);
+		env->planex = env->planex * cos(rd) - env->planey * sin(rd);
+		env->planey = oldplanex * sin(rd) + env->planey * cos(rd);
+		return (1);
 	}
+	return (0);
+}
+
+static int		check_move(t_env *env)
+{
+	double	md;
+
+	md = env->frametime * 5.0;
 	if (env->up)
 	{
-		if(worldMap2[(int)(env->posX + env->dirX * moveSpeed)][(int)(env->posY)] == 0)
-			env->posX += env->dirX * moveSpeed;
-		if(worldMap2[(int)(env->posX)][(int)(env->posY + env->dirY * moveSpeed)] == 0) 
-			env->posY += env->dirY * moveSpeed;
-		redo = 1;
+		if (worldMap2[(int)(env->posx + env->dirx * md)][(int)(env->posy)] == 0)
+			env->posx += env->dirx * md;
+		if (worldMap2[(int)(env->posx)][(int)(env->posy + env->diry *
+		md)] == 0)
+			env->posy += env->diry * md;
+		return (1);
 	}
 	if (env->down)
 	{
-		if(worldMap2[(int)(env->posX - env->dirX * moveSpeed)][(int)(env->posY)] == 0)
-			env->posX -= env->dirX * moveSpeed;
-		if(worldMap2[(int)(env->posX)][(int)(env->posY - env->dirY * moveSpeed)] == 0) 
-			env->posY -= env->dirY * moveSpeed;
-		redo = 1;
+		if (worldMap2[(int)(env->posx - env->dirx * md)][(int)(env->posy)] == 0)
+			env->posx -= env->dirx * md;
+		if (worldMap2[(int)(env->posx)][(int)(env->posy - env->diry *
+		md)] == 0)
+			env->posy -= env->diry * md;
+		return (1);
 	}
-	if (redo)
+	return (0);
+}
+
+int			hook_loop(t_env *env)
+{
+	if (env->posx < 0 || env->posy < 0 || env->posx > MAPWIDTH
+		|| env->posy > MAPHEIGHT)
+	{
+		env->posx = 22;
+		env->posy = 12;
+	}
+	if (check_move(env) + check_rot(env) != 0)
 		draw(env);
 	return (1);
 }
 
-int key_press(int keycode, t_env *env)
+int			key_press(int keycode, t_env *env)
 {
-	printf("%s\n","d" );
 	if (keycode == KEY_RIGHT)
 		env->right = 1;
 	if (keycode == KEY_LEFT)
@@ -104,7 +122,7 @@ int key_press(int keycode, t_env *env)
 	return (1);
 }
 
-int key_release(int keycode, t_env *env)
+int			key_release(int keycode, t_env *env)
 {
 	if (keycode == KEY_RIGHT)
 		env->right = 0;
@@ -117,25 +135,7 @@ int key_release(int keycode, t_env *env)
 	return (1);
 }
 
-int					mousekey(int x, int y, t_env *env)
-{
-	x = x;
-	y = y;
-	//draw(env);
-	*env = *env;
-	return (1);
-}
-
-int					mousebutton(int button, int x, int y, t_env *env)
-{
-	x = x;
-	y = y;
-	button = button;
-	*env = *env;
-	return (1);
-}
-
-inline int			fastmlx_pixel_put(t_env *env, int x, int y, int color)
+int			fastmlx_pixel_put(t_env *env, int x, int y, int color)
 {
 	int h;
 	int w;
