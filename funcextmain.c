@@ -18,8 +18,8 @@ static void	verline(t_env *env)
 {
 	int i;
 	int tmp;
-
 	t_w3d *w3d;
+
 	w3d = env->w3d;
 	if (w3d->drawend < w3d->drawstart)
 	{
@@ -149,24 +149,19 @@ static void		draw2dpt3(t_w3d *w3d, t_env *env)
 		w3d->drawend = env->h - 1;
 }
 
-static int		clr(int x, int y)
+static int		clr(t_env *env)
 {
-	int	value;
+	t_w3d *w3d;
 
-	if (x < 0 || y < 0 || x > MAPWIDTH || y > MAPHEIGHT)
-		return (0x000000);
-	value = worldMap[x][y];
-	if (value == 1)
+	w3d = env->w3d;
+	if (w3d->side == 0 && w3d->stepx >= 0)
 		return (0xff0000);
-	if (value == 2)
+	else if (w3d->side == 0 && w3d->stepx < 0)
 		return (0x00ff00);
-	if (value == 3)
+	else if (w3d->side == 1 && w3d->stepy >= 0)
 		return (0x0000ff);
-	if (value == 4)
+	else
 		return (0xffffff);
-	if (value == 5)
-		return (0xffff00);
-	return (0x000000);
 }
 
 static void		draw2d(t_env *env)
@@ -183,7 +178,7 @@ static void		draw2d(t_env *env)
 		draw2dpt1(w3d);
 		draw2dpt2(w3d, env);
 		draw2dpt3(w3d, env);
-		w3d->color = clr(w3d->mapx, w3d->mapy);
+		w3d->color = clr(env);
 		if (w3d->side == 1)
 			w3d->color = w3d->color / 2;
 		verline(env);
@@ -204,7 +199,6 @@ int				draw(t_env *env)
 	int	x;
 	int	y;
 
-	mlx_clear_window(env->mlx, env->win);
 	x = 0;
 	while (x < env->w)
 	{
