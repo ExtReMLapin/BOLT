@@ -3,75 +3,119 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 17:07:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/01/11 17:07:41 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/08/10 15:21:31 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "include/wtd.h"
 #include "minilibx_macos/mlx.h"
+#include <stdio.h>
 
-static void		envint(t_env *env)
+unsigned long				creatergb(int r, int g, int b)
 {
-	env->h = 1080;
-	env->w = 1920;
-	env->offsetx = 0;
-	env->offsety = 0;
-	env->factor = 0.01;
-	env->rendermode = 3;
-	env->zoom = 1;
-	env->c = 0xFFFFFF;
+	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
-static void		checkmlx(t_env *env)
+static int					envint(t_env *env)
+{
+	env->w = 1600;
+	env->h = 900;
+	env->posx = 5;
+	env->posy = 5;
+	env->dirx = -1;
+	env->diry = 0;
+	env->planex = 0;
+	env->planey = 0.66;
+	env->time = clock();
+	env->oldtime = clock();
+	env->frametime = 1;
+	env->up = 0;
+	env->down = 0;
+	env->left = 0;
+	env->right = 0;
+	return (1);
+}
+
+static void loadmap(t_env *env)
+{
+	env->map =
+	{
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1},
+		{1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1},
+		{1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 0, 0, 0, 0, 5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+	};
+}
+
+
+
+void verlineex(t_env *env, int x, int col)
+{
+	int i;
+	int y1;
+	int y2;
+
+	y1 = 20;
+	y2 = 50;
+	i = 0;
+	while (i < (y2 - y1))
+	{
+		fastmlx_pixel_put(env, x, y1+i, col);
+		i++;
+	}
+}
+
+static void					checkmlx(t_env *env)
 {
 	env->mlx = mlx_init();
 	if (!(env->mlx))
 		error("FAILED TO INIT MLX/MAYBE LINKING TO X11 SERVER");
-	env->win = mlx_new_window(env->mlx, env->w, env->h, "FdF");
+	env->win = mlx_new_window(env->mlx, env->w, env->h, "Wolf3D");
 	if (!(env->win))
 		error("FAILED TO CREATE X11 WINDOW");
 	env->img = mlx_new_image(env->mlx, env->w, env->h);
+	if (!(env->img))
+		error("FAILED TO CREATE IMG");
+	env->data = mlx_get_data_addr(env->img, &env->bpp, \
+		&env->size_line, &env->endian);
 }
 
-static void		initenv(t_env *env, char *file)
+static void					initenv(t_env *env)
 {
-	int			**itbl;
-	char		**tbl;
-	t_point		*pts;
-
-	env->timestart = clock();
 	envint(env);
-	checkread(file, env);
 	checkmlx(env);
-	tbl = file_totbl(file);
-	tbl = cleartbl(tbl);
-	itbl = charrtointt(tbl);
-	reallocint(itbl);
-	if (!(itbl[0]))
-		error("CAN'T READ FILE CONTENT, MAY BE TOO BIG OR EMPTY");
-	pts = chrrtocor(itbl);
-	env->mapx = tblmax(itbl, 0);
-	env->mapy = tblmax(itbl, 1);
-	env->grid = pts;
-	goodsize(env);
-	mapsize2(env);
-	calczoom(env);
-	env->timeend = clock();
 }
 
-int				main(int agc, char **argc)
+int							main(void)
 {
 	t_env *env;
 
-	if (agc != 2)
-		error("ONLY ONE ARG IS ALLOWED AND IT HAS TO BE A FILE");
 	env = (t_env *)malloc(sizeof(t_env));
-	initenv(env, argc[1]);
+	env->w3d = (t_w3d *)malloc(sizeof(t_w3d));
+	initenv(env);
 	mlx_expose_hook(env->win, draw, env);
-	mlx_key_hook(env->win, hookkey, env);
+	mlx_hook(env->win, 2, (1L << 0), key_press, env);
+	mlx_hook(env->win, 3, (1L << 1), key_release, env);
+	mlx_loop_hook(env->mlx, hook_loop, env);
+	mlx_do_key_autorepeatoff(env->mlx);
 	mlx_loop(env->mlx);
 	exit(1);
 	return (1);
