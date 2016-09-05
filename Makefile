@@ -6,11 +6,11 @@
 #    By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/03 16:00:35 by pfichepo          #+#    #+#              #
-#    Updated: 2015/12/01 15:29:23 by pfichepo         ###   ########.fr        #
+#    Updated: 2016/09/05 13:21:00 by pfichepo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fractol
+NAME = wolf3d
 CC = clang
 CFLAGS = -Wall -Werror -Wextra -Ofast -g
 
@@ -18,6 +18,8 @@ SRCS = 	init.c \
 		funcs.c \
 		funcextmain.c \
 		hook.c \
+		map.c \
+		extfunc.c
 		
 OBJS = $(SRCS:.c=.o)
 

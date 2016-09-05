@@ -6,18 +6,12 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 17:07:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/08/10 15:21:31 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/09/05 11:36:41 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/wtd.h"
 #include "minilibx_macos/mlx.h"
-#include <stdio.h>
-
-unsigned long				creatergb(int r, int g, int b)
-{
-	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-}
 
 static int					envint(t_env *env)
 {
@@ -36,38 +30,11 @@ static int					envint(t_env *env)
 	env->down = 0;
 	env->left = 0;
 	env->right = 0;
+	emptymap(env);
 	return (1);
 }
 
-static void loadmap(t_env *env)
-{
-	env->map =
-	{
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-		{1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1},
-		{1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 0, 0, 0, 0, 5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-	};
-}
-
-
-
-void verlineex(t_env *env, int x, int col)
+void						verlineex(t_env *env, int x, int col)
 {
 	int i;
 	int y1;
@@ -78,7 +45,7 @@ void verlineex(t_env *env, int x, int col)
 	i = 0;
 	while (i < (y2 - y1))
 	{
-		fastmlx_pixel_put(env, x, y1+i, col);
+		fastmlx_pixel_put(env, x, y1 + i, col);
 		i++;
 	}
 }
@@ -114,6 +81,7 @@ int							main(void)
 	mlx_expose_hook(env->win, draw, env);
 	mlx_hook(env->win, 2, (1L << 0), key_press, env);
 	mlx_hook(env->win, 3, (1L << 1), key_release, env);
+	mlx_hook(env->win, 17, (1L << 17), close_hook, env);
 	mlx_loop_hook(env->mlx, hook_loop, env);
 	mlx_do_key_autorepeatoff(env->mlx);
 	mlx_loop(env->mlx);

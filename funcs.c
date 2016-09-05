@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   funcs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:18:44 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/01/14 13:18:47 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/09/05 09:19:49 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/wtd.h"
 
-void	ft_putchar(char c)
+void				ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
-void	ft_putstr(char const *s)
+void				ft_putstr(char const *s)
 {
 	int i;
 
@@ -29,7 +29,7 @@ void	ft_putstr(char const *s)
 	}
 }
 
-void	error(const char *s)
+void				error(const char *s)
 {
 	ft_putstr("\033[1;31m");
 	ft_putstr("[FATAL ERROR] : ");
@@ -39,7 +39,7 @@ void	error(const char *s)
 	exit(EXIT_FAILURE);
 }
 
-void	errornohalt(const char *s)
+void				errornohalt(const char *s)
 {
 	ft_putstr("\033[1;31m");
 	ft_putstr("[SPOOKY ERROR] : ");
