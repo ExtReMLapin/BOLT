@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   funcextmain.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 18:38:59 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/03/12 18:39:00 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/09/14 13:06:41 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ static void		drawinfo(t_env *env)
 	time2 = (double)(env->timeend - env->timestart);
 	mlx_string_put(env->mlx, env->win, 10, 10, 0xFFFFFF, "Points :");
 	mlx_string_put(env->mlx, env->win, 110, 10, 0xFFFFFF, a);
-	sprintf(buffer, "%.4f", time1 / 1000000);
-	sprintf(buffer2, "%.3f", time2 / 1000000);
+	env->frametime = time1 / CLOCKS_PER_SEC;
+	sprintf(buffer, "%.2f | %.0f FPS", env->frametime, 1/env->frametime);
+	sprintf(buffer2, "%.3f", time2 / CLOCKS_PER_SEC);
 	mlx_string_put(env->mlx, env->win, 10, 40, 0xFFFFFF, "Sec to draw :");
 	mlx_string_put(env->mlx, env->win, 194, 40, 0xFFFFFF, buffer);
 	mlx_string_put(env->mlx, env->win, 10, 70, 0xFFFFFF, "Sec to proc :");
@@ -71,7 +72,6 @@ int				draw(t_env *env)
 	env->img = mlx_new_image(env->mlx, env->w, env->h);
 	env->data = mlx_get_data_addr(env->img, &env->bpp, \
 		&env->size_line, &env->endian);
-	ft_putstr("Cleared\n");
 	if (env->rendermode == 3)
 		drawmap3d(env);
 	else

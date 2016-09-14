@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:20:45 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/01/14 13:20:47 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/09/14 13:00:49 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # define OFFSETBOX 100
+# define KEY_UP 126
+# define KEY_DOWN 125
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_SPACE 49
 # include <math.h>
 # include "../libft/include/libft.h"
 # include <stdio.h>
@@ -35,6 +40,7 @@ typedef struct		s_env
 	clock_t			timestart;
 	clock_t			timeend;
 	clock_t			time;
+	double			frametime;
 	unsigned int	rendermode;
 	int				maxz;
 	int				minz;
@@ -44,7 +50,11 @@ typedef struct		s_env
 	char			*data;
 	int				size_line;
 	int				endian;
-
+	int				up;
+	int				down;
+	int				left;
+	int				spkey;
+	int				right;
 }					t_env;
 
 typedef struct		s_box
@@ -72,5 +82,9 @@ void				drawbox(t_box *box, t_env *env);
 void				mapsize2(t_env *env);
 void				calczoom(t_env *env);
 void				drawmap2d(t_env *env);
-int					hookkey(int keycode, t_env *env);
+void				movething(t_env *env, char c, int dest);
+int					hook_loop(t_env *env);
+int					key_release(int keycode, t_env *env);
+int					key_press(int keycode, t_env *env);
+int 				close_hook(t_env *env);
 #endif

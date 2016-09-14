@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 17:07:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/01/11 17:07:41 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/09/14 13:00:23 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,13 @@ int				main(int agc, char **argc)
 		error("ONLY ONE ARG IS ALLOWED AND IT HAS TO BE A FILE");
 	env = (t_env *)malloc(sizeof(t_env));
 	initenv(env, argc[1]);
+	printf("%i\n",env->rendermode );
+	mlx_hook(env->win, 2, (1L << 0), key_press, env);
+	mlx_hook(env->win, 3, (1L << 1), key_release, env);
+	mlx_hook(env->win, 17, (1L << 17), close_hook, env);
+	mlx_loop_hook(env->mlx, hook_loop, env);
+	mlx_do_key_autorepeatoff(env->mlx);
 	mlx_expose_hook(env->win, draw, env);
-	mlx_key_hook(env->win, hookkey, env);
 	mlx_loop(env->mlx);
 	exit(1);
 	return (1);
