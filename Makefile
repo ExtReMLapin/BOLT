@@ -6,7 +6,7 @@
 #    By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/03 16:00:35 by pfichepo          #+#    #+#              #
-#    Updated: 2016/09/14 12:21:00 by pfichepo         ###   ########.fr        #
+#    Updated: 2016/09/15 09:55:43 by pfichepo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 SYS := $(shell gcc -dumpmachine)
 NAME = fdf
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -O3 -msse4
+CFLAGS = -Wall -Werror -Wextra -O3 -msse4 -g
 
 SRCS = init.c \
 		funcs.c \

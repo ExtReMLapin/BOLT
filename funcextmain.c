@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 18:38:59 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/09/14 13:06:41 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/09/15 10:14:14 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,28 +46,25 @@ static void		drawinfo(t_env *env)
 	char		buffer2[255];
 	double		time1;
 	double		time2;
+	double		time3;
 	char		*a;
 
 	a = ft_itoa(pointsnb(env->grid));
 	time1 = (double)(clock() - env->time);
 	time2 = (double)(env->timeend - env->timestart);
+	time3 = (double)(env->time - env->timestart);
 	mlx_string_put(env->mlx, env->win, 10, 10, 0xFFFFFF, "Points :");
 	mlx_string_put(env->mlx, env->win, 110, 10, 0xFFFFFF, a);
 	env->frametime = time1 / CLOCKS_PER_SEC;
-	sprintf(buffer, "%.2f | %.0f FPS", env->frametime, 1/env->frametime);
-	sprintf(buffer2, "%.3f", time2 / CLOCKS_PER_SEC);
-	mlx_string_put(env->mlx, env->win, 10, 40, 0xFFFFFF, "Sec to draw :");
-	mlx_string_put(env->mlx, env->win, 194, 40, 0xFFFFFF, buffer);
-	mlx_string_put(env->mlx, env->win, 10, 70, 0xFFFFFF, "Sec to proc :");
-	mlx_string_put(env->mlx, env->win, 194, 70, 0xFFFFFF, buffer2);
+	sprintf(buffer, "%.0f FPS", 1/env->frametime);
+	sprintf(buffer2, "Sec to proc : %.3f | ", time2 / CLOCKS_PER_SEC);
+	mlx_string_put(env->mlx, env->win, 10, 40, 0xFFFFFF, buffer );
+	mlx_string_put(env->mlx, env->win, 10, 70, 0xFFFFFF, buffer2);
 }
 
 int				draw(t_env *env)
 {
-	if (!env->mlx)
-		error("MLX IS NULL");
 	env->time = clock();
-	mlx_clear_window(env->mlx, env->win);
 	mlx_destroy_image(env->mlx, env->img);
 	env->img = mlx_new_image(env->mlx, env->w, env->h);
 	env->data = mlx_get_data_addr(env->img, &env->bpp, \

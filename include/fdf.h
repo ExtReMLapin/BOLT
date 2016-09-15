@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:20:45 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/09/14 13:00:49 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/09/15 10:14:13 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 # define KEY_SPACE 49
+# define KEY_CMD 260
 # include <math.h>
 # include "../libft/include/libft.h"
 # include <stdio.h>

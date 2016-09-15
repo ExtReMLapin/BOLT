@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/14 12:18:51 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/09/14 13:02:13 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/09/15 10:44:34 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@ int 			close_hook(t_env *env)
 	return (1);
 }
 
-static int		randomcolor(void)
+static int		randomcolor(t_env *env)
 {
-	int rand1;
-	int rand2;
-	int rand3;
+	int		rand1;
+	int		rand2;
+	int		rand3;
+	double	fac; 
 
-	rand1 = rand() % 255 + 50;
-	rand2 = rand() % 255 + 50;
-	rand3 = rand() % 255 + 50;
+	fac = ((double)(env->time - env->timestart)/ CLOCKS_PER_SEC)*5;
+	rand1 = sin(fac*0.7)*(255)/2+255/2;
+	rand2 = sin(fac*1.1)*(255)/2+255/2;
+	rand3 = sin(fac*3)*(255)/2+255/2;
 	return (creatergb(rand1, rand2, rand3));
 }
 
@@ -45,7 +47,7 @@ int				hook_loop(t_env *env)
 	if (env->right)
 		movething(env, 'x', 1);
 	if (env->spkey)
-		env->c = randomcolor();
+		env->c = randomcolor(env);
 	draw(env);
 	return (1);
 }

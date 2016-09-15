@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 17:07:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/09/14 13:00:23 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/09/15 10:12:46 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ static void		envint(t_env *env)
 	env->rendermode = 3;
 	env->zoom = 1;
 	env->c = 0xFFFFFF;
+	env->down = 0;
+	env->up = 0;
+	env->right = 0;
+	env->left = 0;
+	env->spkey = 0;
 }
 
 static void		checkmlx(t_env *env)
@@ -34,6 +39,8 @@ static void		checkmlx(t_env *env)
 	if (!(env->win))
 		error("FAILED TO CREATE X11 WINDOW");
 	env->img = mlx_new_image(env->mlx, env->w, env->h);
+	env->data = mlx_get_data_addr(env->img, &env->bpp, \
+		&env->size_line, &env->endian);
 }
 
 static void		initenv(t_env *env, char *file)
@@ -70,7 +77,6 @@ int				main(int agc, char **argc)
 		error("ONLY ONE ARG IS ALLOWED AND IT HAS TO BE A FILE");
 	env = (t_env *)malloc(sizeof(t_env));
 	initenv(env, argc[1]);
-	printf("%i\n",env->rendermode );
 	mlx_hook(env->win, 2, (1L << 0), key_press, env);
 	mlx_hook(env->win, 3, (1L << 1), key_release, env);
 	mlx_hook(env->win, 17, (1L << 17), close_hook, env);
