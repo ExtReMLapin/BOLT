@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:20:45 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/09/15 10:14:13 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/09/19 10:25:22 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,5 @@ void				movething(t_env *env, char c, int dest);
 int					hook_loop(t_env *env);
 int					key_release(int keycode, t_env *env);
 int					key_press(int keycode, t_env *env);
-int 				close_hook(t_env *env);
+int					close_hook(t_env *env);
 #endif

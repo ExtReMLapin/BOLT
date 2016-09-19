@@ -6,12 +6,10 @@
 #    By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/03 16:00:35 by pfichepo          #+#    #+#              #
-#    Updated: 2016/09/15 09:55:43 by pfichepo         ###   ########.fr        #
+#    Updated: 2016/09/19 10:26:21 by pfichepo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-
-SYS := $(shell gcc -dumpmachine)
 NAME = fdf
 CC = clang
 CFLAGS = -Wall -Werror -Wextra -O3 -msse4 -g
@@ -49,4 +47,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: libft mlx clean fclean all re
+.PHONY: libft mlx clean fclean all re $(NAME)

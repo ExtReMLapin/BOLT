@@ -6,7 +6,7 @@
 #    By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/03 16:00:35 by pfichepo          #+#    #+#              #
-#    Updated: 2015/12/01 15:29:23 by pfichepo         ###   ########.fr        #
+#    Updated: 2016/09/19 10:27:13 by pfichepo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ LC = ar
 CFLAGS = -Wall -Wextra -Werror
 
 LFLAGS = -rc
-
 
 HEADERS = ./include/
 
@@ -95,7 +94,6 @@ SRC = 	ft_isalnum.c \
 		points.c \
 
 SRCS = $(addprefix $(SRCDIR), $(SRC))
-
 
 OBJ = $(SRC:.c=.o)
 

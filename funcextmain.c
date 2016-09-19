@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 18:38:59 by pfichepo          #+#    #+#             */
-/*   Updated: 2016/09/15 10:14:14 by pfichepo         ###   ########.fr       */
+/*   Updated: 2016/09/19 09:32:44 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,17 @@ static void		drawinfo(t_env *env)
 	char		buffer2[255];
 	double		time1;
 	double		time2;
-	double		time3;
 	char		*a;
 
 	a = ft_itoa(pointsnb(env->grid));
 	time1 = (double)(clock() - env->time);
 	time2 = (double)(env->timeend - env->timestart);
-	time3 = (double)(env->time - env->timestart);
 	mlx_string_put(env->mlx, env->win, 10, 10, 0xFFFFFF, "Points :");
 	mlx_string_put(env->mlx, env->win, 110, 10, 0xFFFFFF, a);
 	env->frametime = time1 / CLOCKS_PER_SEC;
-	sprintf(buffer, "%.0f FPS", 1/env->frametime);
+	sprintf(buffer, "%.0f FPS", 1 / env->frametime);
 	sprintf(buffer2, "Sec to proc : %.3f | ", time2 / CLOCKS_PER_SEC);
-	mlx_string_put(env->mlx, env->win, 10, 40, 0xFFFFFF, buffer );
+	mlx_string_put(env->mlx, env->win, 10, 40, 0xFFFFFF, buffer);
 	mlx_string_put(env->mlx, env->win, 10, 70, 0xFFFFFF, buffer2);
 }
 
